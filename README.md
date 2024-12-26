@@ -4,16 +4,16 @@
 
 ## Overview
 
-This project implements a Type 2 hypervisor using QEMU (Quick Emulator). QEMU is a generic and open-source machine emulator and virtualizer that runs as an application on top of an existing operating system[2][8]. Our implementation focuses on providing a user-friendly, efficient, and flexible virtualization solution for various guest operating systems.
+This project implements a Type 2 hypervisor using QEMU (Quick Emulator). QEMU is a generic and open-source machine emulator and virtualizer that runs as an application on top of an existing operating system. Our implementation focuses on providing a user-friendly, efficient, and flexible virtualization solution for various guest operating systems.
 
 ## Features
 
-- **Multiple OS Support**: Run various guest operating systems, including Windows, Linux, and other specialized systems[8].
-- **Hardware Emulation**: Emulate a wide range of hardware devices, including CPUs, network cards, and storage devices[2].
-- **Disk Image Management**: Utilize the `qcow2` format for efficient disk space usage and snapshot capabilities[2].
-- **VM Templating**: Create and manage VM templates for quick and efficient replication of virtual machines[1].
-- **Memory Management**: Configure and optimize VM memory usage with various backend options[4].
-- **NUMA Support**: Enable Non-Uniform Memory Access (NUMA) for improved performance in multi-processor systems[4].
+- **Multiple OS Support**: Run various guest operating systems, including Windows, Linux, and other specialized systems.
+- **Hardware Emulation**: Emulate a wide range of hardware devices, including CPUs, network cards, and storage devices.
+- **Disk Image Management**: Utilize the `qcow2` format for efficient disk space usage and snapshot capabilities.
+- **VM Templating**: Create and manage VM templates for quick and efficient replication of virtual machines.
+- **Memory Management**: Configure and optimize VM memory usage with various backend options.
+- **NUMA Support**: Enable Non-Uniform Memory Access (NUMA) for improved performance in multi-processor systems.
 
 ## Installation
 
@@ -37,12 +37,15 @@ For more advanced usage and configuration options, please refer to the documenta
 
 ## Configuration
 
-The hypervisor can be configured using command-line options or configuration files. Some key configuration areas include:
+The hypervisor can be configured using command-line application interface. Some key configuration areas include:
 
 - Memory allocation
-- CPU cores
+- CPU cores used
 - Network interfaces
+- Audio interfaces
+- KVM & VGA intergration
 - Storage devices
+- Host keyboard sharing
 
 ## Contributing
 
