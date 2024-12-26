@@ -20,7 +20,7 @@ This project implements a Type 2 hypervisor using QEMU (Quick Emulator). QEMU is
 To install the QVM-Manager, follow these steps:
 
 cd /tmp/
-git clone https://github.com/your-username/qemu-type2-hypervisor.git
+git clone https://github.com/RoyalHighgrass/QVM-Manager.git
 cd QVM-Manager
 chmod +x QVM/config.sh
 sudo ./QVM/config.sh
