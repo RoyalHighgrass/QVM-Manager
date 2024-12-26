@@ -1,5 +1,6 @@
 #!/bin/bash
 
+echo "Installing basic required for QVM setup..."
 
 if [[ "$(whoami)" != "root" ]]; then
 	zenity --info --title="QVM v1.0.3" \
