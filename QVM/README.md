@@ -1,8 +1,6 @@
-# QVM-Manager
+# QVM-Manager (QEMU Virtual Machine Manager)
 
-QVM Manager-1.0.3
-
-# QEMU Type 2 Hypervisor Project
+# QVM Manager-1.0.3 © 2024 P.H.
 
 ## Overview
 
