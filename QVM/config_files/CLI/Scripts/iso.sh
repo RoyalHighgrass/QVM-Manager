@@ -1,4 +1,3 @@
-
 #!/bin/bash
 
 
@@ -39,7 +38,7 @@ case $option in
 		[ -z "$delete" ] && echo -e "Invalid entry: Operation Cancelled!\n" && exit 1
 	    read -p "Are you sure? [y/N]: " confirm
 	    if [[ "$confirm" =~ ^[yY]$ ]]; then
-			sudo rm "./../ISO_Images/$delete" && \
+			sudo rm "./../ISO_Images/${delete}" && \
 				echo -e "\033[34mISO image\033[0m $delete \033[34mdeleted successfully!\033[0m\n" || echo -e "\033[34mFailed to delete the\033[0m $delete \033[34mimage!\033[0m\n"
 		fi
 	;;
@@ -79,18 +78,20 @@ while true; do
 		;;
 		
 		2)	echo -e "\033[34mAvailable ISO images to download:\033[0m"
-	        echo -e "Debian 12 - D"
-	        echo -e "ArchLinux - A"
-	        echo -e "Kali Linux - K"
-	        echo -e "Ubuntu 24.04 - U"
-			echo -e -n "\nEnter the letter associated with your \ndesired image (Leave blank to cancel): "
+	        echo -e "1. Debian 12"
+	        echo -e "2. Arch Linux"
+	        echo -e "3. Kali Linux"
+	        echo -e "4. Ubuntu-24.04"
+	        echo -e "5. RaspiOS..."
+	        echo -e "6. Other..."
+			echo -e -n "\nNote: You will need to stop the QVM application in order to cancel a download.\nEnter the number associated with your desired image (Leave blank to cancel): "
 	        read iso_img
 			[ -z "$iso_img" ] && echo -e "Error: Invalid entry! Operation Cancelled.\n" && exit 1
+			iso_search
 			while true; do
 #				iso_menu
-				iso_search
 				case $iso_img in
-					D)	# Pull-ISO-Debian-12-Image
+					1)	# Pull-ISO-Debian-12-Image
 						if ! iso_search | grep "debian-12.iso" &>/dev/null; then
 							url=$(elinks --dump https://debian.org/download | grep https | grep -E "netinst.iso" | awk -F"https" "{print \"https\" \$2}")
 							echo -e "Downloading the Debian 12 ISO image...\n"
@@ -102,40 +103,56 @@ while true; do
 						break
 					;;
 						
-					A)	# Pull-ISO-ArchLinux-Image
-						echo -e "Downloading the Arch Linux ISO image...\n"
-						urls=$(elinks -dump https://archlinux.mailtunnel.eu/iso/2024.07.01/ | grep -i "x86_64.*\.iso" | nl); 
-							echo "$urls"; 
-							read -p "Enter the number of the ISO you want to download: " choice; 
-							selected_url=$(echo "$urls" | awk -v num=$choice "$1 == num {print $NF}"); 
-							sudo wget --no-cookies "$selected_url -O /home/kill-google/QVM/config_files/ISO_Images/archlinux.iso"
+					2)	# Pull-ISO-ArchLinux-Image
+						if ! iso_search | grep "archlinux.iso" &>/dev/null; then
+							echo -e "Downloading the Arch Linux ISO image...\n"
+							url=$(elinks -dump https://archlinux.mailtunnel.eu/iso/latest/ | awk -F ". " '{print $3}' | grep -v -E "sig|torrent|2024" | grep -i "x86_64.*\.iso"); 
+								sudo wget --no-cookies "$url" -O "/home/kill-google/QVM/config_files/ISO_Images/archlinux.iso" && \ echo success! || echo error!
+						else
+							echo -e "A Arch Linux ISO image has already been downloaded!\n"
+						fi
 						break
 					;;
 						
-					K)	# Pull-ISO-KaliLinux-Image
-						echo -e "Downloading the Kali Linux ISO image...\n"
-						sudo wget --no-cookies "$url" -O /home/kill-google/QVM/config_files/ISO_Images/kali-linux.iso
+					3)	# Pull-ISO-Kali-Linux-Image
+						if ! iso_search | grep "kali-linux.iso" &>/dev/null; then
+							echo -e "Downloading the Kali Linux ISO image...\n"
+							url="https://cdimage.kali.org/kali-2024.4/kali-linux-2024.4-installer-netins\t-amd64.iso"
+							sudo wget --no-cookies "$url" -O $HOME/QVM/config_files/ISO_Images/kali-linux.iso
+						else
+							echo -e "A Kali Linux ISO image has already been downloaded!\n"
+						fi
 						break
 					;;
 						
-					U)	# Pull-ISO-Ubuntu-24-Image
-						urls=$(elinks --dump https://releases.ubuntu.com/noble | grep "https" | grep ".iso" | \
-							grep -v -E "png|torrent|zsync" | awk -F". " "{print \$3}" | sort | uniq)
-						echo -e -n "Which version of Ubuntu would you like to download? Enter either 1 or 2: " version
-						echo -e "Downloading the Ubuntu 24.04 ISO image...\n"
-						case $version in
-							1)	url=$(echo $urls | grep desktop)
-							;;
-							2)	url=$(echo $urls | grep server)
-							;;
-							*)	echo -e "Error: Invalid Entry!"
-							;;
-						esac
-						sudo wget --no-cookies "$url" -O /home/kill-google/QVM/config_files/ISO_Images/ubuntu-24.iso
-						echo -e "\033[34mThe\033[0m Ubuntu 20.24 \033[34mimage downloaded successfully!\033[0m\n"
+					4)	# Pull-ISO-Ubuntu-24-Noble-Image
+						if ! iso_search | grep "ubuntu-noble.iso" &>/dev/null; then
+							url=$(elinks --dump https://releases.ubuntu.com/noble | grep "https" | grep ".iso" | \
+								grep -v -E "png|torrent|zsync" | awk -F". " "{print \$3}" | sort | uniq | grep desktop)
+							echo -e "Downloading the Ubuntu 24.04 ISO image...\n"
+							sudo wget --no-cookies "$url" -O "$HOME/QVM/config_files/ISO_Images/ubuntu-noble.iso" && \
+								echo -e "\033[34mThe\033[0m Ubuntu 20.24 \033[34mimage downloaded successfully!\033[0m\n"
+						else
+							echo -e "A Ubuntu Noble ISO image has already been downloaded!\n"
+						fi	
 						break
 					;;
 				
+					5)	# Pull-Raspi-OS-Image
+						if ! iso_search | grep "raspios.iso" &>/dev/null; then
+							echo -e "Downloading the Kali Linux ISO image...\n"
+							url="https://cdimage.kali.org/kali-2024.4/kali-linux-2024.4-installer-netinst-amd64.iso"
+							sudo wget --no-cookies "$url" -O /home/kill-google/QVM/config_files/ISO_Images/kali-linux.iso
+						else
+							echo -e "A Raspi OS ISO image has already been downloaded!\n"
+						fi
+						break
+					;;
+					
+					6)	echo "More to come!! ;)"
+					break
+					;;
+					
 					*)
 					;;
 				esac
