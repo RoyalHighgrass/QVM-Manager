@@ -4,7 +4,7 @@
 
 ## Overview
 
-This project implements a Type 2 hypervisor using QEMU (Quick Emulator). QEMU is a generic and open-source machine emulator and virtualizer that runs as an application on top of an existing operating system. Our implementation focuses on providing a user-friendly, efficient, and flexible virtualization solution for various guest operating systems.
+This project implements a Type 2 hypervisor using `QEMU (Quick Emulator)`. QEMU is a generic and open-source machine emulator and virtualizer that runs as an application on top of an existing operating system. Our implementation focuses on providing a user-friendly, efficient, and flexible virtualization solution for various guest operating systems.
 
 ## Features
 
