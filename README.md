@@ -17,7 +17,7 @@ This project implements a Type 2 hypervisor using QEMU (Quick Emulator). QEMU is
 
 ## Installation
 
-To install the QVM-Manager, follow these steps:
+To install the QVM-Manager via a linux terminal, follow these steps:
 
 ```
 cd /tmp/
