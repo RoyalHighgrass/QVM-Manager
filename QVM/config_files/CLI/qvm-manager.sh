@@ -97,8 +97,8 @@ while true; do
     case $option in
         1) 
             echo -e "\033[34mStarting a VM or starting VM creation...\033[0m"
-            vm_search
-			./Scripts/qvm.sh
+#            vm_search
+			./Scripts/qvm.sh $(vm_search)
             ;;
         2) 
             echo -e "\033[34mListing all VMs...\033[0m"
@@ -123,7 +123,7 @@ while true; do
             vm_search
             read -p "Enter VM name: " vm_name
 			snapshot_search
-            read -p "Enter snapshot name: " snapshot_name
+            read -p "Enter snapshot tag: " snapshot_name
             qemu-img snapshot -d "$snapshot_name" "./../VM_Images/$vm_name.img" && \
 				echo -e "Snapshot deleted successfully!\n" || echo -e "Snapshot deletion failed!\n"
             ;;
@@ -150,4 +150,3 @@ while true; do
             ;;
     esac
 done
-
