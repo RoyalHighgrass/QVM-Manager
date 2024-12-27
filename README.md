@@ -13,8 +13,8 @@ This project implements a Type 2 hypervisor using `QEMU (Quick Emulator)`. QEMU 
 - **Disk Image Management**: Utilize the `qcow2` format for efficient disk space usage and snapshot capabilities.
 - **VM Templating**: Create and manage VM templates for quick and efficient replication of virtual machines.
 - **Memory Management**: Configure and optimize VM memory usage with various backend options.
-- **NUMA Support**: Enable Non-Uniform Memory Access (NUMA) for improved performance in multi-processor systems.
-- **KVM & VGA Support**: Enable Kernel Virtual Machine support and use KVM virtualization features, & Use VGA graphics display drivers instead of default QEMU graphics drivers.
+- **NUMA Support**: Enable `Non-Uniform Memory Access (NUMA)` for improved performance in multi-processor systems.
+- **KVM & VGA Support**: Enable `Kernel Virtual Machine` support and use KVM virtualization features, & Use `VGA` graphics display drivers instead of default QEMU graphics drivers.
 
 ## Installation
 
