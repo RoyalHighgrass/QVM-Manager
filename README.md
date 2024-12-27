@@ -31,11 +31,12 @@ Try to intall `git` if you get any errors.
 
 ## Usage
 
+```
 Start QVM Manager:    qvm-manager
 Launch GUI interface: qvm-manager --gui
 Get version info:     qvm-manager --version
 Show help message:    qvm-manager --help
-
+```
 
 For more advanced usage and configuration options, please refer to the documentation.
 
