@@ -26,7 +26,7 @@ cd QVM-Manager
 chmod +x QVM/config.sh
 sudo ./QVM/config.sh
 ```
-Try to intall git if you get any errors.
+Try to intall `git` if you get any errors.
 
 ## Usage
 
