@@ -10,7 +10,7 @@ This project implements a Type 2 hypervisor using `QEMU (Quick Emulator)`. `QVM`
 
 - **Multiple OS Support**: Run various guest operating systems, including Windows, Linux, and other specialized systems.
 - **Hardware Emulation**: Emulate a wide range of hardware devices, including CPUs, network cards, and storage devices.
-- **Disk Image Management**: Utilize the `qcow2` format for efficient disk space usage and snapshot capabilities.
+- **Disk Image Management**: Utilizes the `qcow2` format for efficient disk space usage and snapshot capabilities. `raw`, `vdi`, `vmdk` & `vhd` formats can also be use.
 - **VM Templating**: Create and manage VM templates for quick and efficient replication of virtual machines.
 - **Memory Management**: Configure and optimize VM memory usage with various backend options.
 - **NUMA Support**: Enable `Non-Uniform Memory Access (NUMA)` for improved performance in multi-processor systems.
