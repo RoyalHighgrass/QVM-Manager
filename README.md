@@ -24,7 +24,7 @@ To install the QVM-Manager via a linux terminal, follow these steps:
 cd /tmp/
 git clone https://github.com/RoyalHighgrass/QVM-Manager.git
 cd QVM-Manager
-chmod +x QVM/config.sh
+sudo chmod +x QVM/config.sh
 sudo ./QVM/config.sh
 ```
 Try to intall `git` if you get any errors.
