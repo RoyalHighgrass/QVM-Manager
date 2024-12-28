@@ -82,6 +82,6 @@ We welcome suggestions for improvements. When suggesting an enhancement:
 
 ## License
 
-By contributing to this project, you agree that your contributions will be licensed under the project's [GNU General Public License v2.0](LICENSE).
+By contributing to this project, you agree that your contributions will be licensed under the project's [GNU General Public License v3.0](LICENSE).
 
 Thank you for contributing to the `QVM - QEMU Virtual Machine Manager` Project!
