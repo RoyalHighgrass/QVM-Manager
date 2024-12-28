@@ -21,7 +21,7 @@ This project adheres to a [Code of Conduct](CODE_OF_CONDUCT.md). By participatin
 ## Getting Started
 
 1. Fork the repository on GitHub.
-2. Clone your fork locally: `git clone https://github.com/your-username/qemu-type2-hypervisor.git`
+2. Clone your fork locally: `git clone https://github.com/RoyalHighgrass/QVM-Manager.git`
 3. Create a branch for your changes: `git checkout -b your-branch-name`
 4. Make your changes and commit them with a clear commit message.
 5. Push your changes to your fork: `git push origin your-branch-name`
