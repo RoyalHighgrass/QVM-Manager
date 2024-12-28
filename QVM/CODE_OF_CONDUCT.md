@@ -1,5 +1,3 @@
-Certainly! Here's a draft for a CODE_OF_CONDUCT.md file that aligns with common open-source project standards:
-
 # Code of Conduct
 
 ## Our Pledge
