@@ -1,4 +1,4 @@
-# Contributing to `QVM - QEMU Virtual Machine Manager` Project
+# Contributing to the `QVM - QEMU Virtual Machine Manager` Project
 
 We're thrilled that you're interested in contributing to our project! This document provides guidelines for contributing to the QEMU Type 2 Hypervisor Project. By following these guidelines, you help maintain the quality and consistency of our codebase.
 
@@ -84,4 +84,4 @@ We welcome suggestions for improvements. When suggesting an enhancement:
 
 By contributing to this project, you agree that your contributions will be licensed under the project's [GNU General Public License v2.0](LICENSE).
 
-Thank you for contributing to the QVM - QEMU Virtual Machine Manager Project!
+Thank you for contributing to the `QVM - QEMU Virtual Machine Manager` Project!
