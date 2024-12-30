@@ -4,11 +4,11 @@
 
 ## Overview
 
-This project implements a Type 2 hypervisor using `QEMU (Quick Emulator)`. `QVM` is designed to facilitate the effecient use of QEMU which is a generic and open-source machine emulator and virtualizer that allows guest operating systems to run as an application on top of an existing operating system. This implementation focuses on providing a user-friendly, efficient, and flexible virtualization solution for various guest operating systems.
+This project implements a Type 2 hypervisor for Linux-based systems using `QEMU (Quick Emulator)`. `QVM` is designed to facilitate the effecient use of QEMU which is a generic and open-source machine emulator and virtualizer that allows guest operating systems to run as an application on top of an existing operating system. This implementation focuses on providing a user-friendly, efficient, and flexible virtualization solution for various guest operating systems.
 
 ## Features
 
-- **Multiple OS Support**: Run various guest operating systems, including Windows, Linux, and other specialized systems.
+- **Multiple OS Support**: Run various Linux-based guest operating systems, including Debian, ArchLinux, Kali Linux, Ubuntu, RaspiOS, and other specialized systems.
 - **Hardware Emulation**: Emulate a wide range of hardware devices, including CPUs, network cards, and storage devices.
 - **Disk Image Management**: Utilizes the `qcow2` format for efficient disk space usage and snapshot capabilities. `raw`, `vdi`, `vmdk` & `vhd` formats can also be used.
 - **VM Templating**: Create and manage VM templates for quick and efficient replication of virtual machines.
