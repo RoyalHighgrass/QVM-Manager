@@ -27,7 +27,7 @@ cd QVM-Manager
 sudo chmod +x QVM/config.sh
 sudo ./QVM/config.sh
 ```
-Check that `git` is installed &/or `update` your system if you get any errors.
+Check that `git` is installed and/or `update` your system if you get any errors.
 
 ## Usage
 
