@@ -81,9 +81,8 @@ vm_search() {
 }
 
 snapshot_search() {
-    echo -e "\033[34mSearching for\033[0m $vm_name \033[34msnapshots...\n\033[0m"
-	echo -e "\033[34mSnapshot Images Found:\033[0m $(\
-		qemu-img snapshot -l "./../VM_Images/kali-vm.img" | grep 0 | wc -l)"
+    echo -e "\033[34mSearching for\033[0m $vm_name \033[34msnapshots...\nSnapshot Images Found:\033[0m $(\
+		qemu-img snapshot -l "./../VM_Images/$vm_name.img" | grep 0 | wc -l)"
 	qemu-img snapshot -l "./../VM_Images/$vm_name.img"
 }
 
@@ -97,8 +96,8 @@ while true; do
     case $option in
         1) 
             echo -e "\033[34mStarting a VM or starting VM creation...\033[0m"
-#            vm_search
-			./Scripts/qvm.sh $(vm_search)
+            vm_search
+			./Scripts/qvm.sh
             ;;
         2) 
             echo -e "\033[34mListing all VMs...\033[0m"
@@ -115,17 +114,29 @@ while true; do
         4)
             echo -e "\033[34mViewing snapshots...\033[0m"
             vm_search
+			echo ""
             read -p "Enter VM name: " vm_name
-            qemu-img snapshot -l "./../VM_Images/$vm_name.img"
+            ckss=$(qemu-img snapshot -l "./../VM_Images/$vm_name.img")
+			if [[ -z "$ckss" ]]; then
+				echo -e "\033[34mNo snapshots have been saved of the \033[0m$vm_name\033[34m virtual machine yet!\033[0m"
+			else
+				qemu-img snapshot -l "./../VM_Images/$vm_name.img"
+			fi
             ;;
         5)
             echo -e "\033[34mDeleting a snapshot...\033[0m"
             vm_search
+			echo ""
             read -p "Enter VM name: " vm_name
-			snapshot_search
-            read -p "Enter snapshot tag: " snapshot_name
-            qemu-img snapshot -d "$snapshot_name" "./../VM_Images/$vm_name.img" && \
-				echo -e "Snapshot deleted successfully!\n" || echo -e "Snapshot deletion failed!\n"
+            ckss=$(qemu-img snapshot -l "./../VM_Images/$vm_name.img")
+			if [[ -z "$ckss" ]]; then
+				echo -e "\033[34mNo snapshots have been saved of the \033[0m$vm_name\033[34m virtual machine yet!\033[0m"
+			else
+				snapshot_search
+	            read -p "Enter snapshot tag: " snapshot_name
+	            qemu-img snapshot -d "$snapshot_name" "./../VM_Images/$vm_name.img" && \
+					echo -e "Snapshot deleted successfully!\n" || echo -e "Snapshot deletion failed!\n"
+			fi
             ;;
         6)
             echo "\033[34mDeleting a VM...\033[0m"
