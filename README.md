@@ -19,22 +19,22 @@ This project implements a Type 2 hypervisor for Linux-based systems using `QEMU 
 ## Installation
 
 First, make sure that your system is up-to-date & that `git` is installed:
-`Using 'apt':`
+Using `apt`:
 ```
 sudo apt update && sudo apt upgrade -y
 sudo apt install git
 ```
-`Using 'pacman':`
+Using `pacman`:
 ```
 sudo pacman -Syu
 sudo pacman -S git
 ```
-`Using 'dnf':`
+Using `dnf`:
 ```
 dnf upgrade
 dnf install git
 ```
-`Using 'yum':`
+Using `yum`:
 ```
 sudo yum update
 sudo yum install git
