@@ -141,7 +141,7 @@ The hypervisor can be configured using command-line application interface. Some 
 
 ## Contributing
 
-Contributions to the project are welcome! Please read the CONTRIBUTING.md file for guidelines on how to submit pull requests, report issues, and suggest improvements.
+Contributions to the project are welcome! Please read the [CONTRIBUTING.md](#Contributing.md) file for guidelines on how to submit pull requests, report issues, and suggest improvements.
 
 ## License
 
