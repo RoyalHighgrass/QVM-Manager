@@ -5,18 +5,59 @@ I am thrilled that you're interested in contributing to my project! This documen
 ## Table of Contents
 
 1. [Code of Conduct](#code-of-conduct)
-2. [Getting Started](#getting-started)
-3. [How to Contribute](#how-to-contribute)
-4. [Reporting Issues](#reporting-issues)
-5. [Suggesting Improvements](#suggesting-improvements)
-6. [Submitting Pull Requests](#submitting-pull-requests)
-7. [Coding Standards](#coding-standards)
-8. [Commit Message Guidelines](#commit-message-guidelines)
-9. [License](#license)
+2. [Development Roadmap](development-roadmap)
+3. [Getting Started](#getting-started)
+4. [How to Contribute](#how-to-contribute)
+5. [Reporting Issues](#reporting-issues)
+6. [Suggesting Improvements](#suggesting-improvements)
+7. [Submitting Pull Requests](#submitting-pull-requests)
+8. [Coding Standards](#coding-standards)
+9. [Commit Message Guidelines](#commit-message-guidelines)
+10. [License](#license)
 
 ## Code of Conduct
 
 This project adheres to a [Code of Conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code. Please report unacceptable behavior to [project_email@example.com].
+
+## Development Roadmap
+
+# Phase 1: Development and Initial Release
+
+1. **Functional Prototype (v1.0.1 - v1.0.2)**
+   - Implement core hypervisor functionality
+   - Develop basic VM management features
+   - Conduct internal testing and bug fixes
+
+2. **Code Publication (v1.0.3)**
+   - Set up GitHub repository
+   - Upload source code with proper documentation
+   - Create README and contribution guidelines
+   - Establish open-source license
+
+# Phase 2: Refinement and Distribution
+
+3. **Code Cleanup (v1.0.4)**
+   - Refactor codebase for improved readability
+   - Optimize performance without introducing bugs
+   - Enhance documentation and comments
+
+4. **Debian Package Submission**
+   - Package software in .deb format
+   - Prepare necessary documentation for Debian repositories
+   - Submit package to Debian-based repositories
+
+# Phase 3: Feature Enhancement and Release
+
+5. **Code Improvement and New Features (v1.0.5)**
+   - Further refine and optimize codebase
+   - Implement new or improved features based on community feedback
+   - Conduct thorough testing of new implementations
+
+6. **Latest Version Publication**
+   - Update GitHub repository with latest code
+   - Release new version with detailed changelog
+   - Update documentation and README
+   - Announce release to the community
 
 ## Getting Started
 
