@@ -129,7 +129,7 @@ Show help message:
 qvm-manager --help
 ```
 
-For more advanced usage and configuration options, please refer to the documentation.
+For more advanced usage and configuration options, please refer to the [documentation]().
 
 ## Configuration
 
