@@ -37,7 +37,7 @@ dnf install git
 ```
 Using `yum`:
 ```
-sudo yum update
+sudo yum update && sudo yum upgrade
 sudo yum install git
 ```
 To install the QVM-Manager via a linux terminal, follow these steps:
