@@ -180,7 +180,7 @@ while true; do
 				read -p "Eject the '$(echo $iso | xargs -0 basename -a)' disk image? [Y/n]: " eject
 				if [[ "$eject" == "Y" || "$eject" == "y" || "$eject" == "yes" ]]; then
 					sudo mv "$iso" "../ISO_Images/" && \
-					echo -e "\033[34mThe '\033[0m$(echo $iso | xargs -0 basename -a)\033[34m' has been ejected!\033[0m" || \
+					echo -e "\033[34mThe '\033[0m$(echo $iso | xargs -0 basename -a)\033[34m' ISO disk image has been ejected!\033[0m" || \
 					echo -e "\033[34mOperation Failed: An unexpected error has ocurred!"
 					break
 				elif [[ "$eject" == "N" || "$eject" == "n" || "$eject" == "no" ]]; then
