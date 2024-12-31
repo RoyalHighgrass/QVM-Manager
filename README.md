@@ -22,7 +22,7 @@ This project implements a Type 2 hypervisor for Linux-based `x86_64` systems usi
 ## Features
 
 - **Multiple OS Support**: Run various Linux-based guest operating systems, including Debian, ArchLinux, Kali Linux, Ubuntu, RaspiOS, and other specialized systems.
-- **Lightweight & Effecient**: `QVM` is a sleek & efficient Type 2 hypervisor that leaves minimal footprint while maximising performance with seamless integration across platforms.
+- **Lightweight & Effecient**: `QVM` is a sleek & efficient `Type 2 hypervisor` that leaves minimal footprint while maximising performance with seamless integration across platforms.
 - **Hardware Emulation**: Emulate a wide range of hardware devices, including CPUs, network cards, and storage devices.
 - **Disk Image Management**: Utilizes the `qcow2` format for efficient disk space usage and snapshot capabilities. `raw`, `vdi`, `vmdk` & `vhd` formats can also be used.
 - **VM Templating**: Create and manage VM templates for quick and efficient replication of virtual machines.
