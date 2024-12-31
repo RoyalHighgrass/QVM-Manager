@@ -80,7 +80,7 @@ There are many ways to contribute to this project:
    - Announce release to the community
 
 7. **Assess Project Direction and Trajectory**
-   - A new roadmap will be drown up that reflects both the goals and ideal of the QVM community, and the projects emence protential.
+   - A new roadmap will be drown up that reflects both the goals and ideal of the QVM community, and the projects immence protential.
 
 ## Reporting Issues
 
