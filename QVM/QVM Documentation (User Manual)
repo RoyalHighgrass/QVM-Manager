@@ -14,13 +14,14 @@ QEMU Virtual Machine Manager ©2024 (Type2 CLI Hypervisor) written by P.H.
 
 Description:
 qvm-manager - A command line interface (CLI) tool for managing QEMU VMs. 
-An extremely simple and lightweight but powerful QEMU hypervisor that is designed to get 
-the best performance from your host machine. QVM in essence is similar 
-to virt-manager in the sense that it is able to work in conjunction with 
-Kernel-based Virtual Machine (KVM) to provide hardware-assisted virtual-
-ization, which enhances its performance by allowing virtual machines to
-run at near-native speeds. QVM also provides users with a user-friendly
-graphical user interface (GUI) for a smoother virtualization experience.
+An extremely simple and lightweight but powerful QEMU hypervisor that 
+is designed to get the best performance from your host machine. QVM in 
+essence is similar to virt-manager in the sense that it is able to work 
+in conjunction with Kernel-based Virtual Machine (KVM) to provide hardware-
+assisted virtualization, which enhances its performance by allowing virtual 
+machines to run at near-native speeds. QVM also provides users with a 
+user-friendlygraphical user interface (GUI) for a smoother virtualization 
+experience.
 
 Usage: qvm-manager
        qvm-manager [OPTION]
