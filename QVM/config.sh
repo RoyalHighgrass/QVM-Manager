@@ -4,7 +4,7 @@ echo "Installing basic required for QVM setup..."
 
 if [[ "$(whoami)" != "root" ]]; then
 	zenity --info --title="QVM v1.0.3" \
-	--text="QEMU Virtual Machine Manager v1.0.3\n\nYou are trying to run the QVM configuration script as a non-privilaged user.\nThis script must be run as root! Run 'sudo ./config.sh' or './config.sh' after running the 'sudo su' command" \
+	--text="QEMU Virtual Machine Manager v1.0.3\n\nYou are trying to run the QVM configuration script as a non-privilaged user.\nThis script must be run as root! Run 'sudo ./config.sh' or './config.sh' after running the 'sudo su' command." \
 	--width=600 --height=400 --timeout=8
 else
 	sudo apt install 
