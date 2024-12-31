@@ -65,7 +65,7 @@ sudo ./QVM/config.sh
 
 ## Requirements
 
-All packages listed below (excluding `YAD`) are available via the Debian & Kali Linux repositories. This application is yet to be tested on the following OS's;
+All packages listed below (excluding `YAD`) are available via the Debian & Kali Linux repositories. This application is yet to be tested on the following commonly used Linux OS's;
 `Ubuntu`, `ArchLinux`, `Manjaro`, `ParrotOS` & `RaspiOS`.
 If you use one of these systems and any package listed below is not available via your systems repository, you may want to consider installing it manually from source before running the `sudo ./QVM/config.sh` command.
 ```
