@@ -39,7 +39,7 @@ There are many ways to contribute to this project:
 
 ## Development Roadmap
 
-# Phase 1: Development and Initial Release
+# Phase 1: Development and Initial Release (Complete!)
 
 1. **Functional Prototype (v1.0.1 - v1.0.2)**
    - Implement core hypervisor functionality
@@ -51,7 +51,7 @@ There are many ways to contribute to this project:
    - Create README and contribution guidelines
    - Establish open-source license
 
-# Phase 2: Refinement and Distribution
+# Phase 2: Refinement and Distribution (In Process...)
 
 3. **Code Cleanup (v1.0.4)**
    - Refactor codebase for improved readability
@@ -63,7 +63,7 @@ There are many ways to contribute to this project:
    - Prepare necessary documentation for Debian repositories
    - Submit package to Debian-based repositories
 
-# Phase 3: Feature Enhancement and Release
+# Phase 3: Feature Enhancement and Release (Pending...)
 
 5. **Code Improvement and New Features (v1.0.5)**
    - Further refine and optimize codebase
