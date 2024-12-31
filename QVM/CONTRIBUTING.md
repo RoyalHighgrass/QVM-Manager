@@ -57,8 +57,8 @@ There are many ways to contribute to this project:
 3. **Code Cleanup (v1.0.4)**
    - Refactor codebase for improved readability
    - Optimize performance without introducing new bugs
-   - Conduct internal testing
-   - Test the software in `untested host OS evironments`
+   - Conduct further internal testing
+   - Test the software in untested host OS evironments
    - Implement functional and non-functional bug fixes
    - Enhance documentation and comments
 
