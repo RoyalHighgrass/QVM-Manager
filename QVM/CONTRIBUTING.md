@@ -78,7 +78,9 @@ There are many ways to contribute to this project:
    - Release new version with detailed changelog
    - Update documentation and README
    - Announce release to the community
-7. **Assess The Direction and Trajectory of The Project**
+
+7. **Assess Project Direction and Trajectory**
+   - A new roadmap will be drown up that reflects both the goals and ideal of the QVM community, and the projects emence protential.
 
 ## Reporting Issues
 
