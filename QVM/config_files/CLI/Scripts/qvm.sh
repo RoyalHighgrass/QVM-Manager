@@ -1,11 +1,11 @@
 #!/bin/bash
 
 # Function to handle cleanup when script is interrupted
-cleanup() (
-  echo "Process interrupted. Returning to the main menu..."
-  ./qvm-manager.sh
-  exit 0
-)
+#cleanup() (
+#  echo "Process interrupted. Returning to the main menu..."
+#  ./qvm-manager.sh
+#  exit 0
+#)
 
 # Set trap
 #trap cleanup SIGINT
