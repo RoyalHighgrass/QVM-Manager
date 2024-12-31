@@ -35,7 +35,7 @@ sudo mkdir $HOME/QVM/config_files/vm_log_files/
 # Create the /usr/bin/ instance & initialise the 'qvm-manager' startup command
 sudo tee /usr/bin/qvm-manager > /dev/null << 'EOF'
 
-user_help="$HOME/QVM/help-info.txt"
+user_manual="$HOME/QVM/help-info.txt"
 QVMcli="$HOME/QVM/config_files/CLI/"
 QVMgui="$HOME/QVM/config_files/GUI/"
 
@@ -49,7 +49,7 @@ else
             ./qvm-manager-gui.sh
             ;;
         --help|-h)
-            echo -e "$(cat "$user_help")"
+            echo -e "$(cat "$user_manual")"
             ;;
         --version|-v)
             echo -e "QEMU Virtual Machine Manager v1.0.3 © QVM 2024"
