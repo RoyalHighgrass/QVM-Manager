@@ -145,4 +145,6 @@ Contributions to the project are welcome! Please read the [CONTRIBUTING.md](QVM/
 
 ## License
 
-This project is licensed under the GNU General Public License v3.0. See the LICENSE file for more details.
+This project is licensed under the GNU General Public License v3.0. See the [LICENSE](QVM/LICENSE) file for more details.
+
+
