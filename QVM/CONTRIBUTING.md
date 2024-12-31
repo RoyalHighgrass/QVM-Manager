@@ -5,7 +5,7 @@ I am thrilled that you're interested in contributing to my project! This documen
 ## Table of Contents
 
 1. [Code of Conduct](#code-of-conduct)
-2. [Development Roadmap](development-roadmap)
+2. [Development Roadmap](#development-roadmap)
 3. [Getting Started](#getting-started)
 4. [How to Contribute](#how-to-contribute)
 5. [Reporting Issues](#reporting-issues)
