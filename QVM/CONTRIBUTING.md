@@ -44,9 +44,10 @@ There are many ways to contribute to this project:
 1. **Functional Prototype (v1.0.1 - v1.0.2)**
    - Implement core hypervisor functionality
    - Develop basic VM management features
-   - Conduct internal testing and bug fixes
+   - Conduct internal testing and implement functional bug fixes
 
 2. **Code Publication (v1.0.3)**
+   - Implement non-functional bug fixes
    - Upload source code with proper documentation
    - Create README and contribution guidelines
    - Establish open-source license
@@ -55,7 +56,9 @@ There are many ways to contribute to this project:
 
 3. **Code Cleanup (v1.0.4)**
    - Refactor codebase for improved readability
-   - Optimize performance without introducing bugs
+   - Optimize performance without introducing new bugs
+   - Conduct internal testing
+   - Implement functional and non-functional bug fixes
    - Enhance documentation and comments
 
 4. **Debian Package Submission**
@@ -75,6 +78,7 @@ There are many ways to contribute to this project:
    - Release new version with detailed changelog
    - Update documentation and README
    - Announce release to the community
+7. **Assess The Direction and Trajectory of The Project**
 
 ## Reporting Issues
 
