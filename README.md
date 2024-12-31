@@ -41,7 +41,7 @@ Using `yum`:
 sudo yum update && sudo yum upgrade
 sudo yum install git
 ```
-To install the QVM-Manager via a linux terminal, follow these steps:
+To install QVM-Manager via a linux terminal, follow these steps:
 ```
 cd /tmp/
 git clone https://github.com/RoyalHighgrass/QVM-Manager.git
