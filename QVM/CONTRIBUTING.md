@@ -5,9 +5,9 @@ I am thrilled that you're interested in contributing to my project! This documen
 ## Table of Contents
 
 1. [Code of Conduct](#code-of-conduct)
-2. [Development Roadmap](#development-roadmap)
-3. [Getting Started](#getting-started)
-4. [How to Contribute](#how-to-contribute)
+2. [Getting Started](#getting-started)
+3. [How to Contribute](#how-to-contribute)
+4. [Development Roadmap](#development-roadmap)
 5. [Reporting Issues](#reporting-issues)
 6. [Suggesting Improvements](#suggesting-improvements)
 7. [Submitting Pull Requests](#submitting-pull-requests)
@@ -18,6 +18,24 @@ I am thrilled that you're interested in contributing to my project! This documen
 ## Code of Conduct
 
 This project adheres to a [Code of Conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code. Please report unacceptable behavior to [project_email@example.com].
+
+## Getting Started
+
+1. Fork the repository on GitHub.
+2. Clone your fork locally: `git clone https://github.com/RoyalHighgrass/QVM-Manager.git`
+3. Create a branch for your changes: `git checkout -b your-branch-name`
+4. Make your changes and commit them with a clear commit message.
+5. Push your changes to your fork: `git push origin your-branch-name`
+
+## How to Contribute
+
+There are many ways to contribute to this project:
+
+- Reporting bugs
+- Suggesting enhancements
+- Writing documentation
+- Submitting code improvements
+- Reviewing pull requests
 
 ## Development Roadmap
 
@@ -57,24 +75,6 @@ This project adheres to a [Code of Conduct](CODE_OF_CONDUCT.md). By participatin
    - Release new version with detailed changelog
    - Update documentation and README
    - Announce release to the community
-
-## Getting Started
-
-1. Fork the repository on GitHub.
-2. Clone your fork locally: `git clone https://github.com/RoyalHighgrass/QVM-Manager.git`
-3. Create a branch for your changes: `git checkout -b your-branch-name`
-4. Make your changes and commit them with a clear commit message.
-5. Push your changes to your fork: `git push origin your-branch-name`
-
-## How to Contribute
-
-There are many ways to contribute to this project:
-
-- Reporting bugs
-- Suggesting enhancements
-- Writing documentation
-- Submitting code improvements
-- Reviewing pull requests
 
 ## Reporting Issues
 
