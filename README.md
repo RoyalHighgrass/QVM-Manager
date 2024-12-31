@@ -18,8 +18,28 @@ This project implements a Type 2 hypervisor for Linux-based systems using `QEMU 
 
 ## Installation
 
+First, make sure that your system is up-to-date & that `git` is installed:
+`Using 'apt':`
+```
+sudo apt update && sudo apt upgrade -y
+sudo apt install git
+```
+`Using 'pacman':`
+```
+sudo pacman -Syu
+sudo pacman -S git
+```
+`Using 'dnf':`
+```
+dnf upgrade
+dnf install git
+```
+`Using 'yum':`
+```
+sudo yum update
+sudo yum install git
+```
 To install the QVM-Manager via a linux terminal, follow these steps:
-
 ```
 cd /tmp/
 git clone https://github.com/RoyalHighgrass/QVM-Manager.git
@@ -27,7 +47,6 @@ cd QVM-Manager
 sudo chmod +x QVM/config.sh
 sudo ./QVM/config.sh
 ```
-Check that `git` is installed and/or `update` your system if you get any errors.
 
 ## Usage
 
