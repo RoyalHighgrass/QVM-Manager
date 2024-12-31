@@ -115,7 +115,7 @@ mednafen
 
 ## Usage
 
-Start QVM Manager:
+Start QVM's CLI interface:
 ```
 qvm-manager
 ```
