@@ -1,1 +1,44 @@
+------------------------------------------------------------------------
+===============> 01010001 01010110 01001101 10101001 <==================
+------------------------------------------------------------------------
+     __  __   __   _,      __  _,        
+    / _ \\ \ / / \/ | ___ |  \/ | __ _  _ ___  __ _  __ _  __   _ _     
+   ( (_) |\ \ / |\/ ||___|| |\/ || _` || `/\ || _` || _` || -_)| `_|    
+    \__\_\ \_/|_| |_|     |_| |_|\__,_||_| |_|\__,_|\__, |\___||_|  ©    
+                                                    |____/              
+------------------------------------------------------------------------
+==============> \033[0;1mQEMU Virtual Machine Manager v1.0.2©2024\033[0m <==============
+------------------------------- Help/Info ------------------------------
+
+QEMU Virtual Machine Manager ©2024 (Type2 CLI Hypervisor) written by P.H.
+
+Usage: qvm-manager
+       qvm-manager [OPTION]
+       qvm-manager [VERSION] [VALUE]
+       Examples: qvm-manager [--gui | --help | -h | --version | -v]
+                 qvm-manager [--version | -v] [vc]
+
+Options:
+  --start		   Start an existing VM.
+  --show-v		   List all VMs.
+  --show-i		   List all local ISO files.
+  --gui            Launch the QVM graphical user interface.
+  --help, -h       Displays this help message.
+  --version, -h    Display version information of QVM installation.
+                     - The default behaviour is to display '0' data:
+                       - 0:  Standard version data for QVM.
+                       - vc: Version data for QVM & its components.
+
+Description:
+qvm-manager - A command line interface (CLI) tool for managing QEMU VMs. 
+An extremely simple but powerful QEMU hypervisor that is designed to get 
+the best performance from your host machine. QVM in essence is similar 
+to virt-manager in the sense that it is able to work in conjunction with 
+Kernel-based Virtual Machine (KVM) to provide hardware-assisted virtual-
+ization, which enhances its performance by allowing virtual machines to
+run at near-native speeds. QVM also provides users with a user-friendly
+graphical user interface (GUI) for a smoother virtualization experience.\n
+
+
+https://www.qemu.org/docs/master/system/qemu-manpage.html
 
