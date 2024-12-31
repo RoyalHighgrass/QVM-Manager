@@ -75,6 +75,7 @@ libgtk-3-dev
 yad (github)
 acpi
 bc
+tr
 xrandr
 cgroup-tools
 libvirt-clients 
