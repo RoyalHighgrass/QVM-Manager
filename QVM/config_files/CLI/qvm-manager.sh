@@ -106,8 +106,8 @@ while true; do
         3)
             echo -e "\033[34mCreating a snapshot...\033[0m"
             vm_search
-            read -p "Enter VM name: " vm_name
-            read -p "Enter snapshot name: " snapshot_name
+            read -p "Enter a VM name: " vm_name
+            read -p "Enter snapshot name/tag: " snapshot_name
             qemu-img snapshot -c "$snapshot_name" "./../VM_Images/$vm_name.img" && \
 				echo -e "Snapshot saved successfully!\n" || echo -e "Snapshot creation failed!\n"
             ;;
@@ -115,10 +115,10 @@ while true; do
             echo -e "\033[34mViewing snapshots...\033[0m"
             vm_search
 			echo ""
-            read -p "Enter VM name: " vm_name
+            read -p "Enter a VM name: " vm_name
             ckss=$(qemu-img snapshot -l "./../VM_Images/$vm_name.img")
 			if [[ -z "$ckss" ]]; then
-				echo -e "\033[34mNo snapshots have been saved of the \033[0m$vm_name\033[34m virtual machine yet!\033[0m"
+				echo -e "\033[34mNo snapshots have been saved of the \033[0m$vm_name\033[34m virtual machine!\033[0m"
 			else
 				qemu-img snapshot -l "./../VM_Images/$vm_name.img"
 			fi
@@ -127,10 +127,10 @@ while true; do
             echo -e "\033[34mDeleting a snapshot...\033[0m"
             vm_search
 			echo ""
-            read -p "Enter VM name: " vm_name
+            read -p "Enter a VM name: " vm_name
             ckss=$(qemu-img snapshot -l "./../VM_Images/$vm_name.img")
 			if [[ -z "$ckss" ]]; then
-				echo -e "\033[34mNo snapshots have been saved of the \033[0m$vm_name\033[34m virtual machine yet!\033[0m"
+				echo -e "\033[34mNo snapshots have been saved of the \033[0m$vm_name\033[34m virtual machine!\033[0m"
 			else
 				snapshot_search
 	            read -p "Enter snapshot tag: " snapshot_name
@@ -141,10 +141,12 @@ while true; do
         6)
             echo "\033[34mDeleting a VM...\033[0m"
             vm_search
-            read -p "Enter VM name to delete: " vm_name
+            read -p "Enter the name of the VM to delete: " vm_name
             read -p "Are you sure? [y/N]: " confirm
             if [[ "$confirm" =~ ^[yY]$ ]]; then
-                rm "$HOME/QVM/config_files/VM_Images/$vm_name.img" && echo -e "$vm_name deleted!\n" || echo -e "Failed to delete $vm_name\n"
+                rm "$HOME/QVM/config_files/VM_Images/$vm_name.img" && \
+				rm "$HOME/QVM/config_files/vm_log_files/${vm_name}_vm_specs" && \
+				echo -e "The $vm_name VM has been deleted!\n" || echo -e "Failed to delete the $vm_name VM\n"
             else
                 echo -e "\033[34mDeletion cancelled.\033[0m"
             fi
