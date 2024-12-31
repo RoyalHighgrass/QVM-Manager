@@ -29,7 +29,6 @@ This project adheres to a [Code of Conduct](CODE_OF_CONDUCT.md). By participatin
    - Conduct internal testing and bug fixes
 
 2. **Code Publication (v1.0.3)**
-   - Set up GitHub repository
    - Upload source code with proper documentation
    - Create README and contribution guidelines
    - Establish open-source license
