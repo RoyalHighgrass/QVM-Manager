@@ -1,4 +1,4 @@
-# Contributing to the `QVM (QEMU Virtual Machine Manager)` Project
+# Contributing to the `QVM (QEMU Virtual Machine Manager)` Type 2 Hypervisor Project
 
 I am thrilled that you're interested in contributing to my project! This document provides guidelines for contributing to the `QVM - QEMU Virtual Machine Manager` Project. By following these guidelines, you help maintain the quality and consistency of its codebase.
 
