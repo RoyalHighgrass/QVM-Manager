@@ -1,6 +1,6 @@
 # Thinking of contributing to the `QVM (QEMU Virtual Machine Manager)` open-source hypervisor project?
 
-I am thrilled that you're interested in contributing to my project! This document provides guidelines for contributing to the `QVM - QEMU Virtual Machine Manager` Project. By following these guidelines, you help maintain the quality and consistency of its codebase.
+I am thrilled that you're interested in contributing to my project! This document provides guidelines for contributing to the `QVM - QEMU Virtual Machine Manager` project. By following these guidelines, you help maintain the quality and consistency of its codebase.
 
 ## Table of Contents
 
