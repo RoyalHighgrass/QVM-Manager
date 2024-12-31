@@ -36,7 +36,7 @@ Options:
   --show-i	    List all local ISO files.
   --gui            Launch the QVM graphical user interface.
   --help, -h       Displays this help message.
-  --version, -h    Display version information of QVM installation.
+  --version, -v    Display version information of QVM installation.
                    - The default behaviour is to display '0' data:
                        - 0:  Standard version data for QVM.
                        - vc: Version data for QVM & its components.
