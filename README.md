@@ -136,7 +136,7 @@ For more advanced usage and configuration options, please refer to the [User Man
 
 ## Configuration
 
-The hypervisor VM specifications can easily be configured using command-line application interface, and templating can only be implemented via the QVM graphical user interface. Some key configuration areas include:
+The hypervisor VM specifications can easily be configured using command-line application interface, and templating can be implemented via the graphical user interface. Some key configuration areas include:
 
 - Memory allocation
 - CPU cores used
