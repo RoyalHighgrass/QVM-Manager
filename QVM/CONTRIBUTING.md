@@ -31,6 +31,7 @@ This project adheres to a [Code of Conduct](CODE_OF_CONDUCT.md). By participatin
 
 There are many ways to contribute to this project:
 
+- Environment testing
 - Reporting bugs
 - Suggesting enhancements
 - Writing documentation
