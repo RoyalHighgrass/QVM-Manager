@@ -57,7 +57,7 @@ vm_search() {
     echo -e "\033[34mSearching for VMs...\n\033[0m"
     echo -e "\033[34mVM Images Found:\033[0m $(find ~/QVM/config_files/VM_Images -type f -name '*.img' | wc -l)"
     
-    # Find VM image files and extract names
+    # Find VM disk image files and extract names
     vms=$(find ~/QVM/config_files/VM_Images/ -type f -name "*.img" | cut -d"/" -f7 | cut -d"." -f1)
      
     # Get list of running VMs
@@ -106,60 +106,87 @@ while true; do
         3)
             echo -e "\033[34mCreating a snapshot...\033[0m"
             vm_search
-            read -p "Enter a VM name: " vm_name
-            read -p "Enter snapshot name/tag: " snapshot_name
-            qemu-img snapshot -c "$snapshot_name" "./../VM_Images/$vm_name.img" && \
-				echo -e "Snapshot saved successfully!\n" || echo -e "Snapshot creation failed!\n"
+            if (( $(vm_search | grep "Found" | awk '{print $NF}') != 0 )); then
+				echo ""
+				read -p "Enter a VM name (Enter '0' or leave blank to cancel): " vm_name
+				if ! [[ "$vm_name" == "0" || -z "$vm_name" ]]; then
+		            read -p "Enter snapshot name/tag: " snapshot_name
+		            qemu-img snapshot -c "$snapshot_name" "./../VM_Images/$vm_name.img" && \
+						echo -e "Snapshot saved successfully!\n" || echo -e "Snapshot creation failed!\n"
+				fi
+			else
+				echo -e "\033[34mYou have not created any virtual machines yet! Please create a VM in order to save a snapshot.\033[0m"
+			fi
             ;;
         4)
             echo -e "\033[34mViewing snapshots...\033[0m"
             vm_search
-			echo ""
-            read -p "Enter a VM name: " vm_name
-            ckss=$(qemu-img snapshot -l "./../VM_Images/$vm_name.img")
-			if [[ -z "$ckss" ]]; then
-				echo -e "\033[34mNo snapshots have been saved of the \033[0m$vm_name\033[34m virtual machine!\033[0m"
+            if (( $(vm_search | grep "Found" | awk '{print $NF}') != 0 )); then
+	            echo ""
+				read -p "Enter a VM name (Enter '0' or leave blank to cancel): " vm_name
+				if ! [[ "$vm_name" == "0" || -z "$vm_name" ]]; then
+		            ckss=$(qemu-img snapshot -l "./../VM_Images/$vm_name.img")
+					if [[ -z "$ckss" ]]; then
+						echo -e "\033[34mNo snapshots have been saved of the \033[0m$vm_name\033[34m virtual machine!\033[0m"
+					else
+						qemu-img snapshot -l "./../VM_Images/$vm_name.img"
+					fi
+				fi
 			else
-				qemu-img snapshot -l "./../VM_Images/$vm_name.img"
+				echo -e "\033[34mYou have not created any virtual machines yet! Please create a VM in order to view saved snapshots.\033[0m"
 			fi
             ;;
         5)
             echo -e "\033[34mDeleting a snapshot...\033[0m"
             vm_search
-			echo ""
-            read -p "Enter a VM name: " vm_name
-            ckss=$(qemu-img snapshot -l "./../VM_Images/$vm_name.img")
-			if [[ -z "$ckss" ]]; then
-				echo -e "\033[34mNo snapshots have been saved of the \033[0m$vm_name\033[34m virtual machine!\033[0m"
+            if (( $(vm_search | grep "Found" | awk '{print $NF}') != 0 )); then
+				echo ""
+	            read -p "Enter a VM name (Enter '0' or leave blank to cancel): " vm_name
+				if ! [[ "$vm_name" == "0" || -z "$vm_name" ]]; then
+		            ckss=$(qemu-img snapshot -l "./../VM_Images/$vm_name.img")
+					if [[ -z "$ckss" ]]; then
+						echo -e "\033[34mNo snapshots have been saved of the \033[0m$vm_name\033[34m virtual machine!\033[0m"
+					else
+						snapshot_search
+			            read -p "Enter snapshot name/tag (Enter '0' to cancel): " snapshot_name
+			            qemu-img snapshot -d "$snapshot_name" "./../VM_Images/$vm_name.img" && \
+							echo -e "\033[34mSnapshot deleted successfully!\033[0m\n" || echo -e "\033[34mSnapshot deletion failed!\033[0m\n"
+					fi
+				fi
 			else
-				snapshot_search
-	            read -p "Enter snapshot tag: " snapshot_name
-	            qemu-img snapshot -d "$snapshot_name" "./../VM_Images/$vm_name.img" && \
-					echo -e "Snapshot deleted successfully!\n" || echo -e "Snapshot deletion failed!\n"
+				echo -e "\033[34mYou have not created any virtual machines yet! Please create a VM in order to delete a snapshot.\033[0m"
 			fi
             ;;
         6)
-            echo "\033[34mDeleting a VM...\033[0m"
+            echo -e "\033[34mDeleting a VM...\033[0m"
             vm_search
-            read -p "Enter the name of the VM to delete: " vm_name
-            read -p "Are you sure? [y/N]: " confirm
-            if [[ "$confirm" =~ ^[yY]$ ]]; then
-                rm "$HOME/QVM/config_files/VM_Images/$vm_name.img" && \
-				rm "$HOME/QVM/config_files/vm_log_files/${vm_name}_vm_specs" && \
-				echo -e "The $vm_name VM has been deleted!\n" || echo -e "Failed to delete the $vm_name VM\n"
-            else
-                echo -e "\033[34mDeletion cancelled.\033[0m"
-            fi
+            if (( $(vm_search | grep "Found" | awk '{print $NF}') != 0 )); then
+	            echo ""
+				read -p "Enter the name of the VM to delete (Enter '0' or leave blank to cancel): " vm_name
+				if ! [[ "$vm_name" == "0" || -z "$vm_name" ]]; then
+		            read -p "Are you sure? [y/N]: " confirm
+		            if [[ "$confirm" =~ ^[yY]$ ]]; then
+		                rm "$HOME/QVM/config_files/VM_Images/$vm_name.img" && \
+						rm "$HOME/QVM/config_files/vm_log_files/${vm_name}_vm_specs" && \
+						rm "$HOME/QVM/config_files/vm_log_files/${vm_name}_vm_restart" && \
+						echo -e "The $vm_name VM has been deleted!\n" || echo -e "Failed to delete the $vm_name VM\n"
+		            else
+		                echo -e "\033[34mDeletion cancelled.\033[0m"
+		            fi
+				fi
+			else
+				echo -e "\033[34mYou cannot delete a VM because you have not created any virtual machines yet!\033[0m"
+			fi
             ;;
         7)  
             ./Scripts/iso.sh
             ;;
         0)
-            echo -e "\033[34mExiting... QVM was properly stopped!\033[0m\n"
+            echo -e "\033[34mQVM was properly stopped!\033[0m\n"
             exit 0
             ;;
         *)
-            echo -e "\033[34mInvalid option. Please try again.\033[0m"
+            echo -e "\033[34mInvalid option. Please try again...\033[0m"
             ;;
     esac
 done
