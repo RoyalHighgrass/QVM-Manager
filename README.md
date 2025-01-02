@@ -1,6 +1,6 @@
 # QVM-Manager (QEMU Virtual Machine Manager)
 
-![Description](QVM/config_files/logo_images/qvm-3.png)
+![Description](QVM/config_files/logo_images/qvm-4.png)
 
 # QVM Manager-v1.0.3 © 2024 P.H.
 
