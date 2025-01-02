@@ -4,7 +4,7 @@ As a long-time Linux user and VM enthusiast, I've encountered numerous challenge
 
 In autumn 2024, I discovered that virt-manager was deprecated, which explained some recent frustrations. This realization, coupled with the lack of a suitable alternative, motivated me to develop QVM. My goal was to combine the best features of virt-manager and GNOME Boxes to create a compelling alternative for Linux virtualization needs. Interestingly, after creating QVM, I came across a 2018 paper by Dr. Emmanuel Ogunshile, who had proposed a similar concept called "qvm: A command line tool for the provisioning of virtual machines". While Ogunshile's qvm was developed in Python and utilized YAML for configuration, the QVM I unknowingly created was implemented in Bash. This coincidental parallel development highlights the ongoing need for efficient virtualization tools in the Linux community.
 
-# QVM Features:
+# QVM Features
 
 - **Core Technology**: QVM is built on QEMU and is supported by KVM, providing powerful, hardware-assisted virtualization.
 - **Streamlined Interface**: Unlike libvirt, QVM interfaces directly with QEMU for a more efficient experience.
