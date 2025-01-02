@@ -296,7 +296,7 @@ while true; do
 									if sudo wget --no-cookies "$url" -O $HOME/QVM/config_files/ISO_Images/${other_iso_name}.iso; then
 										echo -e "\033[34mThe\033[0m Ubuntu 20.24 \033[34mimage downloaded successfully!\033[0m\n"
 								    else
-								        echo -e "\n\033[34mOperation Error: Download failed!\033[0mn\"
+								        echo -e "\n\033[34mOperation Error: Download failed!\033[0mn\n"
 								        sudo rm -f "$HOME/QVM/config_files/ISO_Images/${other_iso_name}.iso"
 									fi
 								else
