@@ -259,6 +259,7 @@ while true; do
 							        echo -e "\n\033[34mOperation Error: Download failed!\033[0m\n"
 							        sudo rm -f "$HOME/QVM/config_files/ISO_Images/${iso_name}.iso"
 								fi
+								break
 							fi
 						else
 							echo -e "\033[34mA $iso_name image has already been downloaded!\n\033[0m"
@@ -279,9 +280,11 @@ while true; do
 							        echo -e "\n\033[34mOperation Error: Download failed!\033[0m\n"
 							        sudo rm -f "$HOME/QVM/config_files/ISO_Images/${iso_name}.iso"
 								fi
+								break
 							fi
 						else
 							echo -e "\033[34mA $iso_name image has already been downloaded!\n\033[0m"
+							break
 						fi
 					;;
 					9)	# Pull-Other-Images
@@ -299,8 +302,10 @@ while true; do
 								        echo -e "\n\033[34mOperation Error: Download failed!\033[0mn\n"
 								        sudo rm -f "$HOME/QVM/config_files/ISO_Images/${other_iso_name}.iso"
 									fi
+									break
 								else
 									echo -e "\033[34mError: That OS disk image has already been downloaded & is ready to use!\033[0m"
+									break
 								fi
 							fi
 						fi
