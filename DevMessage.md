@@ -6,9 +6,9 @@ In autumn 2024, I discovered that virt-manager was deprecated, which explained s
 
 # QVM Features:
 
-Core Technology: QVM is built on QEMU and is supported by KVM, providing powerful, hardware-assisted virtualization.
-Streamlined Interface: Unlike libvirt, QVM interfaces directly with QEMU for a more efficient experience.
-User-Friendly: QVM offers both a lightweight CLI and a user-friendly GUI for managing virtual machines.
+**Core Technology**: QVM is built on QEMU and is supported by KVM, providing powerful, hardware-assisted virtualization.
+**Streamlined Interface**: Unlike libvirt, QVM interfaces directly with QEMU for a more efficient experience.
+**User-Friendly**: QVM offers both a lightweight CLI and a user-friendly GUI for managing virtual machines.
 
 As my first open-source project, developing QVM has been an enlightening experience. Overcoming various challenges has deepened my understanding of emulation processes and boosted my confidence in tackling complex projects.
 
