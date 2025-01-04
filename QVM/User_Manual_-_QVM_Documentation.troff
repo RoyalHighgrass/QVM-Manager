@@ -1,5 +1,3 @@
-Here's the content converted to a troff file format using the man macro package:
-
 .TH QVM-MANAGER 1 "January 2025" "v1.0.3" "User Commands"
 .SH NAME
 qvm-manager \- QEMU Virtual Machine Manager
