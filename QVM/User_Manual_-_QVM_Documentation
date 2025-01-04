@@ -79,8 +79,13 @@ EXAMPLES
         qvm-manager --snap myvm --tag backup1
                 Create a snapshot of "myvm" with the tag "backup1".
 
-SEE ALSO
-        qemu(1), kvm(1), virt-manager(1)
+GUI TIPS AND HINTS
+        - VM templating can only be implemented via the GUI.
+        - VMs can only be renamed via the GUI.
+        - Most GUI messages are automatically sent to the CLI, providing a useful
+          log of the current session's activities.
+        - It is generally much easier to manage VMs via the GUI. However, using
+          the CLI can be a more efficient way completing certain tasks.
 
 AUTHOR
         Written by P.H.
