@@ -1,52 +1,18 @@
-------------------------------------------------------------------------
-===============> 01010001 01010110 01001101 10101001 <==================
-------------------------------------------------------------------------
-     __  __   __   _,      __  _,        
-    / _ \\ \ / / \/ | ___ |  \/ | __ _  _ ___  __ _  __ _  __   _ _     
-   ( (_) |\ \ / |\/ ||___|| |\/ || _` || `/\ || _` || _` || -_)| `_|    
-    \__\_\ \_/|_| |_|     |_| |_|\__,_||_| |_|\__,_|\__, |\___||_|  ©    
-                                                    |____/              
-------------------------------------------------------------------------
-==============> QEMU Virtual Machine Manager v1.0.2©2024 <==============
-------------------------------- Help/Info ------------------------------
+------------------------------------------------------------------------------
+==================> 01010001 01010110 01001101 10101001 <=====================
+------------------------------------------------------------------------------
+        __  __   __   _,      __  _,        
+       / _ \\ \ / / \/ | ___ |  \/ | __ _  _ ___  __ _  __ _  __   _ _     
+      ( (_) |\ \ / |\/ ||___|| |\/ || _` || `/\ || _` || _` || -_)| `_|    
+       \__\_\ \_/|_| |_|     |_| |_|\__,_||_| |_|\__,_|\__, |\___||_|  ©    
+                                                       |____/              
+------------------------------------------------------------------------------
+=================> QEMU Virtual Machine Manager v1.0.2©2024 <=================
+---------------------------------- Help/Info ---------------------------------
 
 QEMU Virtual Machine Manager ©2024 (Type2 CLI Hypervisor) written by P.H.
 
-Description:
-qvm-manager - A command line interface (CLI) tool for managing QEMU VMs. 
-An extremely simple and lightweight but powerful QEMU hypervisor that 
-is designed to get the best performance from your host machine. QVM in 
-essence is similar to virt-manager in the sense that it is able to work 
-in conjunction with Kernel-based Virtual Machine (KVM) to provide hardware-
-assisted virtualization, which enhances its performance by allowing virtual 
-machines to run at near-native speeds. QVM also provides users with a 
-user-friendlygraphical user interface (GUI) for a smoother virtualization 
-experience.
-
-Usage: qvm-manager
-       qvm-manager [OPTION]
-       qvm-manager [VERSION] [VALUE]
-
-       Examples: qvm-manager [--gui | --help | -h | --version | -v]
-                 qvm-manager [--version | -v] [vc]
-
-Options:
-  --start		    Start an existing VM.
-  --show-v	    List all VMs.
-  --show-i	    List all local ISO files.
-  --gui            Launch the QVM graphical user interface.
-  --help, -h       Displays this help message.
-  --version, -v    Display version information of QVM installation.
-                   - The default behaviour is to display '0' data:
-                       - 0:  Standard version data for QVM.
-                       - vc: Version data for QVM & its components.
-
-
-https://www.qemu.org/docs/master/system/qemu-manpage.html
-
-
-
-QVM-MANAGER(1)                    User Commands                   QVM-MANAGER(1)
+QVM-MANAGER(1)                 User Commands                   QVM-MANAGER(1)
 
 NAME
        qvm-manager - QEMU Virtual Machine Manager
@@ -64,6 +30,9 @@ DESCRIPTION
        allowing virtual machines to run at near-native speeds.
 
 OPTIONS
+       --list-vm
+              List all existing VMs.
+
        --start <vm_name>
               Start an existing VM.
 
@@ -74,22 +43,7 @@ OPTIONS
               List all local ISO images.
 
        --gui  
-              sLaunch the QVM graphical user interface.
-
-       --help, -h
-              Display this help message.
-
-       --version, -v [VALUE]
-              Display version information of QVM installation.
-              - The default behaviour is to display '0' data:
-                  - 0:  Standard version data for QVM.
-                  - vc: Version data for QVM & its components.
-
-       --list-vm
-              List all existing VMs.
-
-       --list-iso
-              List all local ISO images.
+              Launch the QVM graphical user interface.
 
        --delete-vm <vm_name>
               Delete a specified VM.
@@ -98,10 +52,17 @@ OPTIONS
               Delete a specified ISO image or all ISO images.
 
        --pull-iso <image_name>
-              Download an ISO image.
+              Download an specified ISO image.
 
        --snap <vm_name> --tag <snapshot_name>
               Save a snapshot of an existing VM.
+
+       --help, -h
+              Display this help message.
+
+       --version, -v [VALUE]
+              Display version information of QVM installation.
+                  -ac: Version data for QVM & its components.
 
 EXAMPLES
        qvm-manager --start myvm
@@ -110,8 +71,8 @@ EXAMPLES
        qvm-manager --list-vm
               List all existing virtual machines.
 
-       qvm-manager --pull-iso ubuntu-20.04.iso
-              Download the Ubuntu 20.04 ISO image.
+       qvm-manager --pull-iso ubuntu-noble
+              Download the Ubuntu 20.04 Noble ISO image.
 
        qvm-manager --snap myvm --tag backup1
               Create a snapshot of "myvm" with the tag "backup1".
@@ -128,4 +89,4 @@ COPYRIGHT
        This is free software: you are free to change and redistribute it.
        There is NO WARRANTY, to the extent permitted by law.
 
-QVM-Manager 1.0.2                 January 2025                    QVM-MANAGER(1)
+QVM-Manager v1.0.3               January 2025                  QVM-MANAGER(1)
