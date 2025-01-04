@@ -71,8 +71,10 @@ if [[ -z "$vm_exists" ]]; then
 			echo -e "\033[34mError: Invailid option!\033[0m"
 		fi
 	done
-	new_vm_command+=" -drive file=\"$HOME/QVM/config_files/VM_Images/$img_nme.img\",cache=writeback,id=drive1,format=${format}"
-	vmr+=" -drive file=\"$HOME/QVM/config_files/VM_Images/$img_nme.img\",cache=writeback,id=drive1,format=${format}"
+	drive_id=$(( RANDOM % 1000 + 1 ))
+	drive_id="drive${drive_id}"
+	new_vm_command+=" -drive file=\"$HOME/QVM/config_files/VM_Images/$img_nme.img\",cache=writeback,id=$drive_id,format=${format}"
+	vmr+=" -drive file=\"$HOME/QVM/config_files/VM_Images/$img_nme.img\",cache=writeback,id=$drive_id,format=${format}"
 	
 	# CPU
 	echo -e "\033[34mYour system has '\033[0m$(nproc)\033[34m' CPU's available\033[0m"
@@ -92,7 +94,6 @@ if [[ -z "$vm_exists" ]]; then
 	vmr+=" -smp ${CPU},sockets="$CPU",cores=1,threads=1 " 
 	new_vm_command+=" -object iothread,id=iothread0" 
 	vmr+=" -object iothread,id=iothread0" 
-	vm_specs="${CPU}\""
 	
 	# Memory
 	host_free_memory=$(free -h | awk '/^Mem:/ {print $4}' | sed 's/[^0-9.]//g')
@@ -114,7 +115,6 @@ if [[ -z "$vm_exists" ]]; then
 			fi
 		fi
 	done
-	vm_specs+=" \"${MEM}\""
 	
 	# Audio Drivers
 	echo -e "\033[34mAvailable audio drivers;\033[0m"
@@ -243,10 +243,6 @@ if [[ -z "$vm_exists" ]]; then
 	fi
 	new_vm_command+=" -cdrom ${iso_}"
 	os_basename=$(echo $iso_ | xargs -0 basename -s .iso -a)
-	vm_specs+=" \"${os_basename}\""
-	vm_specs+=" \"${HD}\""
-	vm_specs+=" \"${format}\""
-	vm_specs+=" \"${kvm_e}\""
 	
 	# Boot Options
 	echo -e "\033[34mAvailable boot options;\033[0m"
@@ -482,7 +478,6 @@ if [[ -z "$vm_exists" ]]; then
 	vmr+=" -netdev user,id=n1,ipv6=off"
 	new_vm_command+=" -device ${ns},netdev=n1,mac=${mac}"
 	vmr+=" -device ${ns},netdev=n1,mac=${mac}"
-	vm_specs+=" \"${ns}"
 
 	# Enable Clipboard Sharing
 	echo -e "\033[34mWould you like to enable host clipboard sharing?\033[0m"
@@ -520,9 +515,22 @@ if [[ -z "$vm_exists" ]]; then
 	
 #	vm_command+="sudo cgexec -g cpu:/sys/fs/cgroup/cpu/$qemu_limit"
 	vm_command+=" ${new_vm_command}"
+	
+	vm_specs="${CPU}\""
+	vm_specs+=" \"${MEM}\""
+	vm_specs+=" \"${os_basename}\""
+	vm_specs+=" \"${HD}\""
+	vm_specs+=" \"${format}\""
+	vm_specs+=" \"${kvm_e}\""
+	vm_specs+=" \"${ns}\""
+	vm_specs+=" \"${vm_display}\""
+	vm_specs+=" \"${vga}\""
+	vm_specs+=" \"${gmem}\""
+	
 	echo -e "\033[34mSaving \033[0m$img_nme\033[34m VM restart command...\033[0m"
 	echo $vmr > $HOME/QVM/config_files/vm_log_files/${img_nme}_vm_restart
 	echo $vm_specs > $HOME/QVM/config_files/vm_log_files/${img_nme}_vm_specs
+	echo $vm_specs
 	
 	# Create QEMU virtual hard drive image with qcow2 format and specified size
 	echo -e "\033[34mCreate the \033[0m$img_nme\033[34m hard drive..."
