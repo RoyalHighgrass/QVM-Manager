@@ -7,10 +7,17 @@ if [[ "$(whoami)" != "root" ]]; then
 	--text="QEMU Virtual Machine Manager v1.0.3\n\nYou are trying to run the QVM configuration script as a non-privilaged user.\nThis script must be run as root! Run 'sudo ./config.sh' or './config.sh' after running the 'sudo su' command." \
 	--width=600 --height=400 --timeout=8
 else
-	sudo apt install 
- 	exit 1
-	
-	# Ensure necessary folders exist for CPU resource limiting processes
+	sudo apt install wget tree cut find locate zenity wmctrl make cpu-checker intltool autoconf \
+ 		gtk-layer-shell-doc gtk4-layer-shell-doc libgtk-3-common libgtk-4-common libgtk-3-0t64 \
+   		libgtk-3-dev acpi bc tr xrandr cgroup-tools libvirt-clients libvirt-daemon-system bridge-utils \
+     		virtinst libvirt-daemon qemu-kvm qemu-system-common qemu-system-x86 qemu-system-modules-opengl \
+       		mgba-sdl libsdl2-2.0-0 libsdl2-net-2.0-0 mednafen -y
+	original-awk 2024-06-23-1
+	mawk 1.3.4.20240905-1
+	gawk 1:5.2.1-2+b1
+ 	
+
+ 	# Ensure necessary folders exist for CPU resource limiting processes
 	sudo mkdir -p /sys/fs/cgroup/cpu/qvm_machine
 	sudo mkdir -p /sys/fs/cgroup/cpuset/qvm_machine
 	sudo mkdir -p /sys/fs/cgroup/memory/qvm_machine
