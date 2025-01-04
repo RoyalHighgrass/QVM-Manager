@@ -1,0 +1,88 @@
+Here's the content converted to a troff file format using the man macro package:
+
+.TH QVM-MANAGER 1 "January 2025" "v1.0.3" "User Commands"
+.SH NAME
+qvm-manager \- QEMU Virtual Machine Manager
+.SH SYNOPSIS
+.B qvm-manager
+[OPTION]
+.br
+.B qvm-manager
+[VERSION] [VALUE]
+.SH DESCRIPTION
+qvm-manager is a command line interface (CLI) tool for managing QEMU virtual machines. It is an extremely simple and lightweight but powerful QEMU hypervisor designed to get the best performance from your host machine. QVM works in conjunction with Kernel-based Virtual Machine (KVM) to provide hardware-assisted virtualization, enhancing performance by allowing virtual machines to run at near-native speeds. QVM also provides users with a user-friendly graphical user interface (GUI) for a smoother virtualization experience.
+.SH OPTIONS
+.TP
+.B \-\-list-vm
+List all existing VMs.
+.TP
+.B \-\-start <vm_name>
+Start an existing VM.
+.TP
+.B \-\-show-v <vm_name>
+Show a VM's Specs.
+.TP
+.B \-\-list-iso
+List all local ISO images.
+.TP
+.B \-\-gui
+Launch the QVM graphical user interface.
+.TP
+.B \-\-delete-vm <vm_name>
+Delete a specified VM.
+.TP
+.B \-\-delete-iso <iso_name|all>
+Delete a specified ISO image or all ISO images.
+.TP
+.B \-\-pull-iso <image_name>
+Download a specified ISO image.
+.TP
+.B \-\-snap <vm_name> \-\-tag <snapshot_name>
+Save a snapshot of an existing VM.
+.TP
+.B \-\-revert <vm_name> \-\-tag <snapshot_name>
+Use a snapshot to revert the VM back to a previous state.
+.TP
+.B \-\-delete-snap <vm_name> \-\-tag <snapshot_name>
+Delete a specified snapshot.
+.TP
+.B \-\-help, \-h
+Display this help message.
+.TP
+.B \-\-version, \-v [VALUE]
+Display version information of QVM installation.
+.RS
+.TP
+.B \-ac
+Version data for QVM & its components.
+.RE
+.SH EXAMPLES
+.TP
+.B qvm-manager \-\-start myvm
+Start the VM named "myvm".
+.TP
+.B qvm-manager \-\-list-vm
+List all existing virtual machines.
+.TP
+.B qvm-manager \-\-pull-iso ubuntu-noble
+Download the Ubuntu 20.04 Noble ISO image.
+.TP
+.B qvm-manager \-\-snap myvm \-\-tag backup1
+Create a snapshot of "myvm" with the tag "backup1".
+.SH GUI TIPS AND HINTS
+.IP $$bu 2
+VM templating can only be implemented via the GUI.
+.IP $$bu 2
+VMs can only be renamed via the GUI.
+.IP $$bu 2
+Most GUI messages are automatically sent to the CLI, providing a useful log of the current session's activities.
+.IP $$bu 2
+It is generally much easier to manage VMs via the GUI. However, using the CLI can be a more efficient way of completing certain tasks.
+.SH AUTHOR
+Written by P.H.
+.SH COPYRIGHT
+Copyright © 2024 QVM-Manager. License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>.
+.br
+This is free software: you are free to change and redistribute it.
+.br
+There is NO WARRANTY, to the extent permitted by law.
