@@ -73,7 +73,8 @@ OPTIONS
        --list-iso
               List all local ISO images.
 
-       --gui  Launch the QVM graphical user interface.
+       --gui  
+              sLaunch the QVM graphical user interface.
 
        --help, -h
               Display this help message.
