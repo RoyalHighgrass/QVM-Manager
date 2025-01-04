@@ -59,6 +59,12 @@ OPTIONS
         --snap <vm_name> --tag <snapshot_name>
                 Save a snapshot of an existing VM.
 
+        --revert <vm_name> --tag <snapshot_name>
+                Use a snapshot to revert the VM back to a previous state.
+
+        --delete-snap <vm_name> --tag <snapshot_name>
+                Delete a specified snapshot.
+
         --help, -h
                 Display this help message.
 
