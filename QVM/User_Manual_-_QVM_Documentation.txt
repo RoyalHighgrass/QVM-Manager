@@ -10,7 +10,7 @@
 =================> QEMU Virtual Machine Manager v1.0.2©2024 <=================
 ---------------------------------- Help/Info ---------------------------------
 
-QEMU Virtual Machine Manager ©2024 (Type2 Hypervisor) written by P.H.
+QEMU Virtual Machine Manager (Type2 Hypervisor) ©2025 written by P.H.
 
 QVM-MANAGER(1)                 User Commands                   QVM-MANAGER(1)
 
@@ -53,8 +53,8 @@ OPTIONS
         --delete-iso <iso_name|all>
                 Delete a specified ISO image or all ISO images.
 
-        --pull-iso <image_name>
-                Download an specified ISO image.
+        --pull-iso <image_name|list>
+                Download an specified ISO image or list available images.
 
         --snap <vm_name> --tag <snapshot_name>
                 Save a snapshot of an existing VM.
@@ -80,12 +80,12 @@ EXAMPLES
                 List all existing virtual machines.
 
         qvm-manager --pull-iso ubuntu-noble
-                Download the Ubuntu 24.04 Noble ISO image.
+                Download the Ubuntu Noble 24.04 ISO image.
 
         qvm-manager --snap myvm --tag backup1
                 Create a snapshot of "myvm" with the tag "backup1".
 
-GUI TIPS AND HINTS
+GUI TIPS & HINTS
         - VM templating can only be implemented via the GUI.
         - VMs can only be renamed via the GUI.
         - Most GUI messages are automatically sent to the CLI, providing a useful
