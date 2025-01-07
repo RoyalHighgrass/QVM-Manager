@@ -80,7 +80,7 @@ EXAMPLES
                 List all existing virtual machines.
 
         qvm-manager --pull-iso ubuntu-noble
-                Download the Ubuntu 20.04 Noble ISO image.
+                Download the Ubuntu 24.04 Noble ISO image.
 
         qvm-manager --snap myvm --tag backup1
                 Create a snapshot of "myvm" with the tag "backup1".
