@@ -50,10 +50,10 @@ OPTIONS
         --delete-vm <vm_name>
                 Delete a specified VM.
 
-        --delete-iso <iso_name|all>
+        --delete-iso <iso_Image_name|all>
                 Delete a specified ISO image or all ISO images.
 
-        --pull-iso <image_name|list>
+        --pull-iso <iso_image_name|list>
                 Download an specified ISO image or list available images.
 
         --snap <vm_name> --tag <snapshot_name>
