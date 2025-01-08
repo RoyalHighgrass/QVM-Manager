@@ -19,20 +19,18 @@ NAME
 
 SYNOPSIS
         qvm-manager [OPTION]
-        qvm-manager [VERSION] [VALUE]
+        qvm-manager [OPTION] [VALUE] 
+        qvm-manager [OPTION] [VALUE] [OPTION] [VALUE]
 
 DESCRIPTION
-    qvm-manager is a command line interface (CLI) tool for managing QEMU
-    virtual machines. It is an extremely simple and lightweight but powerful
-    QEMU hypervisor designed to get the best performance from your host
-    machine. QVM works in conjunction with Kernel-based Virtual Machine (KVM)
-    to provide hardware-assisted virtualization, enhancing performance by
-    allowing virtual machines to run at near-native speeds. QVM also provides
-    users with a user-friendly graphical user interface (GUI) for a smoother
-    virtualization experience.
-
-USAGE
-        qvm-manager [OPTION] <VALUE> [OPTION] <VALUE>
+        qvm-manager is a command line interface (CLI) tool for managing QEMU
+        virtual machines. It is an extremely simple and lightweight but powerful
+        QEMU hypervisor designed to get the best performance from your host
+        machine. QVM works in conjunction with Kernel-based Virtual Machine (KVM)
+        to provide hardware-assisted virtualization, enhancing performance by
+        allowing virtual machines to run at near-native speeds. QVM also provides
+        users with a user-friendly graphical user interface (GUI) for a smoother
+        virtualization experience.
 
 OPTIONS
         --delete-iso <iso_image_name|all>
