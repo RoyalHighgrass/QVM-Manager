@@ -103,10 +103,13 @@ libvirt-daemon-system
 bridge-utils 
 virtinst 
 libvirt-daemon
+libvirt-clients-qemu
 qemu-kvm 
 qemu-system-common
 qemu-system-x86
 qemu-system-modules-opengl
+qemu-utils
+grub-firmware-qemu
 mgba-sdl
 libsdl2-2.0-0
 libsdl2-net-2.0-0
