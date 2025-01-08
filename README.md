@@ -75,9 +75,9 @@ If you use one of these systems and any package listed below is not available vi
 wget
 tree
 cut
-original-awk 2024-06-23-1
-mawk 1.3.4.20240905-1
-gawk 1:5.2.1-2+b1
+original-awk 
+mawk 
+gawk 
 find
 locate
 zenity
