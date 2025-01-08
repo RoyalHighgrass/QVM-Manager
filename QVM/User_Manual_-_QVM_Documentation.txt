@@ -38,7 +38,7 @@ OPTIONS
         --start <vm_name>
                 Start an existing VM.
 
-        --show-v <vm_name>
+        --show-vm <vm_name>
                 Show a VM's Specs.
 
         --list-iso
