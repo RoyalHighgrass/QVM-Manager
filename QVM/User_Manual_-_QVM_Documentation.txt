@@ -78,11 +78,14 @@ OPTIONS
                     -ac: Version data for QVM & its components.
 
 EXAMPLES
+        qvm-manager --pull-iso list
+                List all the official ISO images that are available.
+
         qvm-manager --pull-iso ubuntu-noble
                 Download the Official Ubuntu Noble 24.04 ISO image.
 
         qvm-manager
-                .
+                Starts QVM in its default CLI mode.
 
         qvm-manager --list-vm
                 List all existing virtual machines.
