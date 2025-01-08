@@ -15,7 +15,7 @@ QEMU Virtual Machine Manager (Type2 Hypervisor) ©2025 written by P.H.
 QVM-MANAGER(1)                 User Commands                   QVM-MANAGER(1)
 
 NAME
-        qvm-manager - QEMU Virtual Machine Manager
+        QVM - QVM-Manager - QEMU Virtual Machine Manager
 
 SYNOPSIS
         qvm-manager [OPTION]
