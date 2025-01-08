@@ -31,59 +31,65 @@ DESCRIPTION
     users with a user-friendly graphical user interface (GUI) for a smoother
     virtualization experience.
 
+USAGE
+        qvm-manager [OPTION] <VALUE> [OPTION] <VALUE>
+
 OPTIONS
-        --list-vm
-                List all existing VMs.
-
-        --start <vm_name>
-                Start an existing VM.
-
-        --show-vm <vm_name>
-                Show a VM's Specs.
-
-        --list-iso
-                List all local ISO images.
-
-        --gui  
-                Launch the QVM graphical user interface.
-
-        --delete-vm <vm_name>
-                Delete a specified VM.
-
-        --delete-iso <iso_Image_name|all>
+        --delete-iso <iso_image_name|all>
                 Delete a specified ISO image or all ISO images.
-
-        --pull-iso <iso_image_name|list>
-                Download an specified ISO image or list available images.
-
-        --import-iso
-                Import manually downloaded ISO images.
-
-        --snap <vm_name> --tag <snapshot_name>
-                Save a snapshot of an existing VM.
-
-        --revert <vm_name> --tag <snapshot_name>
-                Use a snapshot to revert the VM back to a previous state.
 
         --delete-snap <vm_name> --tag <snapshot_name>
                 Delete a specified snapshot.
 
+        --delete-vm <vm_name>
+                Delete a specified VM.
+
+        --gui  
+                Launch the QVM graphical user interface.
+
         --help, -h
                 Display this help message.
+
+        --import-iso
+                Import manually downloaded ISO images.
+
+        --list-vm
+                List all existing VMs.
+
+        --list-iso
+                List all local ISO images.
+
+        --pull-iso <iso_image_name|list>
+                Download an specified ISO image or list available images.
+
+        --revert <vm_name> --tag <snapshot_name>
+                Use a snapshot to revert the VM back to a previous state.
+
+        --show-vm <vm_name>
+                Show a VM's Specs.
+
+        --snap <vm_name> --tag <snapshot_name>
+                Save a snapshot of an existing VM.
+
+        --start <vm_name>
+                Start an existing VM.
 
         --version, -v [VALUE]
                 Display version information of QVM installation.
                     -ac: Version data for QVM & its components.
 
 EXAMPLES
-        qvm-manager --start myvm
-                Start the VM named "myvm".
+        qvm-manager --pull-iso ubuntu-noble
+                Download the Official Ubuntu Noble 24.04 ISO image.
+
+        qvm-manager
+                .
 
         qvm-manager --list-vm
                 List all existing virtual machines.
 
-        qvm-manager --pull-iso ubuntu-noble
-                Download the Ubuntu Noble 24.04 ISO image.
+        qvm-manager --start myvm
+                Start the VM named "myvm".
 
         qvm-manager --snap myvm --tag backup1
                 Create a snapshot of "myvm" with the tag "backup1".
