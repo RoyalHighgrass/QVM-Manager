@@ -91,7 +91,7 @@ EXAMPLES
                 List all existing virtual machines.
 
         qvm-manager --start myvm
-                Start the VM named "myvm".
+                Start the virtual machine named "myvm".
 
         qvm-manager --snap myvm --tag backup1
                 Create a snapshot of "myvm" with the tag "backup1".
