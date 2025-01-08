@@ -52,17 +52,20 @@ OPTIONS
         --import-iso
                 Import manually downloaded ISO images.
 
-        --list-vm
-                List all existing VMs.
-
         --list-iso
                 List all local ISO images.
+
+        --list-vm
+                List all existing VMs.
 
         --pull-iso <iso_image_name|list>
                 Download an specified ISO image or list available images.
 
         --revert <vm_name> --tag <snapshot_name>
                 Use a snapshot to revert the VM back to a previous state.
+
+        --show-snap <vm_name>
+                List all snapshots for a specified VM.
 
         --show-vm <vm_name>
                 Show a VM's Specs.
