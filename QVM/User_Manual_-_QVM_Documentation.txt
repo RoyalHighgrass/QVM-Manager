@@ -18,6 +18,7 @@ NAME
         QVM - QVM-Manager - QEMU Virtual Machine Manager
 
 SYNOPSIS
+        qvm-manager
         qvm-manager [OPTION]
         qvm-manager [OPTION] [VALUE] 
         qvm-manager [OPTION] [VALUE] [OPTION] [VALUE]
