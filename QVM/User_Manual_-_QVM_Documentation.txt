@@ -91,7 +91,7 @@ EXAMPLES
                 **Note**: This particular use-case has not yet been 
                         implemented but will most likely be implemented 
                         in the official `QVM-v1.0.3` release and is 
-                        merely an indication of intent.
+                        at present merely an indication of intent.
 
         qvm-manager
                 Starts QVM in its default CLI mode. Access the main 
