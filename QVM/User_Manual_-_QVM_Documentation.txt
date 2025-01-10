@@ -87,7 +87,7 @@ EXAMPLES
                 List all the official ISO images that are available.
 
         qvm-manager --pull-iso
-                Download an ISO image.
+                Download one of the available ISO images.
         
         qvm-manager
                 Starts QVM in its default CLI mode. Access the main 
