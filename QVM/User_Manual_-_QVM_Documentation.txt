@@ -90,7 +90,8 @@ EXAMPLES
                 Download the Official Ubuntu Noble 24.04 ISO image.
                 **Note**: This particular use-case has not yet been 
                         implemented but will most likely be implemented 
-                        in the official `QVM-v1.0.3` release.
+                        in the official `QVM-v1.0.3` release is merely 
+                        an indication of intent.
 
         qvm-manager
                 Starts QVM in its default CLI mode. Access the main 
