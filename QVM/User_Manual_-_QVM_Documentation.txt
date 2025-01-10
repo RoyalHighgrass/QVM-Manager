@@ -64,7 +64,7 @@ OPTIONS
                 images that QVM recommendeds for downloads.
 
         --revert <vm_name> --tag <snapshot_name>
-                Use a snapshot to revert the VM back to a previous state.
+                Use a snapshot to revert a VM back to a previous state.
 
         --show-snap <vm_name>
                 List all snapshots for a specified VM.
