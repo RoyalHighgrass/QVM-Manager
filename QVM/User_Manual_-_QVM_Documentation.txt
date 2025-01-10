@@ -86,13 +86,9 @@ EXAMPLES
         qvm-manager --pull-iso list
                 List all the official ISO images that are available.
 
-        qvm-manager --pull-iso ubuntu-noble
-                Download the Official Ubuntu Noble 24.04 ISO image.
-                **Note**: This particular use-case has not yet been 
-                        implemented but will most likely be implemented 
-                        in the official `QVM-v1.0.3` release and is 
-                        at present merely an indication of intent.
-
+        qvm-manager --pull-iso
+                Download an ISO image.
+        
         qvm-manager
                 Starts QVM in its default CLI mode. Access the main 
                 menu, explore all features and create or restart a VM.
