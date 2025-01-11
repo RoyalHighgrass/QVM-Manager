@@ -1,7 +1,11 @@
 #!/bin/bash
 
+# Text colours
+b="\033[34m"
+w="\033[0m"
+
 app_name_info() { echo -e "$(cat << 'EOF'
-\033[34m
+${b}
 	  ______   __     __  __       __ 
   H	 /     /\ / /|   / /|/ /\     / /|
   Y	/$$$$$$  |$$ |   $$ |$$  \   /$$ |          ©2024 - QVM CLI.
@@ -31,14 +35,14 @@ EOF
 
 main_menu() {
 echo -e "$(cat << 'EOF'
-\033[34m
+${b}
 ------------------------------------------------------------------------
 =================> QEMU Virtual Machine Manager ©2024 <=================
--------------------------------\033[0m Main Menu \033[34m------------------------------
+-------------------------------${w} Main Menu ${b}------------------------------
 
-\033[0mSelect one of the following options;
+${w}Select one of the following options;
 
-\033[34mOptions:\033[0m
+${b}Options:${w}
     1. Create or start VM
     2. List all VMs
     3. Save a VM snapshot
@@ -46,16 +50,16 @@ echo -e "$(cat << 'EOF'
     5. Delete a snapshot
     6. Delete a VM
     7. ISO images
-    0. Exit \033[0m
+    0. Exit ${w}
 EOF
 )"
 }
 
-trap 'echo -e "\n\033[34mExiting... QVM was forced to stop running!\033[0m\n" && exit 1' SIGINT
+trap 'echo -e "\n${b}Exiting... QVM was forced to stop running!${w}\n" && exit 1' SIGINT
 
 vm_search() {
-    echo -e "\033[34mSearching for VMs...\n\033[0m"
-    echo -e "\033[34mVM Images Found:\033[0m $(find ~/QVM/config_files/VM_Images -type f -name '*.img' | wc -l)"
+    echo -e "${b}Searching for VMs...\n${w}"
+    echo -e "${b}VM Images Found:${w} $(find ~/QVM/config_files/VM_Images -type f -name '*.img' | wc -l)"
     
     # Find VM disk image files and extract names
     vms=$(find ~/QVM/config_files/VM_Images/ -type f -name "*.img" | cut -d"/" -f7 | cut -d"." -f1)
@@ -63,7 +67,7 @@ vm_search() {
     # Get list of running VMs
     running_vms=$(ps aux | grep qemu-system | awk -F '/' '{print $NF}' | awk -F ".img" '{print $1}')
     
-    echo -e "\033[34mVM Name:	     Status:\033[0m"
+    echo -e "${b}VM Name:	     Status:${w}"
     
     # Loop through each VM and check its status
     echo "$vms" | while read -r vm; do
@@ -81,10 +85,15 @@ vm_search() {
 }
 
 snapshot_search() {
-    echo -e "\033[34mSearching for\033[0m $vm_name \033[34msnapshots...\nSnapshot Images Found:\033[0m $(\
+    echo -e "${b}Searching for${w} $vm_name ${b}snapshots...\nSnapshot Images Found:${w} $(\
 		qemu-img snapshot -l "./../VM_Images/$vm_name.img" | grep 0 | wc -l)"
 	qemu-img snapshot -l "./../VM_Images/$vm_name.img"
 }
+
+if [[ "$1" == "-gv" ]]; then
+	vm_search
+	exit 0
+fi
 
 # Name / Info displayed on launch
 app_name_info
@@ -95,16 +104,16 @@ while true; do
     read -p "Enter a number between 0-7: " option
     case $option in
         1) 
-            echo -e "\033[34mStarting a VM or starting VM creation...\033[0m"
+            echo -e "${b}Starting a VM or starting VM creation...${w}"
             vm_search
 			./Scripts/qvm.sh
             ;;
         2) 
-            echo -e "\033[34mListing all VMs...\033[0m"
+            echo -e "${b}Listing all VMs...${w}"
             vm_search
             ;;
         3)
-            echo -e "\033[34mCreating a snapshot...\033[0m"
+            echo -e "${b}Creating a snapshot...${w}"
             vm_search
             if (( $(vm_search | grep "Found" | awk '{print $NF}') != 0 )); then
 				echo ""
@@ -115,11 +124,11 @@ while true; do
 						echo -e "Snapshot saved successfully!\n" || echo -e "Snapshot creation failed!\n"
 				fi
 			else
-				echo -e "\033[34mYou have not created any virtual machines yet! Please create a VM in order to save a snapshot.\033[0m"
+				echo -e "${b}You have not created any virtual machines yet! Please create a VM in order to save a snapshot.${w}"
 			fi
             ;;
         4)
-            echo -e "\033[34mViewing snapshots...\033[0m"
+            echo -e "${b}Viewing snapshots...${w}"
             vm_search
             if (( $(vm_search | grep "Found" | awk '{print $NF}') != 0 )); then
 	            echo ""
@@ -127,17 +136,17 @@ while true; do
 				if ! [[ "$vm_name" == "0" || -z "$vm_name" ]]; then
 		            ckss=$(qemu-img snapshot -l "./../VM_Images/$vm_name.img")
 					if [[ -z "$ckss" ]]; then
-						echo -e "\033[34mNo snapshots have been saved of the \033[0m$vm_name\033[34m virtual machine!\033[0m"
+						echo -e "${b}No snapshots have been saved of the ${w}$vm_name${b} virtual machine!${w}"
 					else
 						qemu-img snapshot -l "./../VM_Images/$vm_name.img"
 					fi
 				fi
 			else
-				echo -e "\033[34mYou have not created any virtual machines yet! Please create a VM in order to view saved snapshots.\033[0m"
+				echo -e "${b}You have not created any virtual machines yet! Please create a VM in order to view saved snapshots.${w}"
 			fi
             ;;
         5)
-            echo -e "\033[34mDeleting a snapshot...\033[0m"
+            echo -e "${b}Deleting a snapshot...${w}"
             vm_search
             if (( $(vm_search | grep "Found" | awk '{print $NF}') != 0 )); then
 				echo ""
@@ -145,20 +154,20 @@ while true; do
 				if ! [[ "$vm_name" == "0" || -z "$vm_name" ]]; then
 		            ckss=$(qemu-img snapshot -l "./../VM_Images/$vm_name.img")
 					if [[ -z "$ckss" ]]; then
-						echo -e "\033[34mNo snapshots have been saved of the \033[0m$vm_name\033[34m virtual machine!\033[0m"
+						echo -e "${b}No snapshots have been saved of the ${w}$vm_name${b} virtual machine!${w}"
 					else
 						snapshot_search
 			            read -p "Enter snapshot name/tag (Enter '0' to cancel): " snapshot_name
 			            qemu-img snapshot -d "$snapshot_name" "./../VM_Images/$vm_name.img" && \
-							echo -e "\033[34mSnapshot deleted successfully!\033[0m\n" || echo -e "\033[34mSnapshot deletion failed!\033[0m\n"
+							echo -e "${b}Snapshot deleted successfully!${w}\n" || echo -e "${b}Snapshot deletion failed!${w}\n"
 					fi
 				fi
 			else
-				echo -e "\033[34mYou have not created any virtual machines yet! Please create a VM in order to delete a snapshot.\033[0m"
+				echo -e "${b}You have not created any virtual machines yet! Please create a VM in order to delete a snapshot.${w}"
 			fi
             ;;
         6)
-            echo -e "\033[34mDeleting a VM...\033[0m"
+            echo -e "${b}Deleting a VM...${w}"
             vm_search
             if (( $(vm_search | grep "Found" | awk '{print $NF}') != 0 )); then
 	            echo ""
@@ -171,22 +180,22 @@ while true; do
 						rm "$HOME/QVM/config_files/vm_log_files/${vm_name}_vm_restart" && \
 						echo -e "The $vm_name VM has been deleted!\n" || echo -e "Failed to delete the $vm_name VM\n"
 		            else
-		                echo -e "\033[34mDeletion cancelled.\033[0m"
+		                echo -e "${b}Deletion cancelled.${w}"
 		            fi
 				fi
 			else
-				echo -e "\033[34mYou cannot delete a VM because you have not created any virtual machines yet!\033[0m"
+				echo -e "${b}You cannot delete a VM because you have not created any virtual machines yet!${w}"
 			fi
             ;;
         7)  
             ./Scripts/iso.sh
             ;;
         0)
-            echo -e "\033[34mQVM was properly stopped!\033[0m\n"
+            echo -e "${b}QVM was properly stopped!${w}\n"
             exit 0
             ;;
         *)
-            echo -e "\033[34mInvalid option. Please try again...\033[0m"
+            echo -e "${b}Invalid option. Please try again...${w}"
             ;;
     esac
 done
