@@ -1,11 +1,26 @@
 #!/bin/bash
 
 # Function to handle cleanup when script is interrupted
-cleanup() (
-  echo "Process interrupted. Returning to the main menu..."
-  ./qvm-manager.sh
-  exit 0
-)
+#cleanup() (
+#  echo "Process interrupted. Returning to the main menu..."
+#  ./qvm-manager.sh
+#  exit 0
+#)
+
+b="\033[34m"
+w="\033[0m"
+
+validate_input() {
+    local arg=$1
+	if [[ -z "$arg" || "$arg" == 0 ]]; then
+		echo -e "${b}Exit signal received... The VM creation process will be cancelled!${w}"
+		read -p "Are you sure you want to cancel? [Y/n]: " ep
+		if [[ "$ep" == [Yy] || "$ep" == ^[Yy]es$ ]]; then
+			echo -e "${b}Operation cancelled!${w}"
+			exit 1
+		fi
+	fi
+}
 
 # Set trap
 #trap cleanup SIGINT
@@ -13,12 +28,12 @@ cleanup() (
 # Get VM name
 echo ""
 read -p "HD Image name (Leave blank to cancel): " img_nme
-[ -z "$img_nme" ] && echo -e "\033[34mError: Invalid entry! Operation Cancelled.\033[0m\n" && exit 1
+[ -z "$img_nme" ] && echo -e "${b}Error: Invalid entry! Operation Cancelled.${w}\n" && exit 1
 
 # Check if the image file exists
 vm_exists=$(find $HOME -type f -name '*.img' | grep $img_nme)
 if [[ -z "$vm_exists" ]]; then
-    echo -e "\033[34mThat virtual machine does not exist. Creating a new VM..."
+    echo -e "${b}That virtual machine does not exist. Creating a new VM..."
 
 	# Start Command
 	new_vm_command="qemu-system-x86_64"
@@ -29,29 +44,31 @@ if [[ -z "$vm_exists" ]]; then
 	df -h | grep -E "Avail|kvm"
 	host_storage=$(df -h | grep "kvm")
 	available_host_storage=$(echo $host_storage | awk '{print $4}' | cut -dG -f1)
-	echo -e -n "\033[0m"
+	echo -e -n "${w}"
     while true; do
 		read -p "Specify HD disk size (must be an 'int', minimum of '20-30' is recommended): " HD
+		validate_input $HD
 		if [[ "$HD" =~ ^[0-9]+$ ]]; then
 	        if [[ "$HD" -ge 15 || "$HD" -lt $available_host_storage ]]; then
 				break
 	        else
 	            if [ "$HD" -le 6 ]; then 
-					echo -e "\033[34mError: Host storage is almost completely full. It is recommendeded that you backup important data immediately!\033[0m"
+					echo -e "${b}Error: Host storage is almost completely full. It is recommendeded that you backup important data immediately!${w}"
 				else
-					echo -e "\033[34mError: Size must be at least 15 & not more than\033[0m ${available_host_storage}\033[34m!\033[0m"
+					echo -e "${b}Error: Size must be at least 15 & not more than${w} ${available_host_storage}${b}!${w}"
 				fi
 	        fi
 		else
-	        echo -e "\033[34mError: Invalid input! Please enter an integer.\033[0m"
+	        echo -e "${b}Error: Invalid input! Please enter an integer.${w}"
 		fi
 	done
 	
 	# Storage format
-	echo -e "\033[34mAvailable storage formats;\033[0m"
+	echo -e "${b}Available storage formats;${w}"
 	echo -e "qcow2\nraw\nvdi\nvmdk\nvhd" | nl
     while true; do 
 		read -p "Specify HD disk format ('qcow2' recommended): " format
+		validate_input $format
 		if [[ "$format" == "1" ]]; then
 			format="qcow2"
 			break
@@ -68,7 +85,7 @@ if [[ -z "$vm_exists" ]]; then
 			format="vhd"
 			break
 		else
-			echo -e "\033[34mError: Invailid option!\033[0m"
+			echo -e "${b}Error: Invailid option!${w}"
 		fi
 	done
 	drive_id=$(( RANDOM % 1000 + 1 ))
@@ -77,17 +94,18 @@ if [[ -z "$vm_exists" ]]; then
 	vmr+=" -drive file=\"$HOME/QVM/config_files/VM_Images/$img_nme.img\",cache=writeback,id=$drive_id,format=${format}"
 	
 	# CPU
-	echo -e "\033[34mYour system has '\033[0m$(nproc)\033[34m' CPU's available\033[0m"
+	echo -e "${b}Your system has '${w}$(nproc)${b}' CPU's available${w}"
 	while true; do
 		read -p "How many host CPU's should be used?: " CPU
+		validate_input $CPU
 		if [[ "$CPU" =~ ^[0-9]+$ ]]; then
 	        if [[ "$CPU" -ge 1 || "$CPU" -lt $(nproc) ]]; then
 				break
 			else
-				echo -e "\033[34mInvalid Entry: You're selection must be between\033[0m 1 \033[34m&\033[0m $(nproc)\033[34m!\033[0m"
+				echo -e "${b}Invalid Entry: You're selection must be between${w} 1 ${b}&${w} $(nproc)${b}!${w}"
 			fi
 		else
-			echo -e "\033[0mError: Invalid input! Please enter an interger.\033[0m"
+			echo -e "${w}Error: Invalid input! Please enter an interger.${w}"
 		fi
 	done
 	new_vm_command+=" -smp ${CPU},sockets="$CPU",cores=1,threads=1 " 
@@ -98,30 +116,32 @@ if [[ -z "$vm_exists" ]]; then
 	# Memory
 	host_free_memory=$(free -h | awk '/^Mem:/ {print $4}' | sed 's/[^0-9.]//g')
 	recommd=$(echo $host_free_memory | bc | cut -d. -f1)
-	echo -e "\033[34mThere is '\033[0m${host_free_memory}\033[34m' GB of available host memory, minimum of '\033[0m2-4\033[34m' GB (recommended)\033[0m"
+	echo -e "${b}There is '${w}${host_free_memory}${b}' GB of available host memory, minimum of '${w}2-4${b}' GB (recommended)${w}"
 	while true; do
 		read -p "How much of the hosts memory should be used? (Must be an 'int'): " MEM
+		validate_input $MEM
 		if [[ "$MEM" =~ ^[0-9]+$ ]]; then
 	        if [[ "$MEM" -ge 2 || "$MEM" -lt $recommd ]]; then
 				break
 			else
-				echo -e "\033[34mInvalid Entry: You're entry must be between\033[0m 2 \033[34m&\033[0m $recommd\033[34m!\033[0m"
+				echo -e "${b}Invalid Entry: You're entry must be between${w} 2 ${b}&${w} $recommd${b}!${w}"
 			fi
 		else
 			if [[ "$MEM" -lt 1 ]]; then
-				echo -e "\033[34mYou have not allocated enough memory to create an efficient virtual machine. Please allocate more memory!\033[0m"
+				echo -e "${b}You have not allocated enough memory to create an efficient virtual machine. Please allocate more memory!${w}"
 			else
-				echo -e "\033[34mError: Invalid entry!\033[0m"
+				echo -e "${b}Error: Invalid entry!${w}"
 			fi
 		fi
 	done
 	
 	# Audio Drivers
-	echo -e "\033[34mAvailable audio drivers;\033[0m"
+	echo -e "${b}Available audio drivers;${w}"
 	echo -e "none\nPulseAudio\nALSA\nOSS\nsdl\nCoreAudio\nPipeWire\nSpice" | nl
 	while true; do
 		read -p "Enter a number between 1-8 to select an Audio driver: " AUD
-		if [[ $AUD -ge 0 || $AUD -lt 8 ]]; then
+		validate_input $AUD
+		if [[ $AUD -ge 0 && $AUD -lt 8 ]]; then
 			if [[ "$AUD" == "1" ]]; then
 				AUD="none"
 				break
@@ -148,16 +168,17 @@ if [[ -z "$vm_exists" ]]; then
 				break
 			fi
 		else
-			echo -e "\033[34minvalid!\033[0m"
+			echo -e "${b}invalid!${w}"
 		fi
 	done
 	
 	# Audio Driver Models
-	echo -e "\033[34mAvailable audio drivers models;\033[0m"
-	echo -e "none\nac97\nadlib\ncs43221a\nes1370\nhda\nsb16" | nl
+	echo -e "${b}Available audio drivers models;${w}"
+	echo -e "none\nac97\nadlib\ncs43221a\nes1370\nhda\nsb16\nintel-hda" | nl
 	while true; do
 		read -p "Enter a number between 1-7 to select an Audio driver: " AUDM
-		if [[ $AUDM -ge 0 || $AUDM -lt 7 ]]; then
+		validate_input $AUDM
+		if [[ $AUDM -ge 0 && $AUDM -lt 7 ]]; then
 			if [[ "$AUDM" == "1" ]]; then
 				AUDM="none"
 				break
@@ -181,12 +202,14 @@ if [[ -z "$vm_exists" ]]; then
 				break
 			fi
 		else
-			echo -e "\033[34minvalid!\033[0m"
+			echo -e "${b}invalid!${w}"
 		fi
 	done
 	
-		# TODO
-	new_vm_command+=""
+	snd_id=$(( RANDOM % 1000 + 1 ))
+	snd_id="${AUD}${snd_id}"
+	new_vm_command+=" -audio ${AUD},model=${AUDM}"
+	echo $snd_id
 	
 	# Enable Debug Mode
 	new_vm_command+=" -d cpu_reset -d guest_errors"
@@ -197,13 +220,14 @@ if [[ -z "$vm_exists" ]]; then
 	# Enable KVM
 	vt_support=$(lscpu | grep -E "Virt|Hyp" | grep -E "KVM|full|VT-x|AMD-V")
 	if ! [[ "$vt_support" =~ "KVM" ]]; then
-		echo -e "\033[34mIt looks like your system doesn't support hardware virtualization so KVM cannot be enabled!\033[0m"
+		echo -e "${b}It looks like your system doesn't support hardware virtualization so KVM cannot be enabled!${w}"
 		vt_support="0"
 		break
 	else
-		echo -e "\033[34mYour system supports full KVM virtualization...\033[0m"
+		echo -e "${b}Your system supports full KVM virtualization...${w}"
 		while true; do
 			read -p "Enable KVM? [Y/n]: " enable_kvm
+			validate_input $enable_kvm
 			if [[ "$enable_kvm" == "Y" || "$enable_kvm" == "y" || "$enable_kvm" =~ "yes" ]]; then
 				kvm_=",kvm=on"
 				new_vm_command+=" -enable-kvm"
@@ -215,7 +239,7 @@ if [[ -z "$vm_exists" ]]; then
 				kvm_e="No"
 				break
 			else
-				echo -e "\033[34mError: Invalid entry!\033[0m"
+				echo -e "${b}Error: Invalid entry!${w}"
 			fi
 		done
 		vt_support="1"
@@ -223,21 +247,22 @@ if [[ -z "$vm_exists" ]]; then
 	vmr="$new_vm_command"
 
 	# OS Image
-	echo -e "\033[34mAvailable ISO Images;\033[0m"
+	echo -e "${b}Available ISO Images;${w}"
 	find $HOME/QVM/ -type f -name "*.iso" -print0 | xargs -0 basename -s .iso -a | nl -s ". "
 	while true; do 
 		read -p "Enter the coresponding number to select an ISO image: " p_iso
+		validate_input $p_iso
 		if [[ "$p_iso" =~ ^[0-9]+$ ]]; then
 			iso_=$(find $HOME -type f -name "*.iso" | nl -s ". " | sed -n "${p_iso}p" | awk '{print $2}')
 			break
 		else
-			echo -e "\033[34mError: Invalid selection!\033[0m"
+			echo -e "${b}Error: Invalid selection!${w}"
 		fi
 	done
 	if echo $iso_ | grep cdrom; then
-		echo -e "\033[34mThat ISO disk is already in the QVM cdrom & ready to use... \033[0m"
+		echo -e "${b}That ISO disk is already in the QVM cdrom & ready to use... ${w}"
 	else
-		echo -e "\033[34mPlacing the selected ISO disk in the QVM cdrom...\033[0m"
+		echo -e "${b}Placing the selected ISO disk in the QVM cdrom...${w}"
 		sudo mv "$iso_" "$HOME/QVM/config_files/ISO_Images/cdrom/"
 		iso_=$(echo $iso_ | sed 's/ISO_Images/ISO_Images\/cdrom/g')
 	fi
@@ -245,10 +270,11 @@ if [[ -z "$vm_exists" ]]; then
 	os_basename=$(echo $iso_ | xargs -0 basename -s .iso -a)
 	
 	# Boot Options
-	echo -e "\033[34mAvailable boot options;\033[0m"
+	echo -e "${b}Available boot options;${w}"
 	echo -e "once=d\nmenu=on\norder=nc" | nl
 	while true; do
 		read -p "Enter a number between 1-3 to select a boot option: " boot_options
+		validate_input $boot_options
 		if [[ "$boot_options" == 1 || "$boot_options" == 3 ]]; then
 			if [[ "$boot_options" == 1 ]]; then
 				new_vm_command+=" -boot once=d"
@@ -265,7 +291,7 @@ if [[ -z "$vm_exists" ]]; then
 				vmr+=" -boot menu=on"
 				break
 			else
-				echo -e "\033[34mError: Invalid entry!\033[0m"
+				echo -e "${b}Error: Invalid entry!${w}"
 			fi
 		fi
 	done
@@ -277,11 +303,12 @@ if [[ -z "$vm_exists" ]]; then
 
 	# Hardware Virtualization & Virtual Hardware
 	if [[ "$vt_support" == "1" ]]; then
-		echo -e "\033[34mAvailable hardware virtualisation options;\033[0m"
+		echo -e "${b}Available hardware virtualisation options;${w}"
 		echo -e "host\nOpteron_G5\nEPYC" | nl
 		while true; do
 			while true; do
 				read -p "Enter a number between 1-3 to select your hardware virtualisation solution: " hvirt
+				validate_input $hvirt
 				if [[ "$hvirt" -ge 1 || "$hvirt" -lt 3 ]]; then
 					if [[ "$hvirt" == 1 ]]; then
 						hvirt="host"
@@ -294,7 +321,7 @@ if [[ -z "$vm_exists" ]]; then
 						break
 					fi
 				else
-					echo -e "\033[34mError: Invalid selection!\033[0m"
+					echo -e "${b}Error: Invalid selection!${w}"
 				fi
 			done
 			break
@@ -302,10 +329,11 @@ if [[ -z "$vm_exists" ]]; then
 		new_vm_command+=" -cpu ${hvirt}${kvm_}"
 		vmr+=" -cpu ${hvirt}${kvm_}"
 	
-		echo -e "\033[34mAvailable virtual hardware;\033[0m"
+		echo -e "${b}Available virtual hardware;${w}"
 		echo -e "q35,accel=kvm\npc-i440fx-2.12" | nl
 		while true; do
 			read -p "Enter the coresponding number to select which virtual hardware to use: " vhard
+			validate_input $vhard
 			if [[ "$vhard" == 1 || "$vhard" == 2 ]]; then
 				if [[ "$vhard" == 1 ]]; then
 					vhard="q35,accel=kvm"
@@ -315,19 +343,22 @@ if [[ -z "$vm_exists" ]]; then
 					break
 				fi
 			else
-				echo -e "\033[34mError: Invalid selection!\033[0m"
+				echo -e "${b}Error: Invalid selection!${w}"
 			fi
 		done
 		while true; do
-			read -p "Enable KVM's KSM (Kernel Same-Page Merging) feature? [Y/n]: " ksm_
-			if [[ "$ksm_" == "N" || "$ksm_" == "n" || "$ksm_" =~ "no" ]]; then
-				ksm_=""
-				break
-			elif [[ "$ksm_" == "Y" || "$ksm_" == "y" || "$ksm_" =~ "yes" ]]; then
-				ksm_=",mem-merge=on"
-				break
-			else
-				echo -e "\033[34mError: Invalid selection!\033[0m"
+			if [[ "$kvm_e" == "Yes" ]]; then
+				read -p "Enable KVM's KSM (Kernel Same-Page Merging) feature? [Y/n]: " ksm_
+				validate_input $ksm_
+				if [[ "$ksm_" == [Nn] || "$ksm_" == ^[Nn]o$ ]]; then
+					ksm_=""
+					break
+				elif [[ "$ksm_" == [Yy] || "$ksm_" == ^[Ys]es$ ]]; then
+					ksm_=",mem-merge=on"
+					break
+				else
+					echo -e "${b}Error: Invalid selection!${w}"
+				fi
 			fi
 		done
 		new_vm_command+=" -machine ${vhard}${ksm_}"
@@ -336,16 +367,18 @@ if [[ -z "$vm_exists" ]]; then
 
 	# Display
 	while true; do
-	    echo -e "\033[34mAvailable QEMU display options:\033[0m"
+	    echo -e "${b}Available QEMU display options:${w}"
 	    echo -e "QEMU defaults\nVGA" | nl
 	    read -p "Select display method (1 or 2): " display
+		validate_input $display
 	
 	    case $display in
 	        1)
-	            echo -e "\033[34mAvailable display options:\033[0m"
+	            echo -e "${b}Available display options:${w}"
 	            echo -e "gtk\ncurses\ndbus\nspice\nsdl\negl-headless\ncocoa" | nl
 				while true; do
 		            read -p "Select display: " vm_display
+					validate_input $vm_display
 					if [[ "$vm_display" == "1" ]]; then
 						vm_display="gtk"
 						break
@@ -368,12 +401,13 @@ if [[ -z "$vm_exists" ]]; then
 						vm_display="cocoa"
 						break
 					else
-						echo -e "\033[34mError: Invalid input!"
+						echo -e "${b}Error: Invalid input!"
 					fi
 				done
 				while true; do
-					echo -e "\033[34mWould you like to enable OpenGL features?\033[0m"
+					echo -e "${b}Would you like to enable OpenGL features?${w}"
 		            read -p "Enable OpenGL? [Y/n]: " gl
+					validate_input $gl
 		            if [[ "$gl" =~ ^[YyYes]$ ]]; then
 		                gl="on"
 						break
@@ -387,13 +421,17 @@ if [[ -z "$vm_exists" ]]; then
 	
 	            new_vm_command+=" -display ${vm_display},gl=${gl}"
 	            vmr+=" -display ${vm_display},gl=${gl}"
+				e_vga="No"
+				vga="None"
+				
 	            break
 	            ;;
 	        2)
-	            echo -e "\033[34mAvailable VGA drivers:\033[0m"
+	            echo -e "${b}Available VGA drivers:${w}"
 	            echo -e "virtio\ncirrus\nstd\nvmware\nqxl\ntcx\ncg3" | nl
 				while true; do
 	            	read -p "Select VGA driver: " vga
+					validate_input $vga
 					if [[ "$vga" == "1" ]]; then
 						vga="virtio"
 						break
@@ -416,22 +454,25 @@ if [[ -z "$vm_exists" ]]; then
 						vga="cg3"
 						break
 					else
-						echo -e "\033[34mError: Invalid input!\033[0m"
+						echo -e "${b}Error: Invalid input!${w}"
 					fi
 				done
 		                
 				new_vm_command+=" -vga ${vga}"
 		        vmr+=" -vga ${vga}"
+				e_vga="Yes, (Using the $vga interface)"
+				
 	
-	            echo -e "\033[34mAvailable display options:\033[0m"
+	            echo -e "${b}Available display options:${w}"
 	            echo -e "none\ngtk\ncurses\ndbus\nspice\nsdl\negl-headless\ncocoa\nvnc" | nl
 	            while true; do
 					read -p "Enter graphics memory (in MB): " graph_mem
+					validate_input $graph_mem
 					if [[ "$graph_mem" =~ ^[0-9]+$ ]]; then
 						if [[ "$graph_mem" -ge 32 || "$graph_mem" -lt 512 ]]; then
 							break
 						else
-							echo -e "\033[34mYour graphical memory allocation is out of bounds! Must be between '\033[0m32-512\033[34m' MB.\033[0m"
+							echo -e "${b}Your graphical memory allocation is out of bounds! Must be between '${w}32-512${b}' MB.${w}"
 						fi
 					fi
 				done
@@ -441,16 +482,17 @@ if [[ -z "$vm_exists" ]]; then
 	            break
 	            ;;
 	        *)
-	            echo -e "\033[34mError: Invalid entry! Please enter an interger.\033[0m"
+	            echo -e "${b}Error: Invalid entry! Please enter an interger.${w}"
 	            ;;
 	    esac
 	done
 	
 	# Network
-	echo -e "\033[34mAvailable network devices;\033[0m"
+	echo -e "${b}Available network devices;${w}"
 	echo -e "e1000\nvirtio-net-pci\nrtl8139\ni82559c\npcnet\ne1000-82545em" | nl
 	while true; do 
 		read -p "Select a network device: " ns
+		validate_input $ns
 		if [[ "$ns" == 1 ]]; then
 			ns="e1000"
 			break
@@ -470,7 +512,7 @@ if [[ -z "$vm_exists" ]]; then
 			ns="ne1000-82545em"
 			break
 		else
-			echo -e "\033[34mError: Invalid input!\033[0m"
+			echo -e "${b}Error: Invalid input!${w}"
 		fi
 	done
 	mac="50:54:00:00:54:02"
@@ -480,9 +522,10 @@ if [[ -z "$vm_exists" ]]; then
 	vmr+=" -device ${ns},netdev=n1,mac=${mac}"
 
 	# Enable Clipboard Sharing
-	echo -e "\033[34mWould you like to enable host clipboard sharing?\033[0m"
+	echo -e "${b}Would you like to enable host clipboard sharing?${w}"
 	while true; do
 		read -p "Enable host clipboard sharing? [Y/n]: " clipb
+		validate_input $clipb
 		if [[ "$clipb" == "N" || "$clipb" == "n" || "$clipb" =~ "no" ]]; then
 			new_vm_command+=""
 			vmr+=""
@@ -496,7 +539,20 @@ if [[ -z "$vm_exists" ]]; then
 			vmr+=" -device virtserialport,chardev=vdagent,name=com.redhat.spice.0"
 			break
 		else
-			echo ""
+			echo -e "Error: Invalid input!"
+		fi
+	done
+
+	while true; do
+		echo -e "\n${b}Virtual machine configuration complete!${w}"
+		read -p "Proceed with VM creation? [Y/n]: " ready
+		if [[ "$ready" == "Y" || "$ready" == "y" || "$ready" =~ "yes" ]]; then
+			break
+		elif [[ "$ready" == "N" || "$ready" == "n" || "$ready" =~ "no" ]]; then
+			echo -e "${b}Operation canceled!${w}"
+			exit 1
+		else
+			echo -e "Error: Invalid input!"
 		fi
 	done
 
@@ -516,6 +572,8 @@ if [[ -z "$vm_exists" ]]; then
 #	vm_command+="sudo cgexec -g cpu:/sys/fs/cgroup/cpu/$qemu_limit"
 	vm_command+=" ${new_vm_command}"
 	
+	dt=$(date)
+	
 	vm_specs="${CPU}\""
 	vm_specs+=" \"${MEM}\""
 	vm_specs+=" \"${os_basename}\""
@@ -524,16 +582,17 @@ if [[ -z "$vm_exists" ]]; then
 	vm_specs+=" \"${kvm_e}\""
 	vm_specs+=" \"${ns}\""
 	vm_specs+=" \"${vm_display}\""
-	vm_specs+=" \"${vga}\""
-	vm_specs+=" \"${gmem}\""
+	vm_specs+=" \"${e_vga}\""
+	vm_specs+=" \"${graph_mem}\""
+	vm_specs+=" \"${dt}\""
 	
-	echo -e "\033[34mSaving \033[0m$img_nme\033[34m VM restart command...\033[0m"
+	echo -e "${b}Saving ${w}$img_nme${b} VM restart command...${w}"
 	echo $vmr > $HOME/QVM/config_files/vm_log_files/${img_nme}_vm_restart
 	echo $vm_specs > $HOME/QVM/config_files/vm_log_files/${img_nme}_vm_specs
 	echo $vm_specs
 	
 	# Create QEMU virtual hard drive image with qcow2 format and specified size
-	echo -e "\033[34mCreate the \033[0m$img_nme\033[34m hard drive..."
+	echo -e "${b}Create the ${w}$img_nme${b} hard drive..."
     qemu-img create -f $format "./../VM_Images/$img_nme.img" "${HD}G"
 
 	# Start the newly created virtual machine
@@ -544,11 +603,11 @@ if [[ -z "$vm_exists" ]]; then
 	echo -e "$img_nme VM interface closed..."
 	echo -e "The $img_nme virtual machine has been shut down and is no longer running!\n"
 else
-    echo -e "\033[34mStarting the\033[0m $img_nme \033[34mvirtual machine. Running mounted VM image..."
+    echo -e "${b}Starting the${w} $img_nme ${b}virtual machine. Running mounted VM image..."
 	sleep 1
 	start_command=$(cat $HOME/QVM/config_files/vm_log_files/${img_nme}_vm_restart)
 	echo -e "Opening the VM interface..."
 	eval "$start_command"
-	echo -e "\033[0m$img_nme \033[34mVM interface closed..."
-	echo -e "The \033[0m$img_nme\033[34m virtual machine has been shut down and is no longer running!\033[0m\n"
+	echo -e "${w}$img_nme ${b}VM interface closed..."
+	echo -e "The ${w}$img_nme${b} virtual machine has been shut down and is no longer running!\033[0m\n"
 fi
