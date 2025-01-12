@@ -20,8 +20,8 @@ vvm=$(ls "$path" | sed 's/.img//g')
 
 if [[ "$1" == "-d" ]]; then
 	if [[ -n "$2" ]]; then
-		yad --bar \
-	        --title="Delete VM - $2" \
+		yad --bar --on-top \
+	        --title="QVM-v1.0.3 - Delete VM - $2" \
             --width=300 \
             --height=200 \
 	        --text="Are you sure that you want delete this virtual machine?" \
@@ -29,10 +29,12 @@ if [[ "$1" == "-d" ]]; then
 	        --auto-close \
 			--button="Cancel":1 --button="OK":0
 		case $? in
-			0)	sudo rm "${path}${2}.img"
+			0)	echo ""
+				yad --text-info --title="QVM-v1.0.3 - Deleting the $2 VM" --text="<b>Deleting the $2 VM! Depending on its HD size (i.e. 65GB+), it may take up to a minute or more!</b>" --button="OK":0
+				sudo rm "${path}${2}.img"
 				sudo rm "$HOME/QVM/config_files/vm_log_files/${2}_vm_"*
 				if ! $(get_vm_info | grep "$2" &>/dev/null); then
-					yad --title="Operation successful..." \
+					yad --title="QVM-v1.0.3 - Operation successful" --on-top \
 						--text="The $2 VM image has successfully been deleted." \
 	        			--button="OK":0
 	        		echo "The $2 VM image has successfully been deleted."
@@ -56,7 +58,7 @@ if [[ "$1" == "-rn" ]]; then
 	rename=$(echo $vvm | yad --on-top --form --width=480 \
     	--image="$HOME/QVM/config_files/logo_images/qemu2-2.png" \
 		--title="QVM-v1.0.3 - Rename a VM" \
-    	--separator='' \
+    	--on-top --separator='' \
 		--text="Enter a new name for the '$vvm' virtual machine" \
 		--field="New VM Name": "" \
 		--button="Cancel":1 --button="Rename VM":0)
@@ -68,12 +70,12 @@ if [[ "$1" == "-rn" ]]; then
 			sudo mv $HOME/QVM/config_files/vm_log_files/${vvm}_vm_specs $HOME/QVM/config_files/vm_log_files/${rename}_vm_specs
 			case $? in
 				0)	echo -e "The '$2' VM was successfully renamed to '$rename'!"
-					yad --title="Operation successful..." \
+					yad --title="QVM-v1.0.3 - Operation successful..." --on-top \
 						--text="The '$2' VM was successfully renamed to '$rename'!" \
 		        		--button="OK":0
 				;;
 				1)	echo -e "Error: Rename operation failed!"
-					yad --title="Operation failed..." \
+					yad --title="QVM-v1.0.3 - Operation failed..." --on-top \
 						--text="The $2 VM image has not been renamed." \
 		        		--button="OK":0
 				;;
@@ -91,13 +93,19 @@ else
 	vvme=$(echo "$vvm" | tr '\n' '!')
 fi
 
+buttons="--button=Cancel:1"
+if ! [[ -z "$vvm" ]]; then
+	view_vm=" --button=View:0"
+	buttons+="$view_vm"
+fi
+
 vms=$(echo $vvm | yad --on-top --form --width=300 --height=150 \
      --buttons-layout=center \
 	 --image="$HOME/QVM/config_files/logo_images/qemu2-2.png" \
 	--title="QVM-1.0.3 - View VM Specs" \
     --text="<b>$(echo $1 | awk -F "VM" '{print $2}' | sed 's/I/VM I/g')</b>" \
 	--field="<b>Select VM: </b>":CB "$vvme" \
-    --button="Cancel:1" --button="View:0")
+    $buttons)
 
 case $? in
     0) # View selected VMs
@@ -125,7 +133,7 @@ case $? in
     		--image="$HOME/QVM/config_files/logo_images/qemu2-2.png" \
 			--title="View VM" \
 		    --text="<b>QVM-v1.0.3 - '$vms' VM Specs</b>" \
-		    --form \
+		    --form --on-top \
 		    --field="VM Name":RO "$vms" \
 		    --field="Status":RO "$status" \
 		    --field="CPU Threads":RO "${cpu} Cores" \
