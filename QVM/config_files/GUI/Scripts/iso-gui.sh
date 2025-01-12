@@ -9,7 +9,7 @@ iso_search=$(echo -e "\033[34mSearching for ISO images...\n\033[0m" && \
 iso_menu() { yad --title "QVM-1.0.3 - Manage ISO Images " \
     --form --columns=1 --width=250 --height=250 \
     --image="$HOME/QVM/config_files/logo_images/qem	u2-2.png" \
-	--text="QVM ISO Manager" \
+	--on-top --text="QVM ISO Manager" --buttons-layout=center \
     --field="<b>View Local ISO Images</b>":fbtn "./Scripts/iso-gui.sh -v" \
     --field="<b>Download ISO Images</b>":fbtn "./Scripts/download-iso-images-gui.sh" \
     --field="<b>Import ISO Images</b>":fbtn "./Scripts/iso-gui.sh -i" \
@@ -27,19 +27,26 @@ else
 		if echo "$iso_files" | grep GUI &>/dev/null; then
 			iso_files=$(echo "$iso_files" | grep GUI | sed 's/$/& (Currently downloading...\)/g')
 		fi
+		if [[ -z "$iso_files" ]]; then
+			buttons="--button="Close":1"
+		else
+			buttons="--button=Delete:0 --button=Close:1"
+		fi
 		selected_iso=$(yad --title="QVM-v1.0.3 - Local ISO Image(s)" \
 		    --width=400 --height=300 \
 		    --image="$HOME/QVM/config_files/logo_images/qemu2-2.png" \
 		    --text="View and delete local ISO image(s)" \
 			--separator="" \
-		    --list \
+			--buttons-layout=center \
+		    --list --on-top \
 		    --column="Local ISO File(s)" $(echo "$iso_files") \
-		    --button="Delete":0 --button="Close":1)
+		    $buttons)
 		
 		case $? in
 			0)	#
 				yad --bar \
 			        --title="QVM-v1.0.3 - Delete ISO Image - $2" \
+					--buttons-layout=center \
 		            --width=300 \
 		            --height=100 \
 			        --text="Are you sure that you want delete this ISO image?" \
@@ -54,11 +61,13 @@ else
 							if [[ "$?" == 0 ]]; then
 							    echo "The $selected_iso ISO image has successfully been deleted!" && \
 								yad --title="QVM-v1.0.3 - Operation successful!" \
+									--buttons-layout=center \
 									--text="The '$selected_iso' ISO image has successfully been deleted!" \
 				        			--button="OK":0
 							else
 							    echo "The $selected_iso ISO image has not been deleted!" && \
 								yad --title="QVM-v1.0.3 - Operation failed!" \
+									--buttons-layout=center \
 									--text="The $selected_iso ISO image has not been deleted!" \
 				        			--button="OK":0
 							fi
@@ -81,8 +90,9 @@ else
 		LOGO_PATH="$HOME/QVM/config_files/logo_images/qemu2-2.png"
 		
 		show_dialog() {
-		    yad --title="$1" \
+		    yad --title="$1" --on-top \
 		        --image="$LOGO_PATH" \
+				--buttons-layout=center \
 		        --text="$2" \
 		        --button="OK:0" \
 		        --center \
@@ -91,12 +101,13 @@ else
 
 	    response=$(yad --title="ISO Image Importer" \
 	        --width=400 \
-	        --height=200 \
+	        --height=200 --on-top \
 	        --image="$LOGO_PATH" \
 	        --center \
 	        --text="Search for and import ISO images" \
 	        --text-align=center \
 	        --window-icon="drive-optical" \
+			--buttons-layout=center \
 	        --buttons-layout=center \
 	        --button="Search and Import:0" \
 	        --button="Cancel:1")
@@ -130,6 +141,7 @@ else
 	            --title="QVM-v1.0.3 - Eject Disk Image" \
 	            --text="The QVM cdrom can use multiple disks simultaneously.\nFor that reason it is always necessary to specify which disk to eject." \
 				--field="Select Image: ":CB "$cdromli"\
+				--buttons-layout=center \
 		        --button="Cancel:1" --button="Eject:0")
 	        
 	        if [[ -z "$iso" ]]; then
@@ -142,6 +154,7 @@ else
 	            sudo mv "../ISO_Images/cdrom/$iso.iso" "../ISO_Images/" | \
 	            yad --bar \
 	                --title="Ejecting ISO Disk" \
+					--buttons-layout=center \
 	                --width=300 \
 	                --height=100 \
 	                --text="Ejecting the ISO disk from the QVM cdrom..." \
@@ -155,12 +168,12 @@ else
 	        else
 	            echo "Selected ISO does not exist in the QVM cdrom!"
 	            zenity --error --title="Eject ISO Disk" \
-	                --text="Selected ISO does not exist in cdrom!" --timeout=2
+	                --text="Selected ISO does not exist in cdrom!" --timeout=2 2>/dev/null
 	        fi
 	    else
 	        echo "There are no ISO disks in the cdrom!"
 	        zenity --error --title="Eject ISO Disk" \
-	            --text="There are no ISO disks in the QVM cdrom!" --timeout=3
+	            --text="There are no ISO disks in the QVM cdrom!" --timeout=3 2>/dev/null
 	    fi
 	    exit 0
 	fi
