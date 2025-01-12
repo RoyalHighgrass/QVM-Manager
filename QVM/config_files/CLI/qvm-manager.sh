@@ -5,7 +5,6 @@ b="\033[34m"
 w="\033[0m"
 
 app_name_info() { echo -e "$(cat << 'EOF'
-${b}
 	  ______   __     __  __       __ 
   H	 /     /\ / /|   / /|/ /\     / /|
   Y	/$$$$$$  |$$ |   $$ |$$  \   /$$ |          ©2024 - QVM CLI.
@@ -35,14 +34,14 @@ EOF
 
 main_menu() {
 echo -e "$(cat << 'EOF'
-${b}
+
 ------------------------------------------------------------------------
 =================> QEMU Virtual Machine Manager ©2024 <=================
--------------------------------${w} Main Menu ${b}------------------------------
+------------------------------- Main Menu ------------------------------
 
-${w}Select one of the following options;
+Select one of the following options;
 
-${b}Options:${w}
+Options:
     1. Create or start VM
     2. List all VMs
     3. Save a VM snapshot
@@ -50,7 +49,7 @@ ${b}Options:${w}
     5. Delete a snapshot
     6. Delete a VM
     7. ISO images
-    0. Exit ${w}
+    0. Exit
 EOF
 )"
 }
@@ -87,7 +86,7 @@ vm_search() {
 snapshot_search() {
     echo -e "${b}Searching for${w} $vm_name ${b}snapshots...\nSnapshot Images Found:${w} $(\
 		qemu-img snapshot -l "./../VM_Images/$vm_name.img" | grep 0 | wc -l)"
-	qemu-img snapshot -l "./../VM_Images/$vm_name.img"
+	qemu-img snapshot -l "./../VM_Images/$vm_name.img" | sed 's/_//g'
 }
 
 if [[ "$1" == "-gv" ]]; then
@@ -120,7 +119,7 @@ while true; do
 				read -p "Enter a VM name (Enter '0' or leave blank to cancel): " vm_name
 				if ! [[ "$vm_name" == "0" || -z "$vm_name" ]]; then
 		            read -p "Enter snapshot name/tag: " snapshot_name
-		            qemu-img snapshot -c "$snapshot_name" "./../VM_Images/$vm_name.img" && \
+		            qemu-img snapshot -c "\_${snapshot_name}\_" "./../VM_Images/$vm_name.img" && \
 						echo -e "Snapshot saved successfully!\n" || echo -e "Snapshot creation failed!\n"
 				fi
 			else
@@ -138,7 +137,7 @@ while true; do
 					if [[ -z "$ckss" ]]; then
 						echo -e "${b}No snapshots have been saved of the ${w}$vm_name${b} virtual machine!${w}"
 					else
-						qemu-img snapshot -l "./../VM_Images/$vm_name.img"
+						qemu-img snapshot -l "./../VM_Images/$vm_name.img" | sed 's/_//g'
 					fi
 				fi
 			else
@@ -158,7 +157,7 @@ while true; do
 					else
 						snapshot_search
 			            read -p "Enter snapshot name/tag (Enter '0' to cancel): " snapshot_name
-			            qemu-img snapshot -d "$snapshot_name" "./../VM_Images/$vm_name.img" && \
+			            qemu-img snapshot -d "_${snapshot_name}_" "./../VM_Images/$vm_name.img" && \
 							echo -e "${b}Snapshot deleted successfully!${w}\n" || echo -e "${b}Snapshot deletion failed!${w}\n"
 					fi
 				fi
