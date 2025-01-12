@@ -95,7 +95,7 @@ case $? in
 		    --field="<b>View/Delete Snapshots</b>":fbtn "./Scripts/view-delete-snapshot-gui.sh -vs" \
 		    --field="<b>ISO Management</b>":fbtn "./Scripts/iso-gui.sh" \
 		    --field="<b>Settings</b>":fbtn "./../settings/settings.sh" \
-		    --field="<b>System Information</b>":fbtn "./../sys_info.sh" \
+		    --field="<b>System Information</b>":fbtn "./../settings/sys_info.sh" \
 		    --field="<b>User Manual</b>":fbtn "./qvm-manager-gui.sh -um" \
 		    --no-buttons
 		echo -e "${b}QVM-v1.0.3 has stopped!${w}"
