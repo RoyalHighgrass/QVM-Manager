@@ -1,5 +1,7 @@
 #!/bin/bash
 
+b="\033[34m"
+w="\033[0m"
 
 trap 'echo -e ""' SIGINT
 
@@ -32,16 +34,17 @@ vm_search() {
 
 # Show VM info
 if [[ "$1" == "-vv" ]]; then
-    echo -e "\033[34mSearching for VMs...\n\033[0m"
+    echo -e "${b}Searching for VMs...\n${w}"
 	vm_search
 	./Scripts/view-delete-vm-gui.sh "$(vm_search)"
 	exit 0
 fi
 
-echo -e "\033[34mPreparing to 'Create' or 'Start' a QEMU virtual machine...\033[0m"
+echo -e "${b}Preparing to 'Create' or 'Start' a QEMU virtual machine...${w}"
 
 vms=$(vm_search)
 img_nme=$(yad --on-top --entry \
+    --buttons-layout=center \
 	--title "QVM-1.0.3 - Create/Start VM" \
 	--text "<b>$vms</b> \n\nEnter a VM vHD Image name:") 
 
@@ -57,20 +60,31 @@ qlog="$HOME/QVM/config_files/vm_log_files/qemu.log"
 # Verify user input
 if [[ -z "$img_nme" ]]; then
 	if ps -e | grep qvm-manager &>/dev/null; then
-		echo -e "\033[34mError: Invalid entry! Operation Cancelled.\033[0m"
+		echo -e "${b}Error: Invalid entry! Operation Cancelled.${w}"
 		exit 1
 	else
 		exit 1
 	fi
 fi
 
+# Check if the VM is already running
+vmrun=$(ps aux | grep qemu-system | grep ${img_nme}.img)
+if ! [[ -z "$vmrun" ]]; then
+	echo -e "\n${b}qvm-manager: Operation failed: That VM is already running!${w}"
+	yad --width=400 --height=300 --title="QVM-v1.0.3 - Operation Failed" \
+		--text="Operation failed: That VM is already running!" \
+		--buttons-layout=center --on-top --button=OK:0
+	exit 1
+fi
+
 # Check if the VM image file doesn't exists
 if ! vm_search | grep $img_nme; then
 
-	echo -e "\033[34mThat virtual machine does not exists. Creating a new VM...\033[0m"
+	echo -e "${b}That virtual machine does not exists. Creating a new VM...${w}"
 
 	# Get ISO file path
-	iso_=$(yad --on-top --form --width=500 --height=100 --title="Choose OS Installation Media" \
+	iso_=$(yad --on-top --form --width=500 --height=100 \
+		--title="Choose OS Installation Media" --buttons-layout=center \
 		--text="Select the ISO image to use to create the new VM:" \
 		--image="$HOME/QVM/config_files/logo_images/qemu2-2.png" \
 		--field="Select Files:FL" ~/QVM/config_files/ISO_Images/cdrom)
@@ -108,6 +122,7 @@ if ! vm_search | grep $img_nme; then
 	
 	vm_specs=$(yad --on-top --width=800 --height=600 \
 	    --title="QVM-1.0.3 - Create a VM" \
+		--buttons-layout=center \
 		--columns=2 \
 		--text="New VM Specifications.$title" \
 	    --image="$HOME/QVM/config_files/logo_images/qemu2-2.png" \
@@ -142,7 +157,7 @@ if ! vm_search | grep $img_nme; then
 	vm_specs=$(echo $vm_specs | sed 's/" "/ /g')
 	
 	# Verify user input
-	[ -z "$vm_specs" ] && echo -e "\033[34mError: Invalid entry! Operation Cancelled.\033[0m" && exit 1
+	[ -z "$vm_specs" ] && echo -e "${b}Error: Invalid entry! Operation Cancelled.${w}" && exit 1
 
 	# Create QEMU virtual hard drive image with a specified format and size
 	format=$(echo $vm_specs | cut -d" " -f6)	
@@ -182,6 +197,7 @@ if ! vm_search | grep $img_nme; then
 		iso_=$(echo $iso_ | sed 's/ISO_Images/ISO_Images\/cdrom/g')
 	fi
 	new_vm_command+=" -cdrom ${iso_}"
+	os_basename=$(basename $iso_)
 	
 	# Boot Options
 	boot_options=$(echo $vm_specs | cut -d" " -f23)
@@ -323,6 +339,8 @@ if ! vm_search | grep $img_nme; then
 #	vm_command+="sudo cgexec -g cpu:/sys/fs/cgroup/cpu/$qemu_limit"
 	vm_command+=" ${new_vm_command}"
 	
+	dt=$(date)
+	
 	vm_specs="${vm_cpu}\""
 	vm_specs+=" \"${vm_mem}\""
 	vm_specs+=" \"${os_basename}\""
@@ -333,11 +351,11 @@ if ! vm_search | grep $img_nme; then
 	vm_specs+=" \"${vm_display}\""
 	vm_specs+=" \"${vga}\""
 	vm_specs+=" \"${gmem}\""
-	vm_specs+=" \""
+	vm_specs+=" \"${dt}\""
 	
-	echo -e "\033[34mSaving \033[0m$img_nme\033[34m VM restart command...\033[0m"
+	echo -e "${b}Saving ${w}$img_nme${b} VM restart command...${w}"
 	echo $vmr > $HOME/QVM/config_files/vm_log_files/${img_nme}_vm_restart
-	echo -e "\033[34mSaving \033[0m$img_nme\033[34m VM specs...\033[0m"
+	echo -e "${b}Saving ${w}$img_nme${b} VM specs...${w}"
 	echo $vm_specs > $HOME/QVM/config_files/vm_log_files/${img_nme}_vm_specs
 	echo $vm_specs
 	
@@ -368,4 +386,3 @@ else
 		echo -e "The $img_nme VM is already running..."
 	fi
 fi
-
