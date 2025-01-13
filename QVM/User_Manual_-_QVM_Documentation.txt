@@ -102,6 +102,9 @@ EXAMPLES
         qvm-manager --snap myvm --tag backup1
                 Create a snapshot of "myvm" with the tag "backup1".
 
+        qvm-manager --show-snap myvm
+                List all snapshots of the "myvm" virtual machine.
+
 GUI TIPS & HINTS
         - VM templating can only be implemented via the GUI.
         - VMs can only be renamed via the GUI.
