@@ -48,7 +48,7 @@ zenity --notification --title="QEMU Virtual Machine Manager v1.0.3" \
     --text="Starting QVM-v1.0.3 & Launching QEMU Virtual Machine Manager GUI" --timeout=1 2>/dev/null
 
 # You must place file "COPYING" in same folder of this script.
-FILE=`dirname $0`/../../license.txt
+FILE=`dirname $0`/../../LICENSE
 
 trap 'echo -e "\n${b}Warning: Abruptly shutting down QVM could result in data loss in a running VM.\nUse CTRL+C with caution!\n\nQVM-v1.0.3 was forced to stop running!${w}"' SIGINT
 
