@@ -27,9 +27,9 @@ sudo apt install -y wget tree locate zenity wmctrl make cpu-checker intltool aut
 mkdir $HOME/QVM
 sudo cp README.md $HOME/QVM/
 sudo cp QVM/* $HOME/QVM/
-mkdir -p $HOME/QVM/config_files/ISO_Images/cdrom
-mkdir -p $HOME/QVM/config_files/VM_Images
-mkdir -p $HOME/QVM/config_files/vm_log_files
+mkdir -p $config_f/ISO_Images/cdrom
+mkdir -p $config_f/VM_Images
+mkdir -p $config_f/vm_log_files
 
 # Create the /usr/bin/ instance & initialise the 'qvm-manager' startup command
 sudo tee /usr/bin/qvm-manager > /dev/null << 'EOF'
