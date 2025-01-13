@@ -270,7 +270,10 @@ else
             echo -e "\n${b}$version${w}"
         ;;
         --revert)
-            # Use a snapshot to revert the VM back to a previous state.
+            # Define tag
+	    TAG="_$4_"
+     
+	    # Use a snapshot to revert the VM back to a previous state.
             if [[ "$#" -ne 4 ]]; then
                 if [[ -z "$2" ]]; then
                     echo -e "${b}qvm-manager: Error: Invalid input: No VM name provided!${w}"
