@@ -9,33 +9,25 @@ cli="home/${usr}/QVM/config_files/CLI"
 gui="home/${usr}/QVM/config_files/GUI"
 settings="home/${usr}/QVM/config_files/settings"
 
-if [[ "$(whoami)" != "root" ]]; then
-	zenity --info --title="QVM v1.0.3 - Installation Wizard" \
-	--text="QEMU Virtual Machine Manager v1.0.3\n\nYou are trying to run the QVM configuration script as a non-privilaged user.\nThis script must be run as root! Run 'sudo ./config.sh' or './config.sh' after running the 'sudo su' command." \
-	--width=600 --height=400 --timeout=8 2>/dev/null
-	exit 1
-else
-	sudo apt install -y wget tree locate zenity wmctrl make cpu-checker intltool autoconf \
- 		original-awk mawk gawk gtk-layer-shell-doc gtk4-layer-shell-doc libgtk-3-common \
- 		libgtk-4-common libgtk-3-0t64 libgtk-3-dev acpi bc cgroup-tools libvirt-clients \
- 		libvirt-daemon-system bridge-utils virtinst libvirt-daemon qemu-kvm \
- 		qemu-system-common qemu-system-x86 qemu-system-modules-opengl mgba-sdl libsdl2-2.0-0 \
- 		libsdl2-net-2.0-0 mednafen
+sudo apt install -y wget tree locate zenity wmctrl make cpu-checker intltool autoconf \
+	original-awk mawk gawk gtk-layer-shell-doc gtk4-layer-shell-doc libgtk-3-common \
+	libgtk-4-common libgtk-3-0t64 libgtk-3-dev acpi bc cgroup-tools libvirt-clients \
+	libvirt-daemon-system bridge-utils virtinst libvirt-daemon qemu-kvm \
+	qemu-system-common qemu-system-x86 qemu-system-modules-opengl mgba-sdl libsdl2-2.0-0 \
+	libsdl2-net-2.0-0 mednafen
 
-	## Upcoming resource management feature scheduled for the official `QVM-v1.0.4` release 
- 	## Ensure necessary folders exist for CPU resource limiting processes
-	#sudo mkdir -p /sys/fs/cgroup/cpu/qvm_machine
-	#sudo mkdir -p /sys/fs/cgroup/cpuset/qvm_machine
-	#sudo mkdir -p /sys/fs/cgroup/memory/qvm_machine
-	#sudo mkdir -p $HOME/QVM/config_files/vm_log_files
+## Upcoming resource management feature scheduled for the official `QVM-v1.0.4` release 
+## Ensure necessary folders exist for CPU resource limiting processes
+#sudo mkdir -p /sys/fs/cgroup/cpu/qvm_machine
+#sudo mkdir -p /sys/fs/cgroup/cpuset/qvm_machine
+#sudo mkdir -p /sys/fs/cgroup/memory/qvm_machine
+#sudo mkdir -p $HOME/QVM/config_files/vm_log_files
 
-	# Install YAD
-	cd /tmp/
-	git clone https://github.com/v1cont/yad.git
-	cd yad/
-	autoreconf -ivf && intltoolize --force
-fi
-
+# Install YAD
+cd /tmp/
+git clone https://github.com/v1cont/yad.git
+cd yad/
+autoreconf -ivf && intltoolize --force
 
 # Setup the QVM filesystem & copy in the necessary QVM files
 sudo mkdir home/${usr}/QVM
