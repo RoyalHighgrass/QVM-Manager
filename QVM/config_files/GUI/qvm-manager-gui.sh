@@ -4,7 +4,7 @@ b="\033[34m"
 w="\033[0m"
 
 if [[ "$1" == "-um" ]]; then
-	yad --text-info --filename="../../help-info.txt" \
+	yad --text-info --filename="../../User_Manual_-_QVM_Documentation.txt" \
 		--title="File Contents" --width=850 --height=800 --on-top \
 		--buttons-layout=center \
 		--image="$HOME/QVM/config_files/logo_images/qemu2-1.png" \
