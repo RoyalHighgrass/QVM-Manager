@@ -42,7 +42,7 @@ sudo tee /usr/bin/qvm-manager > /dev/null << 'EOF'
 
 
 # User manual (Man Page)
-user_manual="$HOME/QVM/help-info.txt"
+user_manual="$HOME/QVM/User_Manual_-_QVM_Documentation.txt"
 
 # Working directories
 QVMcli="$HOME/QVM/config_files/CLI/"
