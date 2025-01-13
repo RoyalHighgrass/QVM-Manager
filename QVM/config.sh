@@ -8,11 +8,11 @@ cli="$HOME/QVM/config_files/CLI"
 gui="$HOME/QVM/config_files/GUI"
 settings="$HOME/QVM/config_files/settings"
 
-# Install QVM dependencies
-sudo apt install -y wget tree locate zenity wmctrl make cpu-checker intltool autoconf \
+# Install QVM dependencies git autoconf  
+sudo apt install -y wget tree git locate zenity wmctrl make cpu-checker intltool autoconf \
 	original-awk mawk gawk gtk-layer-shell-doc gtk4-layer-shell-doc libgtk-3-common \
 	libgtk-4-common libgtk-3-0t64 libgtk-3-dev acpi bc cgroup-tools libvirt-clients \
-	libvirt-daemon-system bridge-utils virtinst libvirt-daemon qemu-kvm \
+	libvirt-daemon-system bridge-utils virtinst libvirt-daemon qemu-kvm automake intltool \
 	qemu-system-common qemu-system-x86 qemu-system-modules-opengl mgba-sdl libsdl2-2.0-0 \
 	libsdl2-net-2.0-0 mednafen
 
@@ -428,10 +428,30 @@ sudo chmod +x $gui/Scripts/*.sh
 sudo chmod +x $settings/*.sh
 
 # Install YAD
-cd /tmp/
-git clone https://github.com/v1cont/yad.git
-cd yad/
-autoreconf -ivf && intltoolize --force
+#!/bin/bash
+
+# Clone YAD repository
+git clone https://github.com/v1cont/yad.git yad-dialog-code
+cd yad-dialog-code
+
+# Generate build scripts
+autoreconf -ivf && intltoolize
+
+# Configure, make, and install
+./configure
+make
+sudo make install
+
+# Update icon cache
+sudo gtk-update-icon-cache
+
+# Install additional libraries for extended functionality
+sudo apt-get install -y libwebkit2gtk-4.0-dev libgtksourceview-3.0-dev libgspell-1-dev
+
+# Configure with standalone option and custom defines
+CFLAGS="-DBORDERS=10 -DREMAIN -DCOMBO_EDIT" ./configure --enable-standalone
+
+echo "YAD installation complete!"
 
 cd $HOME
 
