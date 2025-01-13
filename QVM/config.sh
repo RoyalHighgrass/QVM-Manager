@@ -435,6 +435,9 @@ sudo chmod +x $gui/Scripts/*.sh
 sudo chmod +x $settings/*.sh
 
 # Clone YAD repository
+
+echo -e "\nInstall YAD ....\n"
+
 cd /tmp/
 git clone https://github.com/v1cont/yad.git
 cd yad/
