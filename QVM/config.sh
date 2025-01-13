@@ -23,12 +23,6 @@ sudo apt install -y wget tree locate zenity wmctrl make cpu-checker intltool aut
 #sudo mkdir -p /sys/fs/cgroup/memory/qvm_machine
 #sudo mkdir -p $HOME/QVM/config_files/vm_log_files
 
-# Install YAD
-cd /tmp/
-git clone https://github.com/v1cont/yad.git
-cd yad/
-autoreconf -ivf && intltoolize --force
-
 # Setup the QVM filesystem & copy in the necessary QVM files
 sudo mkdir home/${usr}/QVM
 sudo cp README.md/ home/${usr}/QVM/
@@ -432,6 +426,12 @@ sudo chmod +x $cli/Scripts/*.sh
 sudo chmod +x $gui/qvm-manager-gui.sh
 sudo chmod +x $gui/Scripts/*.sh
 sudo chmod +x $settings/*.sh
+
+# Install YAD
+cd /tmp/
+git clone https://github.com/v1cont/yad.git
+cd yad/
+autoreconf -ivf && intltoolize --force
 
 cd $HOME
 
