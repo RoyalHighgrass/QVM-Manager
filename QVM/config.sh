@@ -3,9 +3,11 @@
 
 echo "Installing basic required for QVM setup..."
 
-cli="$HOME/QVM/config_files/CLI"
-gui="$HOME/QVM/config_files/GUI"
-settings="$HOME/QVM/config_files/settings"
+usr=$(cat /etc/hosts | head -n 1 | awk '{print $2}')
+
+cli="home/${usr}/QVM/config_files/CLI"
+gui="home/${usr}/QVM/config_files/GUI"
+settings="home/${usr}/QVM/config_files/settings"
 
 if [[ "$(whoami)" != "root" ]]; then
 	zenity --info --title="QVM v1.0.3 - Installation Wizard" \
@@ -36,12 +38,12 @@ fi
 
 
 # Setup the QVM filesystem & copy in the necessary QVM files
-sudo mkdir $HOME/QVM
-sudo cp README.md/ $HOME/QVM/
-sudo cp QVM/* $HOME/QVM/
-sudo mkdir -p $HOME/QVM/config_files/ISO_Images/cdrom
-sudo mkdir -p $HOME/QVM/config_files/VM_Images
-sudo mkdir -p $HOME/QVM/config_files/vm_log_files
+sudo mkdir home/${usr}/QVM
+sudo cp README.md/ home/${usr}/QVM/
+sudo cp QVM/* home/${usr}/QVM/
+sudo mkdir -p home/${usr}/QVM/config_files/ISO_Images/cdrom
+sudo mkdir -p home/${usr}/QVM/config_files/VM_Images
+sudo mkdir -p home/${usr}/QVM/config_files/vm_log_files
 
 # Create the /usr/bin/ instance & initialise the 'qvm-manager' startup command
 sudo tee /usr/bin/qvm-manager > /dev/null << 'EOF'
@@ -441,4 +443,3 @@ cd $HOME
 echo -e "QVM installation complete!\nUse the 'qvm-manager' or 'qvm-manager --gui' command to get started with your QVM virtualization experience.\nFor speedy usage both commands can be executed by pressing 'qv' then the 'tab' key to autocomlete the command then press 'enter' with or without ' --gui' appended to it. Happy virtualization! ~ P.H."
 
 echo -e "\nQEMU Virtual Machine Manager v1.0.3 © QVM 2024"
-
