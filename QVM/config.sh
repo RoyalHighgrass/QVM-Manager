@@ -3,6 +3,7 @@
 
 echo "Installing basic required for QVM setup..."
 
+# Define QVM config paths
 config_f="$HOME/QVM/config_files"
 cli="$HOME/QVM/config_files/CLI"
 gui="$HOME/QVM/config_files/GUI"
@@ -420,6 +421,7 @@ fi
 
 EOF
 
+# Give all QVM files executable permissions
 sudo chmod +x /usr/bin/qvm-manager
 sudo chmod +x $cli/qvm-manager.sh
 sudo chmod +x $cli/Scripts/*.sh
@@ -427,17 +429,14 @@ sudo chmod +x $gui/qvm-manager-gui.sh
 sudo chmod +x $gui/Scripts/*.sh
 sudo chmod +x $settings/*.sh
 
-# Install YAD
-#!/bin/bash
-
 # Clone YAD repository
 git clone https://github.com/v1cont/yad.git yad-dialog-code
 cd yad-dialog-code
 
-# Generate build scripts
-autoreconf -ivf && intltoolize
+# Generate YAD build scripts
+autoreconf -ivf && intltoolize --force
 
-# Configure, make, and install
+# Configure, make, and install YAD
 ./configure
 make
 sudo make install
