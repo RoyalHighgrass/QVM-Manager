@@ -24,7 +24,7 @@ sudo apt install -y wget tree locate zenity wmctrl make cpu-checker intltool aut
 
 # Setup the QVM filesystem & copy in the necessary QVM files
 mkdir $HOME/QVM
-sudo cp README.md/ $HOME/QVM/
+sudo cp README.md $HOME/QVM/
 sudo cp QVM/* $HOME/QVM/
 mkdir -p $HOME/QVM/config_files/ISO_Images/cdrom
 mkdir -p $HOME/QVM/config_files/VM_Images
