@@ -32,7 +32,7 @@ This project implements a Type 2 hypervisor for Linux-based `x86_64` systems usi
 
 ## Installation
 
-**Note**: QVM has so far only been tested on Debian 12 & Kali Linux systems. The installation process is a bit temperamental at the moment but QVM itself is stable and should work as intended once installed.
+**Note**: QVM has so far only been tested on Debian 12 & Kali Linux systems. The installation process is a bit temperamental at the moment but QVM itself is stable and should work as intended once properly setup.
 
 
 First, make sure that your system is up-to-date & that `git` is installed:
