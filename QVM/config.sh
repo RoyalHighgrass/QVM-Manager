@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-echo "Installing basic required for QVM setup..."
+echo -e "Installing basic required for QVM to work properly...\n"
 
 # Define QVM config paths
 config_f="$HOME/QVM/config_files"
@@ -25,6 +25,8 @@ sudo apt install -y wget tree git locate zenity wmctrl make cpu-checker intltool
 #sudo mkdir -p $HOME/QVM/config_files/vm_log_files
 
 # Setup the QVM filesystem & copy in the necessary QVM files
+
+echo "Setting up the QVM file system...\n"
 mkdir $HOME/QVM
 sudo cp README.md $HOME/QVM/
 sudo cp -r QVM/* $HOME/QVM/
@@ -33,6 +35,9 @@ sudo mkdir -p $config_f/VM_Images
 sudo mkdir -p $config_f/vm_log_files
 
 # Create the /usr/bin/ instance & initialise the 'qvm-manager' startup command
+
+echo -e "\nCreating the /usr/bin/qvm-manager` file for launching or creating QVM sessions & instances ....\n"
+
 sudo tee /usr/bin/qvm-manager > /dev/null << 'EOF'
 
 
@@ -430,12 +435,11 @@ sudo chmod +x $gui/Scripts/*.sh
 sudo chmod +x $settings/*.sh
 
 # Clone YAD repository
-git clone https://github.com/v1cont/yad.git yad-dialog-code
-cd yad-dialog-code
-
-# Generate YAD build scripts
+cd /tmp/
+git clone https://github.com/v1cont/yad.git
+cd yad/
 autoreconf -ivf && intltoolize --force
-
+ 
 # Configure, make, and install YAD
 ./configure
 make
