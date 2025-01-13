@@ -3,6 +3,7 @@
 
 echo "Installing basic required for QVM setup..."
 
+config_f="$HOME/QVM/config_files"
 cli="$HOME/QVM/config_files/CLI"
 gui="$HOME/QVM/config_files/GUI"
 settings="$HOME/QVM/config_files/settings"
