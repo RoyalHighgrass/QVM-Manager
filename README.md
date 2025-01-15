@@ -134,6 +134,10 @@ Show help message:
 ```
 qvm-manager --help
 ```
+Save a VM snapshot:
+```
+qvm-manager --snap <vm_name> --tag <snapshot_name>
+```
 Roll back a VM to a previous state:
 ```
 qvm-manager --revert <vm_name> --tag <snapshot_name>
