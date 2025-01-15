@@ -70,7 +70,7 @@ sudo chmod +x QVM/config.sh
 
 All packages listed below (excluding `YAD`) are available via the Debian & Kali Linux repositories. This application is yet to be tested on the following commonly used Linux OS's;
 `Ubuntu`, `ArchLinux`, `Manjaro`, `ParrotOS` & `RaspiOS`.
-If you use one of these systems and any package listed below is not available via your systems repository, you may want to consider installing it manually from source before running the `sudo ./QVM/config.sh` command.
+If you use one of these systems and any package listed below is not available via your systems repository, you may want to consider installing it manually from source before running the `./QVM/config.sh` command.
 ```
 wget
 tree
@@ -133,6 +133,10 @@ qvm-manager --version
 Show help message:
 ```
 qvm-manager --help
+```
+Roll back a VM to a previous state:
+```
+qvm-manager --revert <vm_name> --tag <snapshot_name>
 ```
 
 For more advanced usage and configuration options, please refer to the [User Manual](QVM/User_Manual_-_QVM_Documentation) documentation.
