@@ -15,7 +15,7 @@ sudo apt install -y wget tree git locate zenity wmctrl make cpu-checker intltool
 	libgtk-4-common libgtk-3-0t64 libgtk-3-dev acpi bc cgroup-tools libvirt-clients \
 	libvirt-daemon-system bridge-utils virtinst libvirt-daemon qemu-kvm automake intltool \
 	qemu-system-common qemu-system-x86 qemu-system-modules-opengl mgba-sdl libsdl2-2.0-0 \
-	libsdl2-net-2.0-0 mednafen
+	libsdl2-net-2.0-0 mednafen build-essentials
 
 ## Upcoming resource management feature scheduled for the official `QVM-v1.0.4` release 
 ## Ensure necessary folders exist for CPU resource limiting processes
