@@ -143,7 +143,7 @@ Roll back a VM to a previous state:
 qvm-manager --revert <vm_name> --tag <snapshot_name>
 ```
 
-For more advanced usage and configuration options, please refer to the [User Manual](QVM/User_Manual_-_QVM_Documentation) documentation.
+For more advanced usage and configuration options, please refer to the [User Manual](QVM/User_Manual_-_QVM_Documentation.txt) documentation.
 
 ## Configuration
 
