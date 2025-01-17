@@ -10,7 +10,7 @@ suggested_vm_memory=$(echo "$suggested_vm_memory (recommended)")
 
 user_settings=$(cat ~/QVM/config_files/settings/check_settings)
 msc=""
-if [[ "$user_settings" != "edited" ]]; then
+if [ "$user_settings" != "edited" ]; then
     user_settings=$(cat ~/QVM/config_files/settings/default_settings | sed 's/" "/ /g' | sed 's/"//g')
 	msc+="2!1..${host_free_memory}!1!0" 
 	msc+=" 20!1..${host_free_space}!1!0"
