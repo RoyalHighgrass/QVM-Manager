@@ -19,25 +19,30 @@ zypper_pm="zypper install"
 
 case "$pm" in
     apt)    inst_method="$apt_pm"
-    	    $packages="wget tree git locate zenity wmctrl make cpu-checker intltool autoconf \
+    	$packages="wget tree git locate zenity wmctrl make cpu-checker intltool autoconf \
 		original-awk mawk gawk gtk-layer-shell-doc gtk4-layer-shell-doc libgtk-3-common \
 		libgtk-4-common libgtk-3-0t64 libgtk-3-dev acpi bc cgroup-tools libvirt-clients \
 		libvirt-daemon-system bridge-utils virtinst libvirt-daemon qemu-kvm automake intltool \
 		qemu-system-common qemu-system-x86 qemu-system-modules-opengl mgba-sdl libsdl2-2.0-0 \
-		libsdl2-net-2.0-0 mednafen build-essential";;
-    yum)    inst_method="$yum_pm" ;;
-    dnf)    inst_method="$dnf_pm" ;;
-    zypper) inst_method="$zypper_pm" ;;
-    pacman) inst_method="$pacman_pm" ;;
-    *)      echo "Unsupported package manager: $pm"; exit 1 ;;
+		libsdl2-net-2.0-0 mednafen build-essential"
+    ;;
+    yum)    inst_method="$yum_pm"
+    	packages=""
+	;;
+    dnf)    inst_method="$dnf_pm"
+    	packages=""
+	;;
+    zypper) inst_method="$zypper_pm"
+    	packages=""
+	;;
+    pacman) inst_method="$pacman_pm"
+    	packages=""
+	;;
+    *)  echo "Unsupported package manager: $pm"; exit 1
+	;;
 esac
 
-$apt_packages="wget tree git locate zenity wmctrl make cpu-checker intltool autoconf \
-	original-awk mawk gawk gtk-layer-shell-doc gtk4-layer-shell-doc libgtk-3-common \
-	libgtk-4-common libgtk-3-0t64 libgtk-3-dev acpi bc cgroup-tools libvirt-clients \
-	libvirt-daemon-system bridge-utils virtinst libvirt-daemon qemu-kvm automake intltool \
-	qemu-system-common qemu-system-x86 qemu-system-modules-opengl mgba-sdl libsdl2-2.0-0 \
-	libsdl2-net-2.0-0 mednafen build-essential"
+eval "$inst_method" "$packages"
 
 ## Upcoming resource management feature scheduled for the official `QVM-v1.0.4` release 
 ## Ensure necessary folders exist for CPU resource limiting processes
