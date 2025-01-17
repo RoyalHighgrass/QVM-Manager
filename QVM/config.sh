@@ -9,8 +9,27 @@ cli="$HOME/QVM/config_files/CLI"
 gui="$HOME/QVM/config_files/GUI"
 settings="$HOME/QVM/config_files/settings"
 
-# Install QVM dependencies git autoconf  
-sudo apt install -y wget tree git locate zenity wmctrl make cpu-checker intltool autoconf \
+# Install QVM dependencies
+pm=$(which dnf || which yum || which pacman || which zypper || which apt || which pacman | xargs -0 basename -a)
+apt_pm="sudo apt install -y"
+yum_pm="sudo yum install -y"
+dnf_pm="sudo dnf install -y"
+pacman_pm="sudo pacman -S"
+zypper_pm="zypper install"
+
+if [ "$pm" = "apt" ]; then
+	inst_method="$apt_pm"
+elif [ "$pm" = "yum" ]; then
+	inst_method="$yum_pm"
+elif [ "$pm" = "dnf" ]; then
+	inst_method="$dnf_pm"
+elif [ "$pm" = "zypper" ]; then
+	inst_method="$zypper_pm"
+elif [ "$pm" = "pacman" ]; then
+	inst_method="$pacman_pm"
+fi
+
+$inst_method wget tree git locate zenity wmctrl make cpu-checker intltool autoconf \
 	original-awk mawk gawk gtk-layer-shell-doc gtk4-layer-shell-doc libgtk-3-common \
 	libgtk-4-common libgtk-3-0t64 libgtk-3-dev acpi bc cgroup-tools libvirt-clients \
 	libvirt-daemon-system bridge-utils virtinst libvirt-daemon qemu-kvm automake intltool \
