@@ -13,7 +13,7 @@ echo -e "\n${b}Select an ISO image to download...${w}"
 echo -e "${b}Available ISO images;${w}"
 iso_img=$(echo -e "Debian 12\nArchLinux\nKali Linux\nUbuntu Noble Desktop\nUbuntu (Server)\nRaspiOS\nManjaro\nParrotOS\nFedora\nLinux Mint\nTail OS\nNone of the above (Choose Alternative)" | nl -s ".  ")
 
-if [[ "$1" == "-li" ]]; then
+if [ "$1" = "-li" ]; then
 	echo "$iso_img"
 	exit 0
 fi
@@ -29,9 +29,9 @@ iso_img=$(echo "$iso_img" | yad --list --title="$title Available ISO Images" \
 
 case $? in
 	0)	selected_iso_img_num=$(echo $iso_img | cut -d. -f1)
-		if [[ "$iso_img" == "Alternative" ]]; then
+		if [ "$iso_img" = "Alternative" ]; then
         	other_iso=$(yad --entry --title="Enter custom ISO URL" --text="Enter the full download URL for your desired ISO image:")
-            if [[ ! -z "$other_iso" ]]; then
+            if [ ! -z "$other_iso" ]; then
                 other_iso_name=$(basename "$other_iso" .iso)
                 confirm=$(yad --question --buttons-layout=center \
 					--text="Are you sure you want to download this $other_iso_name ISO image?" --button="Yes:0" --button="No:1")
@@ -218,7 +218,7 @@ case $? in
 				manj_type=$(echo "$manj_type" | yad --list --title="Available Manjaro OS images" \
 					--column="Available versions of Manjaro OS" --height=200 --width=300)
 				
-		        if [[ -z "$manj_type" ]]; then
+		        if [ -z "$manj_type" ]; then
 					echo -e "Error: Operation cancelled!"
 					exit 1
 				fi
