@@ -17,17 +17,17 @@ iso_menu() { yad --title "QVM-1.0.3 - Manage ISO Images " \
     --button=Close:1
 }
 
-if [[ -z "$1" ]]; then
+if [ -z "$1" ]; then
 	iso_menu
 else
 	# View & delete ISO images
-	if [[ "$1" == "-v" ]]; then
+	if [ "$1" = "-v" ]; then
 		echo -e "$iso_search"
 		iso_files=$(find "$HOME" -type f -name "*.iso" -printf "%f\n" | cut -d. -f1 | sort)
 		if echo "$iso_files" | grep GUI &>/dev/null; then
 			iso_files=$(echo "$iso_files" | grep GUI | sed 's/$/& (Currently downloading...\)/g')
 		fi
-		if [[ -z "$iso_files" ]]; then
+		if [ -z "$iso_files" ]; then
 			buttons="--button="Close":1"
 		else
 			buttons="--button=Delete:0 --button=Close:1"
@@ -58,7 +58,7 @@ else
 					0)	# Process the selected files for deletion
 					    echo "$selected_iso" | while read -r file; do
 							sudo rm "$HOME/QVM/config_files/ISO_Images/${selected_iso}.iso"
-							if [[ "$?" == 0 ]]; then
+							if [ "$?" = 0 ]; then
 							    echo "The $selected_iso ISO image has successfully been deleted!" && \
 								yad --title="QVM-v1.0.3 - Operation successful!" \
 									--buttons-layout=center \
@@ -84,7 +84,7 @@ else
 		exit 0
 	fi
 	
-	if [[ "$1" == "-i" ]]; then
+	if [ "$1" = "-i" ]; then
 		# Import manually downloaded ISO files
 		ISO_DEST="$HOME/QVM/config_files/ISO_Images/"
 		LOGO_PATH="$HOME/QVM/config_files/logo_images/qemu2-2.png"
@@ -112,16 +112,16 @@ else
 	        --button="Search and Import:0" \
 	        --button="Cancel:1")
 	
-	    if [[ $? -eq 0 ]]; then
+	    if [ $? -eq 0 ]; then
 	        mapfile -d '' iso_files < <(find "$HOME" -type f -name "*.iso" -not -path "$HOME/QVM/*" -print0)
 	
-	        if [[ ${#iso_files[@]} -eq 0 ]]; then
+	        if [ ${#iso_files[@]} -eq 0 ]; then
 	            show_dialog "No ISOs Found" "The ISO search did not find any images to import!"
 	        else
 	            if sudo mv "${iso_files[@]}" "$ISO_DEST"; then
 	                show_dialog "Import Successful" "Image(s) successfully imported!"
 	            else
-	                if [[ $? -eq 1 ]]; then
+	                if [ $? -eq 1 ]; then
 	                    show_dialog "Permission Error" "Permission denied to move files.\n\nPlease ensure you have sufficient permissions."
 	                else
 	                    show_dialog "Import Failed" "ISO import failed!\n\nAn unexpected error has occurred."
@@ -132,10 +132,10 @@ else
 	fi
 
 	
-	if [[ "$1" == "-e" ]]; then
+	if [ "$1" = "-e" ]; then
 	    cdrom=$(ls ../ISO_Images/cdrom/ | cut -d. -f1)
 		cdromli=$(echo $cdrom | sed 's/ /\!/g')
-	    if ! [[ -z "$cdrom" ]]; then
+	    if ! [ -z "$cdrom" ]; then
 	        iso=$(echo $cdrom | yad --form \
     			--image="$HOME/QVM/config_files/logo_images/qemu2-2.png" \
 	            --title="QVM-v1.0.3 - Eject Disk Image" \
@@ -144,12 +144,12 @@ else
 				--buttons-layout=center \
 		        --button="Cancel:1" --button="Eject:0")
 	        
-	        if [[ -z "$iso" ]]; then
+	        if [ -z "$iso" ]; then
 	            exit 0
 	        fi
 			iso=$(echo $iso | cut -d "|" -f1)
 	
-	        if [[ -f "../ISO_Images/cdrom/$iso.iso" ]]; then
+	        if [ -f "../ISO_Images/cdrom/$iso.iso" ]; then
 	            echo "Ejecting the ISO disk from the cdrom..."
 	            sudo mv "../ISO_Images/cdrom/$iso.iso" "../ISO_Images/" | \
 	            yad --bar \
