@@ -26,13 +26,13 @@ else
 	vvme=$(echo "$vvm" | tr '\n' '!')
 fi
 
-if [[ -z "$vvm" ]]; then
+if [ -z "$vvm" ]; then
 	yad --width=200 --text="<b>You haven't created any virtual mechines yet!</b>" --button="OK":0
 	exit 1
 fi
 
-if ! [[ -z $1 ]]; then
-	if [[ "$1" == "-sss" ]]; then
+if ! [ -z $1 ]; then
+	if [ "$1" = "-sss" ]; then
 		vss=$(echo $vvm | yad --on-top --form --width=480 \
     		--image="$HOME/QVM/config_files/logo_images/qemu2-2.png" \
 			--title="QVM-1.0.3 - Save Snapshot" \
@@ -72,7 +72,7 @@ if ! [[ -z $1 ]]; then
 		esac
 	fi
 
-	if [[ "$1" == "-vs" ]]; then
+	if [ "$1" = "-vs" ]; then
 		ss=$(yad --form --text="<b>Select a VM to view any snapshots you have taken.</b>" \
     		--image="$HOME/QVM/config_files/logo_images/qemu2-2.png" \
 			--title="QVM-1.0.3 - View Snapshots" \
@@ -86,7 +86,7 @@ if ! [[ -z $1 ]]; then
 				gso=$(awk '{print $2}' <<< "$vss" | grep -v -E "TAG|:")
 				so=$(echo $gso | tr '\n' ' ' | sed 's/_ _/!/g; s/_//g')
 				echo $so
-				if [[ -z "$gso" ]]; then
+				if [ -z "$gso" ]; then
 					buttons="--button=Close:1"
 					text="There are no snapshots saved of this VM."
 				else
@@ -100,9 +100,9 @@ if ! [[ -z $1 ]]; then
 					--on-top --field="Select Snapshot":CB "$so" \
 					$buttons)
 		
-				if [[ "$?" == 0 ]]; then
+				if [ "$?" = 0 ]; then
 					count=$(echo "$gso" | wc -l)
-					if [[ "$count" == 1 ]]; then
+					if [ "$count" = 1 ]; then
 						sstd=$(echo "$sstd" | awk -F" " '{print $1}')
 					fi
 					yad --title="QVM-v1.0.3 - Delete Snapshot" \
@@ -113,7 +113,7 @@ if ! [[ -z $1 ]]; then
 				        --pulsate \
 				        --auto-close \
 						--button="Cancel":1 --button="OK":0
-					if [[ "$?" == 0 ]]; then
+					if [ "$?" = 0 ]; then
 						sstd=$(echo $sstd | awk -F "\|" '{print $1}' 2> /dev/null)
 						if qemu-img snapshot -d "_${sstd}_" "./../VM_Images/$vmn.img" &>/dev/null; then
 							echo "$vmn snapshot deleted successfully!"
@@ -128,14 +128,14 @@ if ! [[ -z $1 ]]; then
 								--button="OK":0
 							exit 1
 						fi
-					elif [[ "$?" == 1 ]]; then
+					elif [ "$?" = 1 ]; then
 						echo "qvm-manager: Operation cancelled!"
 						exit 1
 					else
 						echo "qvm-manager: Error: Something unexpected occured!"
 						exit 1
 					fi
-				elif [[ "$?" == 1 ]]; then
+				elif [ "$?" = 1 ]; then
 					exit 1
 				else
 					echo "Error: Somethimg unexpected occured!"
