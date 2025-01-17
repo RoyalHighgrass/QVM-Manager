@@ -99,7 +99,7 @@ yad --width=500 \
     --buttons-layout=center \
     --button="Clear Terminal":0 --button="Close":1
 
-if [[ "$?" == 0 ]]; then
+if [ "$?" = 0 ]; then
 	clear
 	credit
 fi
