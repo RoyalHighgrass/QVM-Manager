@@ -10,7 +10,7 @@ gui="$HOME/QVM/config_files/GUI"
 settings="$HOME/QVM/config_files/settings"
 
 # Install QVM dependencies
-pm=$(which dnf || which yum || which pacman || which zypper || which apt || which pacman | xargs -0 basename -a)
+pm=$(which dnf || which yum || which pacman || which zypper || which apt | xargs -0 basename -a)
 apt_pm="sudo apt install -y"
 yum_pm="sudo yum install -y"
 dnf_pm="sudo dnf install -y"
