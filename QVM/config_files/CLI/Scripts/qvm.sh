@@ -12,10 +12,10 @@ w="\033[0m"
 
 validate_input() {
     local arg=$1
-	if [[ -z "$arg" || "$arg" == 0 ]]; then
+	if [ -z "$arg" ] || [ "$arg" = 0 ]; then
 		echo -e "${b}Exit signal received... The VM creation process will be cancelled!${w}"
 		read -p "Are you sure you want to cancel? [Y/n]: " ep
-		if [[ "$ep" == [Yy] || "$ep" == ^[Yy]es$ ]]; then
+		if [ "$ep" = [Yy] ] || [ "$ep" = ^[Yy]es$ ]; then
 			echo -e "${b}Operation cancelled!${w}"
 			exit 1
 		fi
@@ -32,7 +32,7 @@ read -p "HD Image name (Leave blank to cancel): " img_nme
 
 # Check if the image file exists
 vm_exists=$(find $HOME -type f -name '*.img' | grep $img_nme)
-if [[ -z "$vm_exists" ]]; then
+if [ -z "$vm_exists" ]; then
     echo -e "${b}That virtual machine does not exist. Creating a new VM..."
 
 	# Start Command
@@ -48,8 +48,8 @@ if [[ -z "$vm_exists" ]]; then
     while true; do
 		read -p "Specify HD disk size (must be an 'int', minimum of '20-30' is recommended): " HD
 		validate_input $HD
-		if [[ "$HD" =~ ^[0-9]+$ ]]; then
-	        if [[ "$HD" -ge 15 || "$HD" -lt $available_host_storage ]]; then
+		if [ "$HD" =~ ^[0-9]+$ ]; then
+	        if [ "$HD" -ge 15 ] || [ "$HD" -lt $available_host_storage ]; then
 				break
 	        else
 	            if [ "$HD" -le 6 ]; then 
@@ -69,19 +69,19 @@ if [[ -z "$vm_exists" ]]; then
     while true; do 
 		read -p "Specify HD disk format ('qcow2' recommended): " format
 		validate_input $format
-		if [[ "$format" == "1" ]]; then
+		if [ "$format" = "1" ]; then
 			format="qcow2"
 			break
-		elif [[ "$format" == "2" ]]; then
+		elif [ "$format" = "2" ]; then
 			format="raw"
 			break
-		elif [[ "$format" == "3" ]]; then
+		elif [ "$format" = "3" ]; then
 			format="vdi"
 			break
-		elif [[ "$format" == "4" ]]; then
+		elif [ "$format" = "4" ]; then
 			format="vmdk"
 			break
-		elif [[ "$format" == "5" ]]; then
+		elif [ "$format" = "5" ]; then
 			format="vhd"
 			break
 		else
@@ -98,8 +98,8 @@ if [[ -z "$vm_exists" ]]; then
 	while true; do
 		read -p "How many host CPU's should be used?: " CPU
 		validate_input $CPU
-		if [[ "$CPU" =~ ^[0-9]+$ ]]; then
-	        if [[ "$CPU" -ge 1 || "$CPU" -lt $(nproc) ]]; then
+		if [ "$CPU" =~ ^[0-9]+$ ]; then
+	        if [ "$CPU" -ge 1 ] || [ "$CPU" -lt $(nproc) ]; then
 				break
 			else
 				echo -e "${b}Invalid Entry: You're selection must be between${w} 1 ${b}&${w} $(nproc)${b}!${w}"
@@ -120,14 +120,14 @@ if [[ -z "$vm_exists" ]]; then
 	while true; do
 		read -p "How much of the hosts memory should be used? (Must be an 'int'): " MEM
 		validate_input $MEM
-		if [[ "$MEM" =~ ^[0-9]+$ ]]; then
-	        if [[ "$MEM" -ge 2 || "$MEM" -lt $recommd ]]; then
+		if [ "$MEM" =~ ^[0-9]+$ ]; then
+	        if [ "$MEM" -ge 2 ] || [ "$MEM" -lt $recommd ]; then
 				break
 			else
 				echo -e "${b}Invalid Entry: You're entry must be between${w} 2 ${b}&${w} $recommd${b}!${w}"
 			fi
 		else
-			if [[ "$MEM" -lt 1 ]]; then
+			if [ "$MEM" -lt 1 ]; then
 				echo -e "${b}You have not allocated enough memory to create an efficient virtual machine. Please allocate more memory!${w}"
 			else
 				echo -e "${b}Error: Invalid entry!${w}"
@@ -141,29 +141,29 @@ if [[ -z "$vm_exists" ]]; then
 	while true; do
 		read -p "Enter a number between 1-8 to select an Audio driver: " AUD
 		validate_input $AUD
-		if [[ $AUD -ge 0 && $AUD -lt 8 ]]; then
-			if [[ "$AUD" == "1" ]]; then
+		if [ $AUD -ge 0 ] && [ $AUD -lt 8 ]; then
+			if [ "$AUD" = "1" ]; then
 				AUD="none"
 				break
-			elif [[ "$AUD" == "2" ]]; then
+			elif [ "$AUD" = "2" ]; then
 				AUD="pa"
 				break
-			elif [[ "$AUD" == "3" ]]; then
+			elif [ "$AUD" = "3" ]; then
 				AUD="alsa"
 				break
-			elif [[ "$AUD" == "4" ]]; then
+			elif [ "$AUD" = "4" ]; then
 				AUD="oss"
 				break
-			elif [[ "$AUD" == "5" ]]; then
+			elif [ "$AUD" = "5" ]; then
 				AUD="sdl"
 				break
-			elif [[ "$AUD" == "6" ]]; then
+			elif [ "$AUD" = "6" ]; then
 				AUD="coreaudio"
 				break
-			elif [[ "$AUD" == "7" ]]; then
+			elif [ "$AUD" = "7" ]; then
 				AUD="pipewire"
 				break
-			elif [[ "$AUD" == "8" ]]; then
+			elif [ "$AUD" = "8" ]; then
 				AUD="spice"
 				break
 			fi
@@ -178,26 +178,26 @@ if [[ -z "$vm_exists" ]]; then
 	while true; do
 		read -p "Enter a number between 1-7 to select an Audio driver: " AUDM
 		validate_input $AUDM
-		if [[ $AUDM -ge 0 && $AUDM -lt 7 ]]; then
-			if [[ "$AUDM" == "1" ]]; then
+		if [ $AUDM -ge 0 ] && [ $AUDM -lt 7 ]; then
+			if [ "$AUDM" = "1" ]; then
 				AUDM="none"
 				break
-			elif [[ "$AUDM" == "2" ]]; then
+			elif [ "$AUDM" = "2" ]; then
 				AUDM="ac97"
 				break
-			elif [[ "$AUDM" == "3" ]]; then
+			elif [ "$AUDM" = "3" ]; then
 				AUDM="adlib"
 				break
-			elif [[ "$AUDM" == "4" ]]; then
+			elif [ "$AUDM" = "4" ]; then
 				AUDM="cs43221a"
 				break
-			elif [[ "$AUDM" == "5" ]]; then
+			elif [ "$AUDM" = "5" ]; then
 				AUDM="nes1370"
 				break
-			elif [[ "$AUDM" == "6" ]]; then
+			elif [ "$AUDM" = "6" ]; then
 				AUDM="hda"
 				break
-			elif [[ "$AUDM" == "7" ]]; then
+			elif [ "$AUDM" = "7" ]; then
 				AUDM="sb16"
 				break
 			fi
@@ -219,7 +219,7 @@ if [[ -z "$vm_exists" ]]; then
 
 	# Enable KVM
 	vt_support=$(lscpu | grep -E "Virt|Hyp" | grep -E "KVM|full|VT-x|AMD-V")
-	if ! [[ "$vt_support" =~ "KVM" ]]; then
+	if ! [ "$vt_support" =~ "KVM" ]; then
 		echo -e "${b}It looks like your system doesn't support hardware virtualization so KVM cannot be enabled!${w}"
 		vt_support="0"
 		break
@@ -228,12 +228,12 @@ if [[ -z "$vm_exists" ]]; then
 		while true; do
 			read -p "Enable KVM? [Y/n]: " enable_kvm
 			validate_input $enable_kvm
-			if [[ "$enable_kvm" == "Y" || "$enable_kvm" == "y" || "$enable_kvm" =~ "yes" ]]; then
+			if [ "$enable_kvm" = "Y" ] || [ "$enable_kvm" = "y" ] || [ "$enable_kvm" =~ "yes" ]; then
 				kvm_=",kvm=on"
 				new_vm_command+=" -enable-kvm"
 				kvm_e="Yes"
 				break
-			elif [[ "$enable_kvm" == "N" || "$enable_kvm" == "n" || "$enable_kvm" =~ "no" ]]; then
+			elif [ "$enable_kvm" = "N" ] || [ "$enable_kvm" = "n" ] || [ "$enable_kvm" =~ "no" ]; then
 				kvm_=""
 				new_vm_command+=""
 				kvm_e="No"
@@ -252,7 +252,7 @@ if [[ -z "$vm_exists" ]]; then
 	while true; do 
 		read -p "Enter the coresponding number to select an ISO image: " p_iso
 		validate_input $p_iso
-		if [[ "$p_iso" =~ ^[0-9]+$ ]]; then
+		if [ "$p_iso" =~ ^[0-9]+$ ]; then
 			iso_=$(find $HOME -type f -name "*.iso" | nl -s ". " | sed -n "${p_iso}p" | awk '{print $2}')
 			break
 		else
@@ -275,8 +275,8 @@ if [[ -z "$vm_exists" ]]; then
 	while true; do
 		read -p "Enter a number between 1-3 to select a boot option: " boot_options
 		validate_input $boot_options
-		if [[ "$boot_options" == 1 || "$boot_options" == 3 ]]; then
-			if [[ "$boot_options" == 1 ]]; then
+		if [ "$boot_options" = 1 ] || [ "$boot_options" = 3 ]; then
+			if [ "$boot_options" = 1 ]; then
 				new_vm_command+=" -boot once=d"
 				vmr+=" -boot once=d"
 				break
@@ -286,7 +286,7 @@ if [[ -z "$vm_exists" ]]; then
 				break
 			fi
 		else
-			if [[ "$boot_options" == 2 ]]; then
+			if [ "$boot_options" = 2 ]; then
 				new_vm_command+=" -boot menu=on"
 				vmr+=" -boot menu=on"
 				break
@@ -302,21 +302,21 @@ if [[ -z "$vm_exists" ]]; then
 	vmr+=" -m ${MEM}G"
 
 	# Hardware Virtualization & Virtual Hardware
-	if [[ "$vt_support" == "1" ]]; then
+	if [ "$vt_support" = "1" ]; then
 		echo -e "${b}Available hardware virtualisation options;${w}"
 		echo -e "host\nOpteron_G5\nEPYC" | nl
 		while true; do
 			while true; do
 				read -p "Enter a number between 1-3 to select your hardware virtualisation solution: " hvirt
 				validate_input $hvirt
-				if [[ "$hvirt" -ge 1 || "$hvirt" -lt 3 ]]; then
-					if [[ "$hvirt" == 1 ]]; then
+				if [ "$hvirt" -ge 1 ] || [ "$hvirt" -lt 3 ]; then
+					if [ "$hvirt" = 1 ]; then
 						hvirt="host"
 						break
-					elif [[ "$hvirt" == 2 ]]; then
+					elif [ "$hvirt" = 2 ]; then
 						hvirt="Opteron_G5"
 						break
-					elif [[ "$hvirt" == 3 ]]; then
+					elif [ "$hvirt" = 3 ]; then
 						hvirt="EPYC"
 						break
 					fi
@@ -334,11 +334,11 @@ if [[ -z "$vm_exists" ]]; then
 		while true; do
 			read -p "Enter the coresponding number to select which virtual hardware to use: " vhard
 			validate_input $vhard
-			if [[ "$vhard" == 1 || "$vhard" == 2 ]]; then
-				if [[ "$vhard" == 1 ]]; then
+			if [ "$vhard" = 1 ] || [ "$vhard" = 2 ]; then
+				if [ "$vhard" = 1 ]; then
 					vhard="q35,accel=kvm"
 					break
-				elif [[ "$vhard" == 2 ]]; then
+				elif [ "$vhard" = 2 ]; then
 					vhard="pc-i440fx-2.12"
 					break
 				fi
@@ -347,13 +347,13 @@ if [[ -z "$vm_exists" ]]; then
 			fi
 		done
 		while true; do
-			if [[ "$kvm_e" == "Yes" ]]; then
+			if [ "$kvm_e" = "Yes" ]; then
 				read -p "Enable KVM's KSM (Kernel Same-Page Merging) feature? [Y/n]: " ksm_
 				validate_input $ksm_
-				if [[ "$ksm_" == [Nn] || "$ksm_" == ^[Nn]o$ ]]; then
+				if [ "$ksm_" = [Nn] ] || [ "$ksm_" = ^[Nn]o$ ]; then
 					ksm_=""
 					break
-				elif [[ "$ksm_" == [Yy] || "$ksm_" == ^[Ys]es$ ]]; then
+				elif [ "$ksm_" = [Yy] ] || [ "$ksm_" = ^[Ys]es$ ]; then
 					ksm_=",mem-merge=on"
 					break
 				else
@@ -379,25 +379,25 @@ if [[ -z "$vm_exists" ]]; then
 				while true; do
 		            read -p "Select display: " vm_display
 					validate_input $vm_display
-					if [[ "$vm_display" == "1" ]]; then
+					if [ "$vm_display" = "1" ]; then
 						vm_display="gtk"
 						break
-					elif [[ "$vm_display" == "2" ]]; then
+					elif [ "$vm_display" = "2" ]; then
 						vm_display="curses"
 						break
-					elif [[ "$vm_display" == "3" ]]; then
+					elif [ "$vm_display" = "3" ]; then
 						vm_display="dbus"
 						break
-					elif [[ "$vm_display" == "4" ]]; then
+					elif [ "$vm_display" = "4" ]; then
 						vm_display="spice"
 						break
-					elif [[ "$vm_display" == "5" ]]; then
+					elif [ "$vm_display" = "5" ]; then
 						vm_display="sdl"
 						break
-					elif [[ "$vm_display" == "6" ]]; then
+					elif [ "$vm_display" = "6" ]; then
 						vm_display="egl-headless"
 						break
-					elif [[ "$vm_display" == "7" ]]; then
+					elif [ "$vm_display" = "7" ]; then
 						vm_display="cocoa"
 						break
 					else
@@ -408,10 +408,10 @@ if [[ -z "$vm_exists" ]]; then
 					echo -e "${b}Would you like to enable OpenGL features?${w}"
 		            read -p "Enable OpenGL? [Y/n]: " gl
 					validate_input $gl
-		            if [[ "$gl" =~ ^[YyYes]$ ]]; then
+		            if [ "$gl" =~ ^[YyYes]$ ]; then
 		                gl="on"
 						break
-		            elif [[ "$gl" =~ ^[NnNo]$ ]]; then
+		            elif [ "$gl" =~ ^[NnNo]$ ]; then
 		                gl="off"
 						break
 					else
@@ -432,25 +432,25 @@ if [[ -z "$vm_exists" ]]; then
 				while true; do
 	            	read -p "Select VGA driver: " vga
 					validate_input $vga
-					if [[ "$vga" == "1" ]]; then
+					if [ "$vga" = "1" ]; then
 						vga="virtio"
 						break
-					elif [[ "$vga" == "2" ]]; then
+					elif [ "$vga" = "2" ]; then
 						vga="cirrus"
 						break
-					elif [[ "$vga" == "3" ]]; then
+					elif [ "$vga" = "3" ]; then
 						vga="std"
 						break
-					elif [[ "$vga" == "4" ]]; then
+					elif [ "$vga" = "4" ]; then
 						vga="vmware"
 						break
-					elif [[ "$vga" == "5" ]]; then
+					elif [ "$vga" = "5" ]; then
 						vga="qxl"
 						break
-					elif [[ "$vga" == "6" ]]; then
+					elif [ "$vga" = "6" ]; then
 						vga="tcx"
 						break
-					elif [[ "$vga" == "7" ]]; then
+					elif [ "$vga" = "7" ]; then
 						vga="cg3"
 						break
 					else
@@ -468,8 +468,8 @@ if [[ -z "$vm_exists" ]]; then
 	            while true; do
 					read -p "Enter graphics memory (in MB): " graph_mem
 					validate_input $graph_mem
-					if [[ "$graph_mem" =~ ^[0-9]+$ ]]; then
-						if [[ "$graph_mem" -ge 32 || "$graph_mem" -lt 512 ]]; then
+					if [ "$graph_mem" =~ ^[0-9]+$ ]; then
+						if [ "$graph_mem" -ge 32 ] || [ "$graph_mem" -lt 512 ]; then
 							break
 						else
 							echo -e "${b}Your graphical memory allocation is out of bounds! Must be between '${w}32-512${b}' MB.${w}"
@@ -493,22 +493,22 @@ if [[ -z "$vm_exists" ]]; then
 	while true; do 
 		read -p "Select a network device: " ns
 		validate_input $ns
-		if [[ "$ns" == 1 ]]; then
+		if [ "$ns" = 1 ]; then
 			ns="e1000"
 			break
-		elif [[ "$ns" == 2 ]]; then
+		elif [ "$ns" = 2 ]; then
 			ns="virtio-net-pci"
 			break
-		elif [[ "$ns" == 3 ]]; then
+		elif [ "$ns" = 3 ]; then
 			ns="rtl8139"
 			break
-		elif [[ "$ns" == 4 ]]; then
+		elif [ "$ns" = 4 ]; then
 			ns="i82559c"
 			break
-		elif [[ "$ns" == 5 ]]; then
+		elif [ "$ns" = 5 ]; then
 			ns="pcnet"
 			break
-		elif [[ "$ns" == 6 ]]; then
+		elif [ "$ns" = 6 ]; then
 			ns="ne1000-82545em"
 			break
 		else
@@ -526,11 +526,11 @@ if [[ -z "$vm_exists" ]]; then
 	while true; do
 		read -p "Enable host clipboard sharing? [Y/n]: " clipb
 		validate_input $clipb
-		if [[ "$clipb" == "N" || "$clipb" == "n" || "$clipb" =~ "no" ]]; then
+		if [ "$clipb" = "N" ] || [ "$clipb" = "n" ] || [ "$clipb" =~ "no" ]; then
 			new_vm_command+=""
 			vmr+=""
 			break
-		elif [[ "$clipb" == "Y" || "$clipb" == "y" || "$clipb" =~ "yes" ]]; then
+		elif [ "$clipb" = "Y" ] || [ "$clipb" = "y" ] || [ "$clipb" =~ "yes" ]; then
 			new_vm_command+=" -chardev qemu-vdagent,id=vdagent,name=vdagent,clipboard=on"
 			vmr+=" -chardev qemu-vdagent,id=vdagent,name=vdagent,clipboard=on"
 			new_vm_command+=" -device virtio-serial,max_ports=2"
@@ -546,9 +546,9 @@ if [[ -z "$vm_exists" ]]; then
 	while true; do
 		echo -e "\n${b}Virtual machine configuration complete!${w}"
 		read -p "Proceed with VM creation? [Y/n]: " ready
-		if [[ "$ready" == "Y" || "$ready" == "y" || "$ready" =~ "yes" ]]; then
+		if [ "$ready" = "Y" ] || [ "$ready" = "y" ] || [ "$ready" =~ "yes" ]; then
 			break
-		elif [[ "$ready" == "N" || "$ready" == "n" || "$ready" =~ "no" ]]; then
+		elif [ "$ready" = "N" ] || [ "$ready" = "n" ] || [ "$ready" =~ "no" ]; then
 			echo -e "${b}Operation canceled!${w}"
 			exit 1
 		else
