@@ -18,8 +18,8 @@ get_v=$(get_vm_info)
 path="$HOME/QVM/config_files/VM_Images/"
 vvm=$(ls "$path" | sed 's/.img//g')
 
-if [[ "$1" == "-d" ]]; then
-	if [[ -n "$2" ]]; then
+if [ "$1" = "-d" ]; then
+	if [ -n "$2" ]; then
 		yad --bar --on-top \
 	        --title="QVM-v1.0.3 - Delete VM - $2" \
             --width=300 \
@@ -53,7 +53,7 @@ if [[ "$1" == "-d" ]]; then
     fi
 fi
 
-if [[ "$1" == "-rn" ]]; then
+if [ "$1" = "-rn" ]; then
 	echo -e "\033[34mRename a VM...\033[0m"
 	rename=$(echo $vvm | yad --on-top --form --width=480 \
     	--image="$HOME/QVM/config_files/logo_images/qemu2-2.png" \
@@ -94,7 +94,7 @@ else
 fi
 
 buttons="--button=Cancel:1"
-if ! [[ -z "$vvm" ]]; then
+if ! [ -z "$vvm" ]; then
 	view_vm=" --button=View:0"
 	buttons+="$view_vm"
 fi
