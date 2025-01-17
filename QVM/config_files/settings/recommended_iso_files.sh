@@ -1,7 +1,7 @@
 if [ "$1" = "debian-12" ]; then
-    url="https://cdimage.debian.org/debian-cd/current/"
-    deb_latest=$(elinks --dump "$url" | grep https | grep -E "netinst.iso" | awk -F"https" "{print \"https\" \$2}")
-    url+="$deb_latest"
+    url="https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/"
+    deb_latest=$(elinks --dump "$url" | grep https | grep -E "netinst.iso" | awk -F"https" "{print \"https\" \$2}" | head -n 1)
+    url="$deb_latest"
 fi
 if [ "$1" = "arch-linux" ]; then
     url="https://archlinux.mailtunnel.eu/iso/latest/"
@@ -19,7 +19,9 @@ if [ "$1" = "ubuntu-noble" ]; then
     url="$ubuntu_n"
 fi
 if [ "$1" = "ubuntu-server" ]; then
-    url=$(elinks --dump )
+    url="https://releases.ubuntu.com/noble/"
+    ubuntu_s=$(elinks --dump "$url" | grep -v "\[" | awk -F ". " '{print $3}' | grep .iso | grep server | grep -v -E "zsync|torrent" | tail -n 1)
+    url="$ubuntu_s"
 fi
 if [ "$1" = "raspi-os" ]; then
     url=$(elinks --dump )
