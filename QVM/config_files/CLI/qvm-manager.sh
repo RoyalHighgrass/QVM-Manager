@@ -36,7 +36,7 @@ main_menu() {
 echo -e "$(cat << 'EOF'
 
 ------------------------------------------------------------------------
-=================> QEMU Virtual Machine Manager ©2024 <=================
+=========> QEMU Virtual Machine Manager ©2024 <=========
 ------------------------------- Main Menu ------------------------------
 
 Select one of the following options;
@@ -70,7 +70,7 @@ vm_search() {
     
     # Loop through each VM and check its status
     echo "$vms" | while read -r vm; do
-        if [[ "$(find ~/QVM/config_files/VM_Images -type f -name '*.img' | wc -l)" == "0" ]]; then
+        if [ "$(find ~/QVM/config_files/VM_Images -type f -name '*.img' | wc -l)" = "0" ]; then
 	        status=""
 		else
 			if echo "$running_vms" | grep -q "$vm"; then
@@ -89,7 +89,7 @@ snapshot_search() {
 	qemu-img snapshot -l "./../VM_Images/$vm_name.img" | sed 's/_//g'
 }
 
-if [[ "$1" == "-gv" ]]; then
+if [ "$1" = "-gv" ]; then
 	vm_search
 	exit 0
 fi
@@ -117,7 +117,7 @@ while true; do
             if (( $(vm_search | grep "Found" | awk '{print $NF}') != 0 )); then
 				echo ""
 				read -p "Enter a VM name (Enter '0' or leave blank to cancel): " vm_name
-				if ! [[ "$vm_name" == "0" || -z "$vm_name" ]]; then
+				if ! [ "$vm_name" = "0" ] || [ -z "$vm_name" ]; then
 		            read -p "Enter snapshot name/tag: " snapshot_name
 		            qemu-img snapshot -c "\_${snapshot_name}\_" "./../VM_Images/$vm_name.img" && \
 						echo -e "Snapshot saved successfully!\n" || echo -e "Snapshot creation failed!\n"
@@ -132,9 +132,9 @@ while true; do
             if (( $(vm_search | grep "Found" | awk '{print $NF}') != 0 )); then
 	            echo ""
 				read -p "Enter a VM name (Enter '0' or leave blank to cancel): " vm_name
-				if ! [[ "$vm_name" == "0" || -z "$vm_name" ]]; then
+				if ! [ "$vm_name" = "0" ] || [ -z "$vm_name" ]; then
 		            ckss=$(qemu-img snapshot -l "./../VM_Images/$vm_name.img")
-					if [[ -z "$ckss" ]]; then
+					if [ -z "$ckss" ]; then
 						echo -e "${b}No snapshots have been saved of the ${w}$vm_name${b} virtual machine!${w}"
 					else
 						qemu-img snapshot -l "./../VM_Images/$vm_name.img" | sed 's/_//g'
@@ -150,9 +150,9 @@ while true; do
             if (( $(vm_search | grep "Found" | awk '{print $NF}') != 0 )); then
 				echo ""
 	            read -p "Enter a VM name (Enter '0' or leave blank to cancel): " vm_name
-				if ! [[ "$vm_name" == "0" || -z "$vm_name" ]]; then
+				if ! [ "$vm_name" = "0" ] || [ -z "$vm_name" ]; then
 		            ckss=$(qemu-img snapshot -l "./../VM_Images/$vm_name.img")
-					if [[ -z "$ckss" ]]; then
+					if [ -z "$ckss" ]; then
 						echo -e "${b}No snapshots have been saved of the ${w}$vm_name${b} virtual machine!${w}"
 					else
 						snapshot_search
@@ -171,9 +171,9 @@ while true; do
             if (( $(vm_search | grep "Found" | awk '{print $NF}') != 0 )); then
 	            echo ""
 				read -p "Enter the name of the VM to delete (Enter '0' or leave blank to cancel): " vm_name
-				if ! [[ "$vm_name" == "0" || -z "$vm_name" ]]; then
+				if ! [ "$vm_name" = "0" ] || [ -z "$vm_name" ]; then
 		            read -p "Are you sure? [y/N]: " confirm
-		            if [[ "$confirm" =~ ^[yY]$ ]]; then
+		            if [ "$confirm" =~ ^[yY]$ ]; then
 		                rm "$HOME/QVM/config_files/VM_Images/$vm_name.img" && \
 						rm "$HOME/QVM/config_files/vm_log_files/${vm_name}_vm_specs" && \
 						rm "$HOME/QVM/config_files/vm_log_files/${vm_name}_vm_restart" && \
