@@ -18,6 +18,11 @@ if [ "$1" = "-li" ]; then
 	exit 0
 fi
 
+get_url() {
+	local iso="$1"
+	./../settings/recommended_iso_files.sh "$iso"
+}
+
 echo "$iso_img"
 	
 iso_img=$(echo "$iso_img" | yad --list --title="$title Available ISO Images" \
