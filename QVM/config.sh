@@ -59,7 +59,7 @@ b="\033[34m"
 w="\033[0m"
 
 # QVM initializer script
-if [[ -z "$1" ]]; then
+if [ -z "$1" ]; then
     cd "$QVMcli"
     ./qvm-manager.sh
 else
@@ -71,12 +71,12 @@ else
         ;;
         --delete-iso)
             # Delete a specified ISO image or all ISO images.
-            if [[ -z "$2" ]]; then
+            if [ -z "$2" ]; then
                 echo -e "${b}qvm-manager: Error: Invalid input: No ISO image specified!${w}"
                 exit 1
             else
                 cd "$QVMcli"
-		if [[ "$2" != "all" ]]; then
+		if [ "$2" != "all" ]; then
 		    iso="$2"
 		    term="the $iso ISO image"
 
@@ -93,7 +93,7 @@ else
             echo -e "${b}$version${w}\n"
 	    # Confirm delete request
             read -p "Are you sure you want to delete $term? [y/N]: " confirm
-	    if [[ "$confirm" =~ ^[Yy]$ || "$confirm" =~ ^[Yy]es$ ]]; then
+	    if [ "$confirm" =~ ^[Yy]$ ] || [ "$confirm" =~ ^[Yy]es$ ]; then
 		# Delete ISO
 		cd "$ISO"
 		eval sudo rm "${iso}.iso"
@@ -112,8 +112,8 @@ else
         ;;
         --delete-snap)
             # Delete a specified snapshot.
-            if [[ "$#" -ne 4 ]]; then
-                if [[ -z "$2" ]]; then
+            if [ "$#" -ne 4 ]; then
+                if [ -z "$2" ]; then
 		    echo -e "${b}qvm-manager: Error: Invalid input: No VM name provided!${w}${w}"
 		fi
 	        echo -e "${b}qvm-manager: Usage: $(basename $0) --delete-snap <vm_name> --tag <snapshot_tag>${w}"
@@ -121,7 +121,7 @@ else
 	    else	
 		# Check if the VM exists
 		VM_FILE="${VM}/${2}.img"
-		if [[ ! -f "$VM_FILE" ]]; then
+		if [ ! -f "$VM_FILE" ]; then
                     echo -e "${b}qvm-manager: Error: The ${w}$2${b} virtual machine does not exist!${w}"
 		fi
             fi
@@ -132,12 +132,12 @@ else
 
 	    # Check if any snapshots have been taken of the VM
             ckss=$(qemu-img snapshot -l "$VM_FILE")
-            if [[ -z "$ckss" ]]; then
+            if [ -z "$ckss" ]; then
                 echo -e "${b}qvm-manager: Error: No snapshots have been saved of the '$2' virtual machine!${w}"
             fi
 
 	    # Usage validation
-            if [[ "$OPTION" != "--tag" ]]; then
+            if [ "$OPTION" != "--tag" ]; then
                 echo -e "${b}qvm-manager: Error: Invalid option '$OPTION'. Only '--tag' is supported.${w}"
                 exit 1
             fi
@@ -148,7 +148,7 @@ else
 
 	    # Operation status
             EXIT_CODE=$?
-            if [[ $EXIT_CODE -eq 0 ]]; then
+            if [ $EXIT_CODE -eq 0 ]; then
                 echo -e "${b}The snapshot '${w}$(echo $TAG | sed 's/_//g')${b}' of VM '${b}${2}${b}' has been successfully deleted!${w}"
             else
                 echo -e "${b}qvm-manager: Operation failed: Failed to delete snapshot '$SNAPSHOT_TAG'. Check qemu-img output for details.${w}"
@@ -158,17 +158,17 @@ else
         ;;
         --delete-vm)
             # Delete a specified VM.
-			if [[ -z "$2" ]]; then
+			if [ -z "$2" ]; then
 				echo -e "${b}qvm-manager: Error: Invalid input: No VM name provided!${w}"
 			else
 				# Check if the VM exists
 				vm_name="$2"
 				echo -e "${b}$version${w}"
 				vm_to_delete=$(find "$VM" -type f -name "*.img" | grep "$vm_name")
-				if ! [[ -z "$vm_to_delete" ]]; then
+				if ! [ -z "$vm_to_delete" ]; then
 					# Confirm delete request
 					read -p "Are you sure you want to delete this VM? [Y/n]: " confirm
-					if [[ "$confirm" == [Yy] || "" == ^[Yy]es$ ]]; then
+					if [ "$confirm" = [Yy] ] || [ "" = ^[Yy]es$ ]; then
 					# Delete VM 
 					echo -e "${b}Deleting the ${w}$vm_name${b} virtual machine...${w}"
 					sudo rm "$vm_to_delete"
@@ -190,12 +190,12 @@ else
         ;;
         --help|-h)
             # Display this help message or list all CLI options.
-	    if [[ -z "$2" ]]; then
+	    if [ -z "$2" ]; then
 		# Display help message/user manual 
 		echo -e "$(cat "$user_manual")"
 	    else
 		# List all CLI options
-		if [[ "$2" != "options" ]]; then
+		if [ "$2" != "options" ]; then
 		    echo "qvm-manager: Invalid input!: $2"
 		    exit 1
 		fi
@@ -208,7 +208,7 @@ else
 	    # Import manually downloaded ISO images.
             # Store the list of found ISO files in a variable
             list=$(find "$HOME" -type f -name "*.iso" | grep -v "ISO_Images")
-            if [[ -z "$list" ]]; then
+            if [ -z "$list" ]; then
                 echo "qvm-manager: QVM did not find any ISO files to import!"
                 exit 1
             fi
@@ -252,7 +252,7 @@ else
         --pull-iso)
             # Download an specified ISO image or list available images.
             cd "$QVMgui"
-	    if [[ "$2" == "list" ]]; then
+	    if [ "$2" = "list" ]; then
 		echo -e "${b}$version${w}"
 		./Scripts/download-iso-images-gui.sh -li | grep -v -E "None|Select" | cut -d. -f2
 		echo -e "\n${b}$version${w}"
@@ -267,8 +267,8 @@ else
 	    TAG="_$4_"
      
 	    # Use a snapshot to revert the VM back to a previous state.
-            if [[ "$#" -ne 4 ]]; then
-                if [[ -z "$2" ]]; then
+            if [ "$#" -ne 4 ]; then
+                if [ -z "$2" ]; then
                     echo -e "${b}qvm-manager: Error: Invalid input: No VM name provided!${w}"
                     exit 1
                 fi
@@ -276,11 +276,11 @@ else
                 exit 1
             else
                 VM_FILE="${VM}/${2}.img"
-                if [[ ! -f "$VM_FILE" ]]; then
+                if [ ! -f "$VM_FILE" ]; then
                     echo -e "${b}qvm-manager: Error: That virtual machine does not exist!${w}"
 		    exit 1
 		fi
-                if [[ "$3" != "--tag" ]]; then
+                if [ "$3" != "--tag" ]; then
                     echo -e "${b}qvm-manager: Usage: $(basename $0) --revert <vm_name> --tag <snapshot_tag>${w}"
                     exit 1
                 fi
@@ -288,7 +288,7 @@ else
             echo -e "${b}$version${w}\n"
 	    echo -e "${b}You are about to roll back a virtual machine to a previous state which may result in the loss of data. Once the roll back is complete, the process cannot be undone!${w}"
 	    read -p "Are you sure that you want to revert this VM back to a previous state? [Y/n]: " confirm
-	    if [[ "$confirm" == [Yy] || "$confirm" == ^[Yy]es$ ]]; then 
+	    if [ "$confirm" = [Yy] ] || [ "$confirm" = ^[Yy]es$ ]; then 
 		echo -e "${b}Proceeding with VM roll back...${w}"
 	    else
 		echo -e "${b}qvm-manager: Operation cancelled!${w}"
@@ -298,7 +298,7 @@ else
 	    echo -e "Reverting the $2 virtual machine back to a previous state using the $4 snapshot!"
 	    qemu-img snapshot -a "$4" "$VM_FILE"
             EXIT_CODE=$?
-            if [[ $EXIT_CODE -eq 0 ]]; then
+            if [ $EXIT_CODE -eq 0 ]; then
               echo -e ${b}"The ${w}${2}${b} VM has been successfully rolled back to the point of the ${w}${4}${b} snapshot!${w}"
             else
               echo -e "${b}qvm-manager: Error: Failed to revert the $2 VM back to a previous state using the ${w}${4}${b} snapshot${w}'"
@@ -308,12 +308,12 @@ else
         ;;
 	--show-snap)
 	    # List all snapshots for a specified VM.
-            if [[ "$#" -ne 2 ]]; then
+            if [ "$#" -ne 2 ]; then
               echo -e "${b}qvm-manager: Usage: $(basename $0) --show-snap <vm_name>${w}"
               exit 1
             else
 		VM_FILE="${VM}/${2}.img"
-		if [[ ! -f "$VM_FILE" ]]; then
+		if [ ! -f "$VM_FILE" ]; then
 		    echo -e "${b}qvm-manager: Error: That virtual machine does not exist!${w}"
 		    exit 1
 		else
@@ -327,7 +327,7 @@ else
         --show-vm)
             # Show a VM's Specs.
             cd "$QVMcli"
-	    if [[ -z "$2" ]]; then
+	    if [ -z "$2" ]; then
                 echo "${b}qvm-manager: Usage: $(basename $0) --show-vm <vm_name>${w}"
 		exit 1
 	    fi
@@ -352,8 +352,8 @@ else
         ;;
 	--snap)
             # Save a snapshot of an existing VM.
-            if [[ "$#" -ne 4 ]]; then
-                if [[ -z "$2" ]]; then
+            if [ "$#" -ne 4 ]; then
+                if [ -z "$2" ]; then
                     echo -e "${b}qvm-manager: Error: Invalid input: No VM name provided!${w}"
                     exit 1
                 fi
@@ -365,18 +365,18 @@ else
             TAG="_${4}_"
 
             VM_FILE="${VM}/${2}.img"
-            if [[ ! -f "$VM_FILE" ]]; then
+            if [ ! -f "$VM_FILE" ]; then
               echo -e "${b}qvm-manager: Error: The '${w}${2}${b}' virtual machine does not exist!${b}"
               exit 1
             fi
 
 	    running=$(ps aux | grep qemu-system | grep ${2}.img)
-	    if ! [[ -z "$running" ]]; then
+	    if ! [ -z "$running" ]; then
 		echo -e "${b}qvm-manager: Operation not permitted: The ${w}$2${b} VM is currently running!\n\nTo facilitate effecient host storage management, QVM does not allow snapshots to be taken of running machines. Please try again once the ${w}$2${b} VM has been shutdown.${w}"
 		exit 1
 	    fi
 
-            if [[ "$OPTION" != "--tag" ]]; then
+            if [ "$OPTION" != "--tag" ]; then
               echo -e "${b}qvm-manager: Error: Invalid option '$OPTION'. Only '--tag' is supported.${w}"
               exit 1
             fi
@@ -384,7 +384,7 @@ else
             echo -e "${b}$version${w}\n"
             qemu-img snapshot -c "$TAG" "$VM_FILE"
             EXIT_CODE=$?
-            if [[ $EXIT_CODE -eq 0 ]]; then
+            if [ $EXIT_CODE -eq 0 ]; then
               echo -e ${b}"The snapshot '${w}$(echo $TAG | sed 's/_//g')${b}' of VM '${w}${2}${b}' has been successfully created.${w}"
             else
               echo -e "${b}qvm-manager: Error: Failed to create snapshot '${w}$TAG${b}'. Check qemu-img output for details.${w}"
@@ -394,7 +394,7 @@ else
         ;;
         --start)
             # Start an existing VM.
-	    if [[ -z "$2" ]]; then
+	    if [ -z "$2" ]; then
 		echo "qvm-manager: Error: Invalid input: No VM name provided!"
 	    else
 		if ! find $HOME/QVM/ -type f -name "*.img" | grep "$2" &>/dev/null; then
