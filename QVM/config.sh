@@ -38,7 +38,8 @@ case "$pm" in
     pacman) inst_method="$pacman_pm"
     	packages=""
 	;;
-    *)  echo "Unsupported package manager: $pm"; exit 1
+    *)  echo "Unsupported package manager: $pm"
+    	exit 1
 	;;
 esac
 
