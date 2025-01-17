@@ -32,9 +32,9 @@ This project implements a Type 2 hypervisor for Linux-based `x86_64` systems usi
 
 ## Installation
 
-**Note**: QVM (QEMU Virtual Machine Manager) is currently in a testing phase, with confirmed functionality on Debian 12 and Kali Linux systems. While the tool itself operates stably once properly configured, users should be aware that the installation process can be sensitive to different environments. The primary challenge lies in the interpretation of bash scripts by various shell environments. As a result, QVM may not function correctly outside of a bash shell environment. Users attempting to install or run QVM on other systems or shell environments may encounter unexpected issues or failures. 
+**Note**: `QVM (QEMU Virtual Machine Manager)` is currently in a testing phase, with confirmed functionality on `Debian 12` and `Kali Linux` systems. While the tool itself operates stably once properly configured, users should be aware that the installation process can be sensitive to different environments. The primary challenge lies in `the interpretation of bash scripts by various shell environments`. As a result, `QVM` may not function correctly outside of a `bash shell environment`. Users attempting to install or run QVM on other systems or shell environments may encounter unexpected issues or failures. 
 
-Therefore, I recommend using a bash shell when running QVM for the best experience. I am actively working to improve compatibility across different platforms and shells and hope for this to be resolved in the official release. For more information see the [QVM Issues page](https://github.com/RoyalHighgrass/QVM-Manager/issues).
+Therefore, I recommend using a `bash shell` when running `QVM` for the best experience. I am actively working to improve compatibility across different platforms and shells and hope for this to be resolved in the official `v1.0.3` release. For more information see the `[QVM Issues page](https://github.com/RoyalHighgrass/QVM-Manager/issues)`.
 
 First, make sure that your system is up-to-date & that `git` is installed:
 
