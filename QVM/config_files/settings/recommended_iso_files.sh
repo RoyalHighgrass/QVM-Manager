@@ -24,24 +24,32 @@ if [ "$1" = "ubuntu-server" ]; then
     url="$ubuntu_s"
 fi
 if [ "$1" = "raspi-os" ]; then
-    url=$(elinks --dump )
+    url="https://downloads.raspberrypi.com/rpd_x86/images/rpd_x86-2022-07-04/"
+    rpi=$(elinks --dump "$url" | grep -v -E "\[|sig|torrent|sha" | grep .iso | awk -F ". " '{print $3}')
+    url="$rpi"
 fi
 if [ "$1" = "manjaro-kde" ]; then
-    url=$(elinks --dump )
+    url="https://download.manjaro.org/kde/24.2.1/manjaro-kde-24.2.1-241216-linux612.iso"
 fi
 if [ "$1" = "manjaro-xfce" ]; then
-    url=$(elinks --dump )
+    url="https://download.manjaro.org/xfce/24.2.1/manjaro-xfce-24.2.1-241216-linux612.iso"
 fi
 if [ "$1" = "manjaro-gnome" ]; then
-    url=$(elinks --dump )
+    url="https://download.manjaro.org/gnome/24.2.1/manjaro-gnome-24.2.1-241216-linux612.iso"
 fi
 if [ "$1" = "parrot-os" ]; then
-    url=$(elinks --dump )
+    url="https://deb.parrot.sh/parrot/iso/6.2/"
+    parrot=$(elinks --dump "$url" | awk -F". " '{print $3}' | grep "\.iso" | grep -v -E "hash|torrent" | grep security)
+    url="$parrot"
 fi
 if [ "$1" = "fedora" ]; then
-    url=$(elinks --dump )
+    url=""
+    fedora_latest=$(elinks --dump )
+    url="$fedora_latest"
 fi
 if [ "$1" = "linux-mint" ]; then
-    url=$(elinks --dump )    
+    url=""
+    mint_latest=$(elinks --dump )
+    url="$mint_latest"
 fi
 echo "$url"
