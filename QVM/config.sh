@@ -17,24 +17,21 @@ dnf_pm="sudo dnf install -y"
 pacman_pm="sudo pacman -S"
 zypper_pm="zypper install"
 
-if [ "$pm" = "apt" ]; then
-	inst_method="$apt_pm"
-elif [ "$pm" = "yum" ]; then
-	inst_method="$yum_pm"
-elif [ "$pm" = "dnf" ]; then
-	inst_method="$dnf_pm"
-elif [ "$pm" = "zypper" ]; then
-	inst_method="$zypper_pm"
-elif [ "$pm" = "pacman" ]; then
-	inst_method="$pacman_pm"
-fi
+case "$pm" in
+    apt)    inst_method="$apt_pm" ;;
+    yum)    inst_method="$yum_pm" ;;
+    dnf)    inst_method="$dnf_pm" ;;
+    zypper) inst_method="$zypper_pm" ;;
+    pacman) inst_method="$pacman_pm" ;;
+    *)      echo "Unsupported package manager: $pm"; exit 1 ;;
+esac
 
-$inst_method wget tree git locate zenity wmctrl make cpu-checker intltool autoconf \
+$apt_packages="wget tree git locate zenity wmctrl make cpu-checker intltool autoconf \
 	original-awk mawk gawk gtk-layer-shell-doc gtk4-layer-shell-doc libgtk-3-common \
 	libgtk-4-common libgtk-3-0t64 libgtk-3-dev acpi bc cgroup-tools libvirt-clients \
 	libvirt-daemon-system bridge-utils virtinst libvirt-daemon qemu-kvm automake intltool \
 	qemu-system-common qemu-system-x86 qemu-system-modules-opengl mgba-sdl libsdl2-2.0-0 \
-	libsdl2-net-2.0-0 mednafen build-essential
+	libsdl2-net-2.0-0 mednafen build-essential"
 
 ## Upcoming resource management feature scheduled for the official `QVM-v1.0.4` release 
 ## Ensure necessary folders exist for CPU resource limiting processes
