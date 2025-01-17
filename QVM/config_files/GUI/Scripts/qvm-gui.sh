@@ -19,7 +19,7 @@ vm_search() {
 		    
     # Loop through each VM and check its status
 	echo "$vms" | while read -r vm; do
-        if [[ "$(find ~/QVM/config_files/VM_Images -type f -name '*.img' | wc -l)" == "0" ]]; then
+        if [ "$(find ~/QVM/config_files/VM_Images -type f -name '*.img' | wc -l)" = "0" ]; then
 	        status=""
 		else
 			if echo "$running_vms" | grep -q "$vm"; then
@@ -33,7 +33,7 @@ vm_search() {
 }
 
 # Show VM info
-if [[ "$1" == "-vv" ]]; then
+if [ "$1" = "-vv" ]; then
     echo -e "${b}Searching for VMs...\n${w}"
 	vm_search
 	./Scripts/view-delete-vm-gui.sh "$(vm_search)"
@@ -48,7 +48,7 @@ img_nme=$(yad --on-top --entry \
 	--title "QVM-1.0.3 - Create/Start VM" \
 	--text "<b>$vms</b> \n\nEnter a VM vHD Image name:") 
 
-if [[ "$?" -ne 0 ]]; then
+if [ "$?" -ne 0 ]; then
 	exit 1
 fi
 
@@ -58,7 +58,7 @@ trap 'kill $img_nme &>/dev/null' SIGINT
 qlog="$HOME/QVM/config_files/vm_log_files/qemu.log"
 
 # Verify user input
-if [[ -z "$img_nme" ]]; then
+if [ -z "$img_nme" ]; then
 	if ps -e | grep qvm-manager &>/dev/null; then
 		echo -e "${b}Error: Invalid entry! Operation Cancelled.${w}"
 		exit 1
@@ -69,7 +69,7 @@ fi
 
 # Check if the VM is already running
 vmrun=$(ps aux | grep qemu-system | grep ${img_nme}.img)
-if ! [[ -z "$vmrun" ]]; then
+if ! [ -z "$vmrun" ]; then
 	echo -e "\n${b}qvm-manager: Operation failed: That VM is already running!${w}"
 	yad --width=400 --height=300 --title="QVM-v1.0.3 - Operation Failed" \
 		--text="Operation failed: That VM is already running!" \
@@ -91,7 +91,7 @@ if ! vm_search | grep $img_nme; then
 	iso_=$(echo $iso_ | cut -d"|" -f1)
 	
 
-	if [ -z "$iso_" ] || ! [[ "$iso_" =~ \.iso$ ]]; then
+	if [ -z "$iso_" ] || ! [ "$iso_" =~ \.iso$ ]; then
 	    echo "Invalid ISO file selection!"
 	    exit 1
 	fi
@@ -105,7 +105,7 @@ if ! vm_search | grep $img_nme; then
 
 	user_settings=$(cat ~/QVM/config_files/settings/check_settings)
 	msc=""
-	if [[ "$user_settings" != "edited" ]]; then
+	if [ "$user_settings" != "edited" ]; then
 	    user_settings=$(cat ~/QVM/config_files/settings/default_settings | sed 's/" "/ /g' | sed 's/"//g')
 		msc+="$img_nme"
 		msc+=" 2!1..${host_free_memory}!1!0" 
@@ -177,7 +177,7 @@ if ! vm_search | grep $img_nme; then
 
 	# Enable KVM
 	enable_kvm=$(echo $vm_specs | cut -d" " -f19)
-	if [[ "$enable_kvm" == "Yes" ]]; then
+	if [ "$enable_kvm" = "Yes" ]; then
 		kvm_=",kvm=on"
 		new_vm_command+=" -enable-kvm"
 		kvm_e="Yes"
@@ -201,8 +201,8 @@ if ! vm_search | grep $img_nme; then
 	
 	# Boot Options
 	boot_options=$(echo $vm_specs | cut -d" " -f23)
-	if [[ "$boot_options" != "Menu" ]]; then
-		if [[ "$boot_options" == "Disk" ]]; then
+	if [ "$boot_options" != "Menu" ]; then
+		if [ "$boot_options" = "Disk" ]; then
 			new_vm_command+=" -boot once=d"
 			vmr+=" -boot once=d"
 		else
@@ -238,7 +238,7 @@ if ! vm_search | grep $img_nme; then
 	apf=$(echo $vm_specs | cut -d" " -f20)
 	new_vm_command+=" -cpu ${hvirt}${kvm_}"
 	vmr+=" -cpu ${hvirt}${kvm_}"
-	if [[ "$apf" == "No" ]]; then
+	if [ "$apf" = "No" ]; then
 		new_vm_command+=""
 		vmr+=""
 	else
@@ -250,8 +250,8 @@ if ! vm_search | grep $img_nme; then
 	vm_display=$(echo $vm_specs | cut -d" " -f14)
 	gl=$(echo $vm_specs | cut -d" " -f15)
 	gmem=$(echo $vm_specs | cut -d" " -f18)
-	if [[ "$vm_display" != "none" ]]; then
-		if [[ "$gl" == "Yes" ]]; then
+	if [ "$vm_display" != "none" ]; then
+		if [ "$gl" = "Yes" ]; then
 			gl="on"
 		else
 			gl="off"
@@ -263,7 +263,7 @@ if ! vm_search | grep $img_nme; then
 	else
 		# VGA
 		vga=$(echo $vm_specs | cut -d" " -f16)
-		if [[ "$vga" == "Yes" ]]; then
+		if [ "$vga" = "Yes" ]; then
 			vgad=$(echo $vm_specs | cut -d" " -f17)
 			new_vm_command+=" -vga ${vgad}"
 			vmr+=" -vga ${vgad}"
@@ -287,12 +287,12 @@ if ! vm_search | grep $img_nme; then
 	# Virtual Hardware
 	vhard=$(echo $vm_specs | cut -d" " -f10)
 	ksm_=$(echo $vm_specs | cut -d" " -f21)
-	if [[ "$ksm_" == "No" ]]; then
+	if [ "$ksm_" = "No" ]; then
 		ksm_=""
 		irqc=""
 	else
 		ksm_=",mem-merge=on"
-#		if [[ "" == "" ]]; then
+#		if [ "" = "" ]; then
 #			irqc=",kernel-irqchip=off"
 #		fi
 	fi
@@ -301,7 +301,7 @@ if ! vm_search | grep $img_nme; then
 
 	# Enable Clipboard Sharing
 	clipb=$(echo $vm_specs | cut -d" " -f24)
-	if [[ "$clipb" == "No" ]]; then
+	if [ "$clipb" = "No" ]; then
 		new_vm_command+=""
 		vmr+=""
 	else
@@ -315,7 +315,7 @@ if ! vm_search | grep $img_nme; then
 
 	# IOMMU 
 	clipb=$(echo $vm_specs | cut -d" " -f22)
-	if [[ "$clipb" == "No" ]]; then
+	if [ "$clipb" = "No" ]; then
 		new_vm_command+=""
 		vmr+=""
 	else
