@@ -3,7 +3,7 @@
 b="\033[34m"
 w="\033[0m"
 
-if [[ "$1" == "-um" ]]; then
+if [ "$1" = "-um" ]; then
 	yad --text-info --filename="../../User_Manual_-_QVM_Documentation.txt" \
 		--title="File Contents" --width=850 --height=800 --on-top \
 		--buttons-layout=center \
@@ -68,12 +68,12 @@ case $? in
 		
 		#Check for manually downloaded ISO images
 		result=$(find "$HOME" -type f -name "*.iso" -not -path "$HOME/QVM/*" -print0 | xargs -0 printf "%s " &>/dev/null)
-		if [[ -z "$result" ]]; then
+		if [ -z "$result" ]; then
 			echo -n ""
 		else
 			echo -e -n "${b}Updating QVM ISO Management....${w}"
 			if eval sudo mv "$result" "$HOME/QVM/config_files/ISO_Images/" &>/dev/null; then
-			    if [[ $? -eq 0 ]]; then
+			    if [ $? -eq 0 ]; then
 					echo -e "${b}done!"
 			        echo -e "Image(s) successfully imported!${w}"
 			    else
