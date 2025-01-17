@@ -36,14 +36,14 @@ EOF
 
 read -p "Enter a number to select an ISO image (Enter '0' or leave blank to cancel): " option
 
-if ! [[ "$option" == 0 || -z "$option" ]]; then
+if ! [ "$option" = 0 ] || [ -z "$option" ]; then
 	case $option in
 		1)	iso_search
 		echo ""
 			read -p "Enter the filename of the ISO image to delete: " delete
 			[ -z "$delete" ] && echo -e "Invalid entry: Operation Cancelled!\n" && exit 1
 		    read -p "Are you sure? [y/N]: " confirm
-		    if [[ "$confirm" =~ ^[yY]$ ]]; then
+		    if [ "$confirm" =~ ^[yY]$ ]; then
 				sudo rm "./../ISO_Images/${delete}" && \
 					echo -e "${b}ISO image${w} $delete ${b}deleted successfully!${w}\n" || \
 					echo -e "${b}Failed to delete the${w} $delete ${b}image!${w}\n"
@@ -51,9 +51,9 @@ if ! [[ "$option" == 0 || -z "$option" ]]; then
 		;;
 		
 		2)	read -p "Are you sure that you want to permanently delete all ISO images in your local database? [y/N]: " confirm
-			if [[ -z "$confirm" || "$confirm" == ^[Nn]o$ ]]; then
+			if [ -z "$confirm" ] || [ "$confirm" = ^[Nn]o$ ]; then
 				echo -e "${b}Operation Cancelled! ISO images not deleted!${w}"
-			elif [[ "$confirm" == [Yy] ]]; then
+			elif [ "$confirm" = [Yy] ]; then
 				sudo rm $HOME/QVM/config_files/ISO_Images/*.iso
 				case $? in
 					0)	echo -e "${b}All ISO images successfully deleted!${w}\n"
@@ -84,7 +84,7 @@ iso_search() {
 	find ~/QVM/ -type f -name "*.iso" | cut -d"/" -f7 | grep -v cdrom
 }
 
-if [[ "$1" == "-gi" ]]; then
+if [ "$1" = "-gi" ]; then
 	iso_search
 	exit 0
 fi
@@ -103,7 +103,7 @@ while true; do
 	        echo -e "Debian 12\nArchLinux\nKali Linux\nUbuntu Noble\nUbuntu (Server)\nRaspiOS\nManjaro\nParrotOS\nOther..." | nl -s ". "
 	        echo -e "${b}Note: Downloads can be cancelled by pressing '${w}CTRL+C${b}' once!${w}"
 	        read -p "Enter a number to select an ISO image (Enter '0' or leave blank to cancel): " iso_img
-			if [[ "$iso_img" == "0" ]]; then
+			if [ "$iso_img" = "0" ]; then
 				break
 			fi
 			[ -z "$iso_img" ] && echo -e "Error: Invalid entry! Operation Cancelled.\n" && exit 1
@@ -113,7 +113,7 @@ while true; do
 						if ! iso_search | grep "debian-12.iso" &>/dev/null; then
 							url=$(elinks --dump https://debian.org/download | grep https | grep -E "netinst.iso" | awk -F"https" "{print \"https\" \$2}")
 				            read -p "Are you sure? [y/N]: " confirm
-							if [[ "$confirm" =~ ^[yY]$ ]]; then
+							if [ "$confirm" =~ ^[yY]$ ]; then
 							    echo -e "${b}Downloading the Debian 12 ISO image...${w}\n"
 							    if sudo wget --no-cookies "$url" -O "$HOME/QVM/config_files/ISO_Images/debian-12.iso"; then
 							        echo -e "${b}The Debian 12 ISO image downloaded successfully!${w}\n"
@@ -133,7 +133,7 @@ while true; do
 					2)	# Pull-ISO-ArchLinux-Image
 						if ! iso_search | grep "archlinux.iso" &>/dev/null; then
 				            read -p "Are you sure? [y/N]: " confirm
-				            if [[ "$confirm" =~ ^[yY]$ ]]; then
+				            if [ "$confirm" =~ ^[yY]$ ]; then
 								echo -e "${b}Downloading the Arch Linux ISO image...\n${w}"
 								url=$(elinks -dump https://archlinux.mailtunnel.eu/iso/latest/ | awk -F ". " '{print $3}' | \
 									grep -v -E "sig|torrent|2024" | grep -i "x86_64.*\.iso"); 
@@ -154,7 +154,7 @@ while true; do
 					3)	# Pull-ISO-Kali-Linux-Image
 						if ! iso_search | grep "kali-linux.iso" &>/dev/null; then
 				            read -p "Are you sure? [y/N]: " confirm
-				            if [[ "$confirm" =~ ^[yY]$ ]]; then
+				            if [ "$confirm" =~ ^[yY]$ ]; then
 								echo -e "${b}Downloading the Kali Linux ISO image...\n${w}"
 								url="https://cdimage.kali.org/kali-2024.4/kali-linux-2024.4-installer-netinst-amd64.iso"
 								if sudo wget --no-cookies "$url" -O $HOME/QVM/config_files/ISO_Images/kali-linux.iso; then
@@ -175,7 +175,7 @@ while true; do
 					4)	# Pull-ISO-Ubuntu-24-Noble-Image
 						if ! iso_search | grep "ubuntu-noble.iso" &>/dev/null; then
 				            read -p "Are you sure? [y/N]: " confirm
-				            if [[ "$confirm" =~ ^[yY]$ ]]; then
+				            if [ "$confirm" =~ ^[yY]$ ]; then
 								url=$(elinks --dump https://releases.ubuntu.com/noble | grep "https" | grep ".iso" | \
 									grep -v -E "png|torrent|zsync" | awk -F". " "{print \$3}" | sort | uniq | grep desktop)
 								echo -e "${b}Downloading the Ubuntu 24.04 ISO image...\n${w}"
@@ -199,7 +199,7 @@ while true; do
 						iso_name=$()
 						if ! iso_search | grep "ubuntu-server" &>/dev/null; then
 				            read -p "Are you sure? [y/N]: " confirm
-				            if [[ "$confirm" =~ ^[yY]$ ]]; then
+				            if [ "$confirm" =~ ^[yY]$ ]; then
 								echo -e "${b}Downloading the $iso_name ISO image...\n${w}"
 								if sudo wget --no-cookies "$url" -O $HOME/QVM/config_files/ISO_Images/ubuntu-server.iso; then
 									echo -e "${b}The${w} Ubuntu Server ${b}image downloaded successfully!${w}\n"
@@ -218,7 +218,7 @@ while true; do
 					6)	# Pull-Raspi-OS-Image
 						if ! iso_search | grep "raspios.iso" &>/dev/null; then
 				            read -p "Are you sure? [y/N]: " confirm
-				            if [[ "$confirm" =~ ^[yY]$ ]]; then
+				            if [ "$confirm" =~ ^[yY]$ ]; then
 								echo -e "${b}Downloading the Kali Linux ISO image...\n${w}"
 								url="https://downloads.raspberrypi.com/rpd_x86/images/rpd_x86-2022-07-04/2022-07-01-raspios-bullseye-i386.iso"
 								if sudo wget --no-cookies "$url" -O $HOME/QVM/config_files/ISO_Images/raspios.iso; then
@@ -262,7 +262,7 @@ while true; do
 						done
 						if ! iso_search | grep "manjaro" | grep "$manj_type" &>/dev/null; then
 				            read -p "Are you sure? [y/N]: " confirm
-				            if [[ "$confirm" =~ ^[yY]$ ]]; then
+				            if [ "$confirm" =~ ^[yY]$ ]; then
 								iso_name=$(echo $url | awk -F "/" '{print $NF}' | cut -d. -f1)
 								echo -e "${b}Downloading the $iso_name ISO image...\n${w}"
 								if sudo wget --no-cookies "$url" -O $HOME/QVM/config_files/ISO_Images/${iso_name}.iso; then 
@@ -284,7 +284,7 @@ while true; do
 						iso_name=$(echo $url | awk -F "/" '{print $NF}' | cut -d. -f1)
 						if ! iso_search | grep "$iso_name" &>/dev/null; then
 				            read -p "Are you sure? [y/N]: " confirm
-				            if [[ "$confirm" =~ ^[yY]$ ]]; then
+				            if [ "$confirm" =~ ^[yY]$ ]; then
 								echo -e "${b}Downloading the $iso_name ISO image...\n${w}"
 								if sudo wget --no-cookies "$url" -O $HOME/QVM/config_files/ISO_Images/${iso_name}.iso; then
 									echo -e "${b}The${w} Ubuntu 20.24 ${b}image downloaded successfully!${w}\n"
@@ -302,13 +302,13 @@ while true; do
 					;;
 					9)	# Pull-Other-Images
 						read -p "Enter the full download URL for your desired ISO image (Enter '0' to cancel): " other_iso
-						if ! [[ "$other_iso" == "0" || -z "$other_iso" ]]; then
+						if ! [ "$other_iso" = "0" ] || [ -z "$other_iso" ]; then
 							url="$other_iso"
 							other_iso_name=$(echo $url | awk -F "/" '{print $NF}' | cut -d. -f1)
 				            read -p "Are you sure? [y/N]: " confirm
-				            if [[ "$confirm" =~ ^[yY]$ ]]; then
+				            if [ "$confirm" =~ ^[yY]$ ]; then
 								echo -e "${b}Downloading the${w} $other_iso_name ${b}ISO image...${w}\n"
-								if ! [[ $(iso_search | grep "$other_iso_name") ]]; then
+								if ! [ $(iso_search | grep "$other_iso_name") ]; then
 									if sudo wget --no-cookies "$url" -O $HOME/QVM/config_files/ISO_Images/${other_iso_name}.iso; then
 										echo -e "${b}The${w} Ubuntu 20.24 ${b}image downloaded successfully!${w}\n"
 								    else
@@ -368,15 +368,15 @@ while true; do
 		4)	echo -e "${b}Checking the QVM cdrom for ISO disk images...${w}"
 			echo -e "${b}Images found...${w}"
 			ckcdrom=$(find $HOME/QVM/ -type f -name '*.iso' | grep cdrom | awk -F '/' '{print $NF}' | nl -s ". ")
-			if ! [[ -z "$ckcdrom" ]]; then
+			if ! [ -z "$ckcdrom" ]; then
 				while true; do
 					find $HOME/QVM/ -type f -name '*.iso' | grep cdrom | awk -F '/' '{print $NF}' | nl -s ". "
 					read -p "Which disk image should be ejected? (Enter '0' to cancel): " si
-					if [[ -z $si || "$si" == 0 ]]; then
+					if [ -z $si ] || [ "$si" = 0 ]; then
 						echo -e "${b}Operation cancelled!${w}"
 						exit 1
 					fi
-					if ! [[ "$si" =~ ^[0-9]+$ ]]; then
+					if ! [ "$si" =~ ^[0-9]+$ ]; then
 						echo -e "${b}Error: Invalid entry!${w}"
 					else
 						break
@@ -385,12 +385,12 @@ while true; do
 				iso=$(find $HOME/QVM/config_files/ISO_Images/cdrom/ -type f -name '*.iso' | tr -d '\0' | sed -n "${si}p")
 				while true; do
 					read -p "Eject the '$(basename $iso)' disk image? [Y/n]: " eject
-					if [[ "$eject" == "Y" || "$eject" == "y" || "$eject" == "yes" ]]; then
+					if [ "$eject" = "Y" ] || [ "$eject" = "y" ] || [ "$eject" = "yes" ]; then
 						sudo mv "$iso" "../ISO_Images/" && \
 						echo -e "${b}The '${w}$(echo $iso | xargs -0 basename -a)${b}' ISO disk image has been ejected!${w}" || \
 						echo -e "${b}Operation Failed: An unexpected error has ocurred!"
 						break
-					elif [[ "$eject" == "N" || "$eject" == "n" || "$eject" == "no" ]]; then
+					elif [ "$eject" = "N" ] || [ "$eject" = "n" ] || [ "$eject" = "no" ]; then
 						break
 					else
 						echo "Error: Invalid input!"
