@@ -3,13 +3,16 @@
 
 echo -e "Installing basic required for QVM to work properly...\n"
 
+
 # Define QVM config paths
+
 config_f="$HOME/QVM/config_files"
 cli="$HOME/QVM/config_files/CLI"
 gui="$HOME/QVM/config_files/GUI"
 settings="$HOME/QVM/config_files/settings"
 
 # Install QVM dependencies
+
 pm=$(which dnf || which yum || which pacman || which zypper || which apt | xargs -0 basename -a)
 apt_pm="sudo apt install -y"
 yum_pm="sudo yum install -y"
@@ -46,6 +49,7 @@ esac
 eval "$inst_method" "$packages"
 
 ## Upcoming resource management feature scheduled for the official `QVM-v1.0.4` release 
+
 ## Ensure necessary folders exist for CPU resource limiting processes
 #sudo mkdir -p /sys/fs/cgroup/cpu/qvm_machine
 #sudo mkdir -p /sys/fs/cgroup/cpuset/qvm_machine
@@ -466,7 +470,7 @@ sudo chmod +x $gui/qvm-manager-gui.sh
 sudo chmod +x $gui/Scripts/*.sh
 sudo chmod +x $settings/*.sh
 
-# Clone YAD repository
+# Clone YAD repository & configure, make, and install YAD
 
 echo -e "\nInstall YAD ....\n"
 
@@ -474,25 +478,24 @@ cd /tmp/
 git clone https://github.com/v1cont/yad.git
 cd yad/
 autoreconf -ivf && intltoolize --force
- 
-# Configure, make, and install YAD
 ./configure
 make
 sudo make install
 
 # Update icon cache
+
 sudo gtk-update-icon-cache
 
 # Install additional libraries for extended functionality
-sudo apt-get install -y libwebkit2gtk-4.0-dev libgtksourceview-3.0-dev libgspell-1-dev
+
+sudo apt install -y libwebkit2gtk-4.0-dev libgtksourceview-3.0-dev libgspell-1-dev
 
 # Configure with standalone option and custom defines
+
 CFLAGS="-DBORDERS=10 -DREMAIN -DCOMBO_EDIT" ./configure --enable-standalone
 
 echo "YAD installation complete!"
-
 cd $HOME
 
 echo -e "QVM installation complete!\nUse the 'qvm-manager' or 'qvm-manager --gui' command to get started with your QVM virtualization experience.\nFor speedy usage both commands can be executed by pressing 'qv' then the 'tab' key to autocomlete the command then press 'enter' with or without ' --gui' appended to it. Happy virtualization! ~ P.H."
-
 echo -e "\nQEMU Virtual Machine Manager v1.0.3 © QVM 2024"
