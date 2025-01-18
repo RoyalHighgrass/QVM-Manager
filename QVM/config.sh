@@ -13,7 +13,7 @@ settings="$HOME/QVM/config_files/settings"
 
 # Install QVM dependencies
 
-pm=$(which dnf || which yum || which pacman || which zypper || which apt | xargs -0 basename -a)
+pm=$(which dnf || which yum || which pacman || which zypper || which apt | xargs basename)
 apt_pm="sudo apt install -y"
 yum_pm="sudo yum install -y"
 dnf_pm="sudo dnf install -y"
@@ -22,7 +22,7 @@ zypper_pm="sudo zypper install"
 
 case "$pm" in
     apt)    inst_method="$apt_pm"
-    	$packages="wget tree git locate zenity wmctrl make cpu-checker intltool autoconf \
+    	packages="wget tree git locate zenity wmctrl make cpu-checker intltool autoconf \
 		original-awk mawk gawk gtk-layer-shell-doc gtk4-layer-shell-doc libgtk-3-common \
 		libgtk-4-common libgtk-3-0t64 libgtk-3-dev acpi bc cgroup-tools libvirt-clients \
 		libvirt-daemon-system bridge-utils virtinst libvirt-daemon qemu-kvm automake intltool \
@@ -39,7 +39,7 @@ case "$pm" in
     	packages=""
 	;;
     pacman) inst_method="$pacman_pm"
-    	packages=""
+    	packages="wget tree git locate zenity yad wmctrl make autoconf"
 	;;
     *)  echo "Unsupported package manager: $pm"
     	exit 1
@@ -470,31 +470,34 @@ sudo chmod +x $gui/qvm-manager-gui.sh
 sudo chmod +x $gui/Scripts/*.sh
 sudo chmod +x $settings/*.sh
 
-# Clone YAD repository & configure, make, and install YAD
+if ! [ "$pm" = "pacman" ]; then
+	# Clone YAD repository & configure, make, and install YAD
+	
+	echo -e "\nInstall YAD ....\n"
+	
+	cd /tmp/
+	git clone https://github.com/v1cont/yad.git
+	cd yad/
+	autoreconf -ivf && intltoolize --force
+	./configure
+	make
+	sudo make install
+	
+	# Update icon cache
+	
+	sudo gtk-update-icon-cache
+	
+	# Install additional libraries for extended functionality
+	
+	sudo apt install -y libwebkit2gtk-4.0-dev libgtksourceview-3.0-dev libgspell-1-dev
+	
+	# Configure with standalone option and custom defines
+	
+	CFLAGS="-DBORDERS=10 -DREMAIN -DCOMBO_EDIT" ./configure --enable-standalone
+	
+	echo "YAD installation complete!"
+fi
 
-echo -e "\nInstall YAD ....\n"
-
-cd /tmp/
-git clone https://github.com/v1cont/yad.git
-cd yad/
-autoreconf -ivf && intltoolize --force
-./configure
-make
-sudo make install
-
-# Update icon cache
-
-sudo gtk-update-icon-cache
-
-# Install additional libraries for extended functionality
-
-sudo apt install -y libwebkit2gtk-4.0-dev libgtksourceview-3.0-dev libgspell-1-dev
-
-# Configure with standalone option and custom defines
-
-CFLAGS="-DBORDERS=10 -DREMAIN -DCOMBO_EDIT" ./configure --enable-standalone
-
-echo "YAD installation complete!"
 cd $HOME
 
 echo -e "QVM installation complete!\nUse the 'qvm-manager' or 'qvm-manager --gui' command to get started with your QVM virtualization experience.\nFor speedy usage both commands can be executed by pressing 'qv' then the 'tab' key to autocomlete the command then press 'enter' with or without ' --gui' appended to it. Happy virtualization! ~ P.H."
