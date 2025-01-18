@@ -18,7 +18,7 @@ apt_pm="sudo apt install -y"
 yum_pm="sudo yum install -y"
 dnf_pm="sudo dnf install -y"
 pacman_pm="sudo pacman -S"
-zypper_pm="zypper install"
+zypper_pm="sudo zypper install"
 
 case "$pm" in
     apt)    inst_method="$apt_pm"
