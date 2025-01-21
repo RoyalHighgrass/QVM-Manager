@@ -26,6 +26,11 @@ apt_dependencies="cpu-checker original-awk mawk gtk-layer-shell-doc gtk4-layer-s
 	qemu-system-common qemu-system-x86 qemu-system-modules-opengl mgba-sdl libsdl2-2.0-0 \
 	libsdl2-net-2.0-0 mednafen build-essential"
 
+pacman_dependencies="yad gtk-layer-shell gtk3 gtk3-docs gtk3-demos gtk4 gtk4-docs gtk4-demos libportal-gtk3 \
+	libportal-gtk4 libindicator-gtk3 libvirt libvirt-dbus libvirt-glib libguestfs virt-firmware \
+	vulkan-virtio gcc libdaemon qemu-full qemu-guest-agent qemu-system-arm qemu-system-aarch64 \
+	qemu-system-x86 qemu-arch-extra glbinding lib32-mesa mgba-sdl sdl2"
+
 zypper_dependencies="libvirt qemu-kvm qemu-tools virt-manager bridge-utils libguestfs-tools"
 
 dnf_dependencies="libvirt qemu-kvm virt-manager bridge-utils guestfs-tools"
