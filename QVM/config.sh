@@ -23,8 +23,8 @@ host_os=$(cat /etc/os-release | grep NAME | cut -d'"' -f2 | grep -v "=" | tail -
 common_packages="wget tree git locate zenity wmctrl make autoconf gawk acpi bc cmake intltool bridge-utils"
 
 # Distro-specific packages
-apt_dependencies="cpu-checker original-awk mawk gtk-layer-shell-doc libgtk-3-common \
-	libgtk-4-common libgtk-3-0t64 libgtk-3-dev libgtk-4-1 cgroup-tools libvirt-clients \
+apt_dependencies="cpu-checker original-awk mawk libgtk-4-1 libgtk-3-common \
+	libgtk-4-common libgtk-3-0t64 libgtk-3-dev cgroup-tools libvirt-clients \
 	libvirt-daemon-system virtinst libvirt-daemon qemu-kvm automake intltool \
 	qemu-system-common qemu-system-x86 qemu-system-modules-opengl mgba-sdl libsdl2-2.0-0 \
 	libsdl2-net-2.0-0 mednafen build-essential"
