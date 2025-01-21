@@ -55,15 +55,9 @@ case "$pm" in
     apt)
         inst_method="$apt_pm"
         packages+=" $apt_dependencies"
-		if [ "$host_os" =~ "Debian" ]; then
+		if [ "$host_os" =~ "Debian" ] || [ "$host_os" =~ "Kali" ]; then
   			packages+=" gtk4-layer-shell-doc"
-  		elif [ "$host_os" =~ "Kali" ]; then
-  			packages+=" gtk4-layer-shell-doc"
-		elif [ "$host_os" =~ "Ubuntu" ]; then
-  			packages+=" gtk-4-exmples gtk-4-tests"
-  		elif [ "$host_os" =~ "Parrot" ]; then
 		fi
-
     ;;
     pacman)
         inst_method="$pacman_pm"
