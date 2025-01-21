@@ -130,13 +130,13 @@ w="\033[0m"
 # QVM initializer script
 if [ -z "$1" ]; then
     cd "$QVMcli"
-    ./qvm-manager.sh
+    bash qvm-manager.sh
 else
     case "$1" in
         --gui)
             # Launch the QVM graphical user interface.
             cd "$QVMgui" || exit
-            ./qvm-manager-gui.sh
+            bash qvm-manager-gui.sh
         ;;
         --delete-iso)
             # Delete a specified ISO image or all ISO images.
@@ -150,7 +150,7 @@ else
 		    term="the $iso ISO image"
 
 	    	    # Check if ISO exists
-		    if ! ./Scripts/iso.sh -gi | sed 's/.iso//g' | grep "$2" &>/dev/null; then
+		    if ! bash Scripts/iso.sh -gi | sed 's/.iso//g' | grep "$2" &>/dev/null; then
 		        echo -e "${b}qvm-manager: Error: Invalid input: The ${w}$2${b} ISO image was not found!${w}"
 		        exit 1
 		    fi
@@ -308,14 +308,14 @@ else
             # List all local ISO images.
             echo -e "${b}$version${w}\n"
 	    cd "$QVMcli"
-	    ./Scripts/iso.sh -gi | sed 's/.iso//g'
+	    bash Scripts/iso.sh -gi | sed 's/.iso//g'
             echo -e "\n${b}$version${w}"
         ;;
         --list-vm)
             # List all existing VMs.
             echo -e "${b}$version${w}\n"
             cd "$QVMcli"
-            ./qvm-manager.sh -gv
+            bash qvm-manager.sh -gv
             echo -e "\n${b}$version${w}"
         ;;
         --pull-iso)
@@ -323,12 +323,12 @@ else
             cd "$QVMgui"
 	    if [ "$2" = "list" ]; then
 		echo -e "${b}$version${w}"
-		./Scripts/download-iso-images-gui.sh -li | grep -v -E "None|Select" | cut -d. -f2
+		bash Scripts/download-iso-images-gui.sh -li | grep -v -E "None|Select" | cut -d. -f2
 		echo -e "\n${b}$version${w}"
 		exit 0
 	    fi
             echo -e "${b}$version${w}"
-	    ./Scripts/download-iso-images-gui.sh
+	    bash Scripts/download-iso-images-gui.sh
             echo -e "\n${b}$version${w}"
         ;;
         --revert)
@@ -401,7 +401,7 @@ else
 		exit 1
 	    fi
 	    vms="$2"
-	    if ! ./qvm-manager.sh -gv | grep $vms &>/dev/null; then
+	    if ! bash qvm-manager.sh -gv | grep $vms &>/dev/null; then
 		echo -e "${b}qvm-manager: Error: You have not created any virtual machines yet!${w}"
 	    else
 		vmss=$(cat $HOME/QVM/config_files/vm_log_files/${vms}_vm_specs)
@@ -516,7 +516,7 @@ if ! [ "$pm" = "pacman" ]; then
 	git clone https://github.com/v1cont/yad.git
 	cd yad/
 	autoreconf -ivf && intltoolize --force
-	./configure
+	bash configure
 	make
 	sudo make install
 	
@@ -530,7 +530,7 @@ if ! [ "$pm" = "pacman" ]; then
 	
 	# Configure with standalone option and custom defines
 	
-	CFLAGS="-DBORDERS=10 -DREMAIN -DCOMBO_EDIT" ./configure --enable-standalone
+	CFLAGS="-DBORDERS=10 -DREMAIN -DCOMBO_EDIT" bash configure --enable-standalone
 	
 	echo "YAD installation complete!"
 fi
