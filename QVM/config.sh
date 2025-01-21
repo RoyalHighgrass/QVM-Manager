@@ -13,35 +13,61 @@ settings="$HOME/QVM/config_files/settings"
 
 # Install QVM dependencies
 
+# Determine package manager
 pm=$(which dnf || which yum || which pacman || which zypper || which apt | xargs basename)
+
+# Common packages across distributions
+common_packages="wget tree git locate zenity wmctrl make autoconf gawk acpi bc cmake intltool bridge-utils"
+
+# Distro-specific packages
+apt_dependencies="cpu-checker original-awk mawk gtk-layer-shell-doc gtk4-layer-shell-doc libgtk-3-common \
+	libgtk-4-common libgtk-3-0t64 libgtk-3-dev cgroup-tools libvirt-clients \
+	libvirt-daemon-system virtinst libvirt-daemon qemu-kvm automake intltool \
+	qemu-system-common qemu-system-x86 qemu-system-modules-opengl mgba-sdl libsdl2-2.0-0 \
+	libsdl2-net-2.0-0 mednafen build-essential"
+
+zypper_dependencies="libvirt qemu-kvm qemu-tools virt-manager bridge-utils libguestfs-tools"
+
+dnf_dependencies="libvirt qemu-kvm virt-manager bridge-utils guestfs-tools"
+
+yum_dependencies="$dnf_dependencies"
+
+# Installation command templates
 apt_pm="sudo apt install -y"
-yum_pm="sudo yum install -y"
+pacman_pm="sudo pacman -S --noconfirm"
+zypper_pm="sudo zypper install -y"
 dnf_pm="sudo dnf install -y"
-pacman_pm="sudo pacman -S"
-zypper_pm="sudo zypper install"
+yum_pm="sudo yum install -y"
+
+# Initialize variables for the chosen package manager
+inst_method=""
+packages="$common_packages"
 
 case "$pm" in
-    apt)    inst_method="$apt_pm"
-    	packages="wget tree git locate zenity wmctrl make cpu-checker intltool autoconf \
-		original-awk mawk gawk gtk-layer-shell-doc gtk4-layer-shell-doc libgtk-3-common \
-		libgtk-4-common libgtk-3-0t64 libgtk-3-dev acpi bc cgroup-tools libvirt-clients \
-		libvirt-daemon-system bridge-utils virtinst libvirt-daemon qemu-kvm automake intltool \
-		qemu-system-common qemu-system-x86 qemu-system-modules-opengl mgba-sdl libsdl2-2.0-0 \
-		libsdl2-net-2.0-0 mednafen build-essential"
+    apt)
+        inst_method="$apt_pm"
+        packages+=" $apt_dependencies"
     ;;
-    yum)    inst_method="$yum_pm"
-    	packages=""
-	;;
-    dnf)    inst_method="$dnf_pm"
-    	packages=""
-	;;
-    zypper) inst_method="$zypper_pm"
-    	packages=""
-	;;
-    pacman) inst_method="$pacman_pm"
-    	packages="wget tree git locate zenity yad wmctrl make autoconf"
-	;;
-    *)  echo "Unsupported package manager: $pm"
+    pacman)
+        inst_method="$pacman_pm"
+        packages+=" $pacman_dependencies"
+    ;;
+    zypper)
+        inst_method="$zypper_pm"
+        packages+=" $zypper_dependencies"
+    ;;
+    dnf)
+        inst_method="$dnf_pm"
+        packages+=" $dnf_dependencies"
+    ;;
+    yum)
+        inst_method="$yum_pm"
+        packages+=" $yum_dependencies"
+    ;;
+    *)
+        echo "qvm-manager: Error: Unsupported package manager: $pm"
+		echo -e "The following packages must be manually installed before proceeding with this config script!:\nQVM Dependencies;\n\n$apt_dependencies"
+  		echo "\n**Note**: The QVM settup wizard will fail if this is not done before proceeding!"
     	exit 1
 	;;
 esac
