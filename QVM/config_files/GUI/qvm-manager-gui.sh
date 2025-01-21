@@ -83,7 +83,7 @@ case $? in
 		fi
 
 		# Main script
-		dev_message=$(cat ./../../DevMessage.txt)
+		dev_message=$(cat ./../../DevMessage.md)
 		main_menu() { yad --title "QVM-v1.0.3 - QEMU Virtual Machine Manager GUI" \
 		    --form --columns=2 --width="$SCREEN_WIDTH" --height="$SCREEN_HEIGHT" \
 		    --text="<b>$dev_message</b>"\
