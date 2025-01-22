@@ -27,7 +27,7 @@ apt_dependencies="cpu-checker original-awk mawk libgtk-4-1 libgtk-3-common \
 	libgtk-4-common libgtk-3-0t64 libgtk-3-dev cgroup-tools libvirt-clients \
 	libvirt-daemon-system virtinst libvirt-daemon qemu-kvm automake intltool \
 	qemu-system-common qemu-system-x86 qemu-system-modules-opengl mgba-sdl libsdl2-2.0-0 \
-	libsdl2-net-2.0-0 mednafen build-essential"
+	libsdl2-net-2.0-0 mednafen build-essential mesa-vulkan-drivers mesa-utils"
 
 pacman_dependencies="yad gtk-layer-shell gtk3 gtk3-docs gtk3-demos gtk4 gtk4-docs gtk4-demos libportal-gtk3 \
 	libportal-gtk4 libindicator-gtk3 libvirt libvirt-dbus libvirt-glib libguestfs virt-firmware \
