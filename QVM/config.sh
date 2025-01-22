@@ -20,19 +20,20 @@ pm=$(which dnf || which yum || which pacman || which zypper || which apt | xargs
 host_os=$(cat /etc/os-release | grep NAME | cut -d'"' -f2 | grep -v "=" | tail -n 1)
 
 # Common packages across distributions
-common_packages="wget tree git locate zenity wmctrl make autoconf gawk acpi bc cmake intltool bridge-utils"
+common_packages="wget tree git locate zenity wmctrl make autoconf gawk acpi bc cmake intltool bridge-utils \
+	mgba-sdl"
 
 # Distro-specific packages
 apt_dependencies="cpu-checker original-awk mawk libgtk-4-1 libgtk-3-common \
 	libgtk-4-common libgtk-3-0t64 libgtk-3-dev cgroup-tools libvirt-clients \
 	libvirt-daemon-system virtinst libvirt-daemon qemu-kvm automake intltool \
-	qemu-system-common qemu-system-x86 qemu-system-modules-opengl mgba-sdl libsdl2-2.0-0 \
+	qemu-system-common qemu-system-x86 qemu-system-modules-opengl libsdl2-2.0-0 \
 	libsdl2-net-2.0-0 mednafen build-essential mesa-vulkan-drivers mesa-utils"
 
 pacman_dependencies="yad gtk-layer-shell gtk3 gtk3-docs gtk3-demos gtk4 gtk4-docs gtk4-demos libportal-gtk3 \
 	libportal-gtk4 libindicator-gtk3 libvirt libvirt-dbus libvirt-glib libguestfs virt-firmware \
 	vulkan-virtio gcc libdaemon qemu-full qemu-guest-agent qemu-system-arm qemu-system-aarch64 \
-	qemu-system-x86 qemu-arch-extra glbinding lib32-mesa mgba-sdl sdl2"
+	qemu-system-x86 qemu-arch-extra glbinding lib32-mesa sdl2"
 
 zypper_dependencies="libvirt qemu-kvm qemu-tools virt-manager bridge-utils libguestfs-tools"
 
@@ -55,9 +56,11 @@ case "$pm" in
     apt)
         inst_method="$apt_pm"
         packages+=" $apt_dependencies"
-		if [ "$host_os" =~ "Debian" ] || [ "$host_os" =~ "Kali" ]; then
-  			packages+=" gtk4-layer-shell-doc"
-		fi
+		case "$host_os" in
+		    *Debian*|*Kali*)
+	  			packages+=" gtk4-layer-shell-doc"
+	  		;;
+	 	esac
     ;;
     pacman)
         inst_method="$pacman_pm"
