@@ -19,6 +19,7 @@ its capabilities.</b>" \
 		exit 0
 fi
 
+# Environment variables
 export GTK_IM_MODULE=none
 export XDG_RUNTIME_DIR=none
 export WAYLAND_DISPLAY=wayland-0
