@@ -173,7 +173,7 @@ while true; do
 				read -p "Enter the name of the VM to delete (Enter '0' or leave blank to cancel): " vm_name
 				if ! [ "$vm_name" = "0" ] || [ -z "$vm_name" ]; then
 		            read -p "Are you sure? [y/N]: " confirm
-		            if [ "$confirm" =~ ^[yY]$ ]; then
+		            if [[ "$confirm" =~ ^[yY]$ ]]; then
 		                rm "$HOME/QVM/config_files/VM_Images/$vm_name.img" && \
 						rm "$HOME/QVM/config_files/vm_log_files/${vm_name}_vm_specs" && \
 						rm "$HOME/QVM/config_files/vm_log_files/${vm_name}_vm_restart" && \
