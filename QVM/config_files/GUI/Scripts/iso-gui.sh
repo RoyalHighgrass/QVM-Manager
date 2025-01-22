@@ -8,7 +8,7 @@ iso_search=$(echo -e "\033[34mSearching for ISO images...\n\033[0m" && \
 
 iso_menu() { yad --title "QVM-1.0.3 - Manage ISO Images " \
     --form --columns=1 --width=250 --height=250 \
-    --image="$HOME/QVM/config_files/logo_images/qem	u2-2.png" \
+    --image="$HOME/QVM/config_files/logo_images/qvm-2.png" \
 	--on-top --text="QVM ISO Manager" --buttons-layout=center \
     --field="<b>View Local ISO Images</b>":fbtn "./Scripts/iso-gui.sh -v" \
     --field="<b>Download ISO Images</b>":fbtn "./Scripts/download-iso-images-gui.sh" \
