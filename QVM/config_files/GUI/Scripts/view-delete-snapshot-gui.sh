@@ -34,7 +34,7 @@ fi
 if ! [ -z $1 ]; then
 	if [ "$1" = "-sss" ]; then
 		vss=$(echo $vvm | yad --on-top --form --width=480 \
-    		--image="$HOME/QVM/config_files/logo_images/qemu2-2.png" \
+    		--image="$HOME/QVM/config_files/logo_images/qvm-2.png" \
 			--title="QVM-1.0.3 - Save Snapshot" \
 	    	--on-top --separator='" "' \
 			--buttons-layout=center \
@@ -74,7 +74,7 @@ if ! [ -z $1 ]; then
 
 	if [ "$1" = "-vs" ]; then
 		ss=$(yad --form --text="<b>Select a VM to view any snapshots you have taken.</b>" \
-    		--image="$HOME/QVM/config_files/logo_images/qemu2-2.png" \
+    		--image="$HOME/QVM/config_files/logo_images/qvm-2.png" \
 			--title="QVM-1.0.3 - View Snapshots" \
 	    	--on-top --separator='" "' \
 			--field="Select VM: ":CB "$vvme" \
@@ -95,7 +95,7 @@ if ! [ -z $1 ]; then
 				fi
 				sstd=$(yad --form --text="<b>${text}</b>" \
 					--buttons-layout=center \
-		    		--image="$HOME/QVM/config_files/logo_images/qemu2-2.png" \
+		    		--image="$HOME/QVM/config_files/logo_images/qvm-2.png" \
 					--title="QVM-1.0.3 - Viewing '$vmn' Snapshots" \
 					--on-top --field="Select Snapshot":CB "$so" \
 					$buttons)
