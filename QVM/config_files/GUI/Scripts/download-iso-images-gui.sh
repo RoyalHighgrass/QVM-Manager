@@ -11,7 +11,7 @@ echo -e "\n${b}Select an ISO image to download...${w}"
 
 # Show the list of available ISO images using YAD
 echo -e "${b}Available ISO images;${w}"
-iso_img=$(echo -e "Debian 12\nArchLinux\nKali Linux\nUbuntu Noble Desktop\nUbuntu (Server)\nRaspiOS\nManjaro\nParrotOS\nFedora\nLinux Mint\nTail OS\nNone of the above (Choose Alternative)" | nl -s ".  ")
+iso_img=$(echo -e "Debian 12 (600MB)\nArchLinux\nKali Linux\nUbuntu Noble Desktop\nUbuntu (Server)\nRaspiOS\nManjaro\nParrotOS\nFedora\nLinux Mint\nTail OS\nNone of the above (Choose Alternative)" | nl -s ".  ")
 
 if [ "$1" = "-li" ]; then
 	echo "$iso_img"
