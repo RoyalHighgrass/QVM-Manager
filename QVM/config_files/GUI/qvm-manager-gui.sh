@@ -22,6 +22,9 @@ fi
 export GTK_IM_MODULE=none
 export XDG_RUNTIME_DIR=none
 export WAYLAND_DISPLAY=wayland-0
+export GDK_BACKEND=x11
+export MESA_LOADER_DRIVER_OVERRIDE=i965
+export LIBGL_ALWAYS_SOFTWARE=1
 
 credit() { echo -e "$(cat << 'EOF'
 \033[34m
