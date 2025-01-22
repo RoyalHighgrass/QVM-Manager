@@ -56,7 +56,7 @@ fi
 if [ "$1" = "-rn" ]; then
 	echo -e "\033[34mRename a VM...\033[0m"
 	rename=$(echo $vvm | yad --on-top --form --width=480 \
-    	--image="$HOME/QVM/config_files/logo_images/qemu2-2.png" \
+    	--image="$HOME/QVM/config_files/logo_images/qvm-2.png" \
 		--title="QVM-v1.0.3 - Rename a VM" \
     	--on-top --separator='' \
 		--text="Enter a new name for the '$vvm' virtual machine" \
@@ -101,7 +101,7 @@ fi
 
 vms=$(echo $vvm | yad --on-top --form --width=300 --height=150 \
      --buttons-layout=center \
-	 --image="$HOME/QVM/config_files/logo_images/qemu2-2.png" \
+	 --image="$HOME/QVM/config_files/logo_images/qvm-2.png" \
 	--title="QVM-1.0.3 - View VM Specs" \
     --text="<b>$(echo $1 | awk -F "VM" '{print $2}' | sed 's/I/VM I/g')</b>" \
 	--field="<b>Select VM: </b>":CB "$vvme" \
@@ -130,7 +130,7 @@ case $? in
 		
 		specs=$(yad --on-top --width=450 \
      		--buttons-layout=center \
-    		--image="$HOME/QVM/config_files/logo_images/qemu2-2.png" \
+    		--image="$HOME/QVM/config_files/logo_images/qvm-2.png" \
 			--title="View VM" \
 		    --text="<b>QVM-v1.0.3 - '$vms' VM Specs</b>" \
 		    --form --on-top \
