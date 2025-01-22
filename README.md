@@ -66,7 +66,6 @@ cd QVM-Manager
 sudo chmod +x QVM/config.sh
 ./QVM/config.sh
 ```
-The final command runs the config script and creates a log file in the users home directory for help with debugging.
 
 ## Requirements
 
