@@ -111,7 +111,7 @@ sudo mkdir -p $config_f/vm_log_files
 
 echo -e "\nCreating the `/usr/bin/qvm-manager` file for launching or creating QVM sessions & instances ....\n"
 
-sudo tee /usr/bin/qvm-manager > /dev/null << 'EOF'
+sudo tee -a /usr/bin/qvm-manager > /dev/null << 'EOF'
 
 
 # User manual (Man Page)
