@@ -38,8 +38,9 @@ case $? in
         	other_iso=$(yad --entry --title="Enter custom ISO URL" --text="Enter the full download URL for your desired ISO image:")
             if [ ! -z "$other_iso" ]; then
                 other_iso_name=$(basename "$other_iso" .iso)
-                confirm=$(yad --question --buttons-layout=center \
-					--text="Are you sure you want to download this $other_iso_name ISO image?" --button="Yes:0" --button="No:1")
+                confirm=$(yad --question --buttons-layout=center --on-top \
+					--text="Are you sure you want to download this $other_iso_name ISO image?" \
+	 				--button="Yes:0" --button="No:1")
                 if [ $? -eq 0 ]; then
                     echo -e "Downloading the $other_iso_name ISO image..."
                     if ! iso_search | grep "$other_iso_name" &>/dev/null; then
@@ -69,7 +70,7 @@ case $? in
 					iso_img_nme=$(echo $url | awk -F"/" '{print $NF}')
 					
 	                confirm=$(yad --question --title="$title Confirm Download" \
-						--buttons-layout=center \
+						--buttons-layout=center --on-top \
 						--text="Are you sure you want to download the official Debian 12 ISO image?" \
 						--button="Yes:0" --button="No:1")
 		            if [ $? -eq 0 ]; then
@@ -96,7 +97,7 @@ case $? in
 	                url="https://archlinux.mailtunnel.eu/iso/latest/archlinux-x86_64.iso"
 					iso_img_nme=$(echo $url | awk -F"/" '{print $NF}')
 	                confirm=$(yad --question --title="$title Confirm Download" \
-						--buttons-layout=center \
+						--buttons-layout=center --on-top \
 						--text="Are you sure you want to download the official Arch Linux ISO image?" \
 						--button="Yes:0" --button="No:1")
 		            if [ $? -eq 0 ]; then
@@ -121,7 +122,7 @@ case $? in
 	                url="https://cdimage.kali.org/kali-2024.4/kali-linux-2024.4-installer-netinst-amd64.iso"
 					iso_img_nme=$(echo $url | awk -F"/" '{print $NF}')
 	                confirm=$(yad --question --title="$title Confirm Download" \
-						--buttons-layout=center \
+						--buttons-layout=center --on-top \
 						--text="Are you sure you want to download the official Kali Linux ISO image?" \
 						--button="Yes:0" --button="No:1")
 		            if [ $? -eq 0 ]; then
@@ -146,7 +147,7 @@ case $? in
 	                url="https://releases.ubuntu.com/noble/ubuntu-24.04.1-desktop-amd64.iso"
 					iso_img_nme=$(echo $url | awk -F"/" '{print $NF}')
 	                confirm=$(yad --question --title="$title Confirm Download" \
-						--buttons-layout=center \
+						--buttons-layout=center --on-top \
 						--text="Are you sure you want to download the official Ubuntu Noble ISO image?" \
 						--button="Yes:0" --button="No:1")
 		            if [ $? -eq 0 ]; then
@@ -171,7 +172,7 @@ case $? in
 	                url="https://releases.ubuntu.com/24.04.1/ubuntu-24.04.1-live-server-amd64.iso"
 					iso_img_nme=$(echo $url | awk -F"/" '{print $NF}')
 	                confirm=$(yad --question --title="$title Confirm Download" \
-						--buttons-layout=center \
+						--buttons-layout=center --on-top \
 						--text="Are you sure you want to download the official Ubuntu Server ISO image?" \
 						--button="Yes:0" --button="No:1")
 		            if [ $? -eq 0 ]; then
@@ -196,7 +197,7 @@ case $? in
 	                url="https://downloads.raspberrypi.com/rpd_x86/images/rpd_x86-2022-07-04/2022-07-01-raspios-bullseye-i386.iso"
 					iso_img_nme=$(echo $url | awk -F"/" '{print $NF}')
 	                confirm=$(yad --question --title="$title Confirm Download" \
-						--buttons-layout=center \
+						--buttons-layout=center --on-top \
 						--text="Are you sure you want to download the official RaspiOS ISO image?" \
 						--button="Yes:0" --button="No:1")
 		            if [ $? -eq 0 ]; then
@@ -252,7 +253,7 @@ case $? in
 		            esac
 	                iso_img_nme=$(echo $url | awk -F"/" '{print $NF}')
 	                confirm=$(yad --question --title="$title Confirm Download" \
-						--buttons-layout=center \
+						--buttons-layout=center --on-top \
 						--text="Are you sure you want to download the official Manjaro $manj_type ISO image?" \
 						--button="Yes:0" --button="No:1")
 		            if [ $? -eq 0 ]; then
@@ -277,7 +278,7 @@ case $? in
 	                url="https://deb.parrot.sh/parrot/iso/6.2/Parrot-security-6.2_amd64.iso"
 					iso_img_nme=$(echo $url | awk -F"/" '{print $NF}')
 	                confirm=$(yad --question --title="$title Confirm Download" \
-						--buttons-layout=center \
+						--buttons-layout=center --on-top \
 						--text="Are you sure you want to download the official Parrot OS ISO image?" \
 						--button="Yes:0" --button="No:1")
 		            if [ $? -eq 0 ]; then
@@ -302,7 +303,7 @@ case $? in
 	                url="https://download.fedoraproject.org/pub/fedora/linux/releases/41/Workstation/x86_64/iso/Fedora-Workstation-Live-x86_64-41-1.4.iso"
 					iso_img_nme=$(echo $url | awk -F"/" '{print $NF}')
 	                confirm=$(yad --question --title="$title Confirm Download" \
-						--buttons-layout=center \
+						--buttons-layout=center --on-top \
 						--text="Are you sure you want to download the official Fedora ISO image?" \
 						--button="Yes:0" --button="No:1")
 		            if [ $? -eq 0 ]; then
@@ -327,7 +328,7 @@ case $? in
 	                url=""
 					iso_img_nme=$(echo $url | awk -F"/" '{print $NF}')
 	                confirm=$(yad --question --title="$title Confirm Download" \
-						--buttons-layout=center \
+						--buttons-layout=center --on-top \
 						--text="Are you sure you want to download the official Linux Mint ISO image?" \
 						--button="Yes:0" --button="No:1")
 		            if [ $? -eq 0 ]; then
@@ -352,7 +353,7 @@ case $? in
 	                url="https://download.tails.net/tails/stable/tails-amd64-6.10/tails-amd64-6.10.img"
 					iso_img_nme=$(echo $url | awk -F"/" '{print $NF}')
 	                confirm=$(yad --question --title="$title Confirm Download" \
-						--buttons-layout=center \
+						--buttons-layout=center --on-top \
 						--text="Are you sure you want to download the official Tails OS ISO image?" \
 						--button="Yes:0" --button="No:1")
 		            if [ $? -eq 0 ]; then
