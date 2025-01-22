@@ -64,7 +64,7 @@ cd /tmp/
 git clone https://github.com/RoyalHighgrass/QVM-Manager.git
 cd QVM-Manager
 sudo chmod +x QVM/config.sh
-./QVM/config.sh
+./QVM/config.sh | tee -a ~/qvm_config_log.txt
 ```
 
 ## Requirements
