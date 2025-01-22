@@ -86,7 +86,7 @@ if ! vm_search | grep $img_nme; then
 	iso_=$(yad --on-top --form --width=500 --height=100 \
 		--title="Choose OS Installation Media" --buttons-layout=center \
 		--text="Select the ISO image to use to create the new VM:" \
-		--image="$HOME/QVM/config_files/logo_images/qemu2-2.png" \
+		--image="$HOME/QVM/config_files/logo_images/qvm-2.png" \
 		--field="Select Files:FL" ~/QVM/config_files/ISO_Images/cdrom)
 	iso_=$(echo $iso_ | cut -d"|" -f1)
 	
@@ -125,7 +125,7 @@ if ! vm_search | grep $img_nme; then
 		--buttons-layout=center \
 		--columns=2 \
 		--text="New VM Specifications.$title" \
-	    --image="$HOME/QVM/config_files/logo_images/qemu2-2.png" \
+	    --image="$HOME/QVM/config_files/logo_images/qvm-2.png" \
 	    --form --separator='" "' \
 		--field="VM Name: ":RO \
 	    --field="Memory Allocation ($host_free_memory GB available)":NUM \
