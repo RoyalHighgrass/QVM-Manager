@@ -7,7 +7,7 @@ if [ "$1" = "-um" ]; then
 	yad --text-info --filename="../../User_Manual_-_QVM_Documentation.txt" \
 		--title="File Contents" --width=850 --height=800 --on-top \
 		--buttons-layout=center \
-		--image="$HOME/QVM/config_files/logo_images/qemu2-1.png" \
+		--image="$HOME/QVM/config_files/logo_images/qvm-1.png" \
 		--text="<b>This User Manual contains the contents of the QVM man page, \
 which is updated with each new release to reflect new features and methodologies. QVM offers \
 a user-friendly interface for creating, managing, and running virtual machines \
@@ -88,7 +88,7 @@ case $? in
 		    --form --columns=2 --width="$SCREEN_WIDTH" --height="$SCREEN_HEIGHT" \
 		    --text="<b>$dev_message</b>"\
 		    --no-escape \
-		    --image="$HOME/QVM/config_files/logo_images/qemu2-4.png" \
+		    --image="$HOME/QVM/config_files/logo_images/qvm-4.png" \
 		    --field="<b>Create/Start VM</b>":fbtn "./Scripts/qvm-gui.sh" \
 		    --field="<b>View/Delete VMs</b>":fbtn "./Scripts/qvm-gui.sh -vv" \
 		    --field="<b>Save Snapshot</b>":fbtn "./Scripts/view-delete-snapshot-gui.sh -sss" \
