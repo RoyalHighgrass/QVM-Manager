@@ -41,8 +41,8 @@ if [ -z "$vm_exists" ]; then
 	# Get new VM specifications #
 
 	# Storage
-	df -h | grep -E "Avail|kvm"
-	host_storage=$(df -h | grep "kvm")
+	host_storage=$(df -h | grep -E "Avail|kvm|qemu|dev" | head -n 2)
+ 	echo $host_storage
 	available_host_storage=$(echo $host_storage | awk '{print $4}' | cut -dG -f1)
 	echo -e -n "${w}"
     while true; do
