@@ -30,7 +30,7 @@ vm_specs=$(yad --width=800 --height=600 \
     --title="QVM-1.0.3 - Settings" \
 	--columns=2 \
 	--text="Changes made here will apply to all new VMs you create. Existing VMs will not be affected.$title" \
-    --image="$HOME/QVM/config_files/logo_images/qemu2-2.png" \
+    --image="$HOME/QVM/config_files/logo_images/qvm-2.png" \
     --form --separator='" "' \
     --buttons-layout=center \
     --field="Memory Allocation ($host_free_memory GB available)":NUM \
