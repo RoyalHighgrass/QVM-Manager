@@ -166,7 +166,7 @@ else
             echo -e "${b}$version${w}\n"
 	    # Confirm delete request
             read -p "Are you sure you want to delete $term? [y/N]: " confirm
-	    if [ "$confirm" =~ ^[Yy]$ ] || [ "$confirm" =~ ^[Yy]es$ ]; then
+	    if [[ "$confirm" =~ ^[Yy]$ ]] || [[ "$confirm" =~ ^[Yy]es$ ]]; then
 		# Delete ISO
 		cd "$ISO"
 		eval sudo rm "${iso}.iso"
