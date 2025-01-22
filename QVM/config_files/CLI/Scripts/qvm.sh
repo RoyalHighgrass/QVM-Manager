@@ -48,7 +48,7 @@ if [ -z "$vm_exists" ]; then
     while true; do
 		read -p "Specify HD disk size (must be an 'int', minimum of '20-30' is recommended): " HD
 		validate_input $HD
-		if [ "$HD" =~ ^[0-9]+$ ]; then
+		if [[ "$HD" =~ ^[0-9]+$ ]]; then
 	        if [ "$HD" -ge 15 ] || [ "$HD" -lt $available_host_storage ]; then
 				break
 	        else
@@ -98,7 +98,7 @@ if [ -z "$vm_exists" ]; then
 	while true; do
 		read -p "How many host CPU's should be used?: " CPU
 		validate_input $CPU
-		if [ "$CPU" =~ ^[0-9]+$ ]; then
+		if [[ "$CPU" =~ ^[0-9]+$ ]]; then
 	        if [ "$CPU" -ge 1 ] || [ "$CPU" -lt $(nproc) ]; then
 				break
 			else
@@ -120,7 +120,7 @@ if [ -z "$vm_exists" ]; then
 	while true; do
 		read -p "How much of the hosts memory should be used? (Must be an 'int'): " MEM
 		validate_input $MEM
-		if [ "$MEM" =~ ^[0-9]+$ ]; then
+		if [[ "$MEM" =~ ^[0-9]+$ ]]; then
 	        if [ "$MEM" -ge 2 ] || [ "$MEM" -lt $recommd ]; then
 				break
 			else
@@ -219,7 +219,7 @@ if [ -z "$vm_exists" ]; then
 
 	# Enable KVM
 	vt_support=$(lscpu | grep -E "Virt|Hyp" | grep -E "KVM|full|VT-x|AMD-V")
-	if ! [ "$vt_support" =~ "KVM" ]; then
+	if ! [[ "$vt_support" =~ "KVM" ]]; then
 		echo -e "${b}It looks like your system doesn't support hardware virtualization so KVM cannot be enabled!${w}"
 		vt_support="0"
 		break
@@ -228,12 +228,12 @@ if [ -z "$vm_exists" ]; then
 		while true; do
 			read -p "Enable KVM? [Y/n]: " enable_kvm
 			validate_input $enable_kvm
-			if [ "$enable_kvm" = "Y" ] || [ "$enable_kvm" = "y" ] || [ "$enable_kvm" =~ "yes" ]; then
+			if [ "$enable_kvm" = "Y" ] || [ "$enable_kvm" = "y" ] || [[ "$enable_kvm" =~ "yes" ]]; then
 				kvm_=",kvm=on"
 				new_vm_command+=" -enable-kvm"
 				kvm_e="Yes"
 				break
-			elif [ "$enable_kvm" = "N" ] || [ "$enable_kvm" = "n" ] || [ "$enable_kvm" =~ "no" ]; then
+			elif [ "$enable_kvm" = "N" ] || [ "$enable_kvm" = "n" ] || [[ "$enable_kvm" =~ "no" ]]; then
 				kvm_=""
 				new_vm_command+=""
 				kvm_e="No"
@@ -252,7 +252,7 @@ if [ -z "$vm_exists" ]; then
 	while true; do 
 		read -p "Enter the coresponding number to select an ISO image: " p_iso
 		validate_input $p_iso
-		if [ "$p_iso" =~ ^[0-9]+$ ]; then
+		if [[ "$p_iso" =~ ^[0-9]+$ ]]; then
 			iso_=$(find $HOME -type f -name "*.iso" | nl -s ". " | sed -n "${p_iso}p" | awk '{print $2}')
 			break
 		else
@@ -408,10 +408,10 @@ if [ -z "$vm_exists" ]; then
 					echo -e "${b}Would you like to enable OpenGL features?${w}"
 		            read -p "Enable OpenGL? [Y/n]: " gl
 					validate_input $gl
-		            if [ "$gl" =~ ^[YyYes]$ ]; then
+		            if [[ "$gl" =~ ^[YyYes]$ ]]; then
 		                gl="on"
 						break
-		            elif [ "$gl" =~ ^[NnNo]$ ]; then
+		            elif [[ "$gl" =~ ^[NnNo]$ ]]; then
 		                gl="off"
 						break
 					else
@@ -468,7 +468,7 @@ if [ -z "$vm_exists" ]; then
 	            while true; do
 					read -p "Enter graphics memory (in MB): " graph_mem
 					validate_input $graph_mem
-					if [ "$graph_mem" =~ ^[0-9]+$ ]; then
+					if [[ "$graph_mem" =~ ^[0-9]+$ ]]; then
 						if [ "$graph_mem" -ge 32 ] || [ "$graph_mem" -lt 512 ]; then
 							break
 						else
@@ -526,11 +526,11 @@ if [ -z "$vm_exists" ]; then
 	while true; do
 		read -p "Enable host clipboard sharing? [Y/n]: " clipb
 		validate_input $clipb
-		if [ "$clipb" = "N" ] || [ "$clipb" = "n" ] || [ "$clipb" =~ "no" ]; then
+		if [ "$clipb" = "N" ] || [ "$clipb" = "n" ] || [[ "$clipb" =~ "no" ]]; then
 			new_vm_command+=""
 			vmr+=""
 			break
-		elif [ "$clipb" = "Y" ] || [ "$clipb" = "y" ] || [ "$clipb" =~ "yes" ]; then
+		elif [ "$clipb" = "Y" ] || [ "$clipb" = "y" ] || [[ "$clipb" =~ "yes" ]]; then
 			new_vm_command+=" -chardev qemu-vdagent,id=vdagent,name=vdagent,clipboard=on"
 			vmr+=" -chardev qemu-vdagent,id=vdagent,name=vdagent,clipboard=on"
 			new_vm_command+=" -device virtio-serial,max_ports=2"
@@ -546,9 +546,9 @@ if [ -z "$vm_exists" ]; then
 	while true; do
 		echo -e "\n${b}Virtual machine configuration complete!${w}"
 		read -p "Proceed with VM creation? [Y/n]: " ready
-		if [ "$ready" = "Y" ] || [ "$ready" = "y" ] || [ "$ready" =~ "yes" ]; then
+		if [ "$ready" = "Y" ] || [ "$ready" = "y" ] || [[ "$ready" =~ "yes" ]]; then
 			break
-		elif [ "$ready" = "N" ] || [ "$ready" = "n" ] || [ "$ready" =~ "no" ]; then
+		elif [ "$ready" = "N" ] || [ "$ready" = "n" ] || [[ "$ready" =~ "no" ]]; then
 			echo -e "${b}Operation canceled!${w}"
 			exit 1
 		else
