@@ -32,7 +32,7 @@ This project implements a Type 2 hypervisor for Linux-based `x86_64` systems usi
 
 ## Installation
 
-**Note**: `QVM (QEMU Virtual Machine Manager)` is currently in a testing phase, with confirmed functionality on `Debian 12` and `Kali Linux` systems. While the tool itself operates stably once properly configured, users should be aware that the installation process can be sensitive to different environments. The primary challenge lies in `the interpretation of bash scripts by various shell environments`. As a result, `QVM` may not function correctly outside of a `bash shell environment`. Users attempting to install or run QVM on other systems or shell environments may encounter unexpected issues or failures. 
+**Note**: `QVM (QEMU Virtual Machine Manager)` is currently in a testing phase, with confirmed functionality on `Kali Linux` systems. While the tool itself operates stably once properly configured, users should be aware that the installation process can be sensitive to different environments. The primary challenge lies in `the interpretation of bash scripts by various shell environments`. As a result, `QVM` may not function correctly outside of a `bash shell environment`. Users attempting to install or run QVM on other systems or shell environments may encounter unexpected issues or failures. 
 
 Therefore, I recommend using a `bash shell` when running `QVM` for the best experience. I am actively working to improve compatibility across different platforms and shells and hope for this to be resolved in the official `v1.0.3` release. For more information see the [QVM Issues](https://github.com/RoyalHighgrass/QVM-Manager/issues) page.
 
@@ -70,7 +70,7 @@ sudo chmod +x QVM/config.sh
 ## Requirements
 
 All packages listed below (excluding `YAD`) are available via the Debian & Kali Linux repositories. This application is yet to be tested on the following commonly used Linux OS's;
-`Ubuntu`, `ArchLinux`, `Manjaro`, `ParrotOS` & `RaspiOS`.
+`ArchLinux`, `Manjaro`, `ParrotOS` & `RaspiOS`.
 If you use one of these systems and any package listed below is not available via your systems repository, you may want to consider installing it manually from source before running the `./QVM/config.sh` command.
 ```
 wget
