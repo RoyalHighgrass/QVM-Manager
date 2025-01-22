@@ -42,14 +42,14 @@ if [ -z "$vm_exists" ]; then
 
 	# Storage
 	host_storage=$(df -h | grep -E "Avail|kvm|qemu|dev" | head -n 2)
- 	echo $host_storage
-	available_host_storage=$(echo $host_storage | awk '{print $4}' | cut -dG -f1)
+ 	echo "$host_storage"
+	available_host_storage=$(echo "$host_storage" | awk '{print $4}' | cut -dG -f1)
 	echo -e -n "${w}"
     while true; do
 		read -p "Specify HD disk size (must be an 'int', minimum of '20-30' is recommended): " HD
 		validate_input $HD
 		if [[ "$HD" =~ ^[0-9]+$ ]]; then
-	        if [ "$HD" -ge 15 ] || [ "$HD" -lt $available_host_storage ]; then
+	        if [ "$HD" -ge 15 ] || [ "$HD" -lt "$available_host_storage" ]; then
 				break
 	        else
 	            if [ "$HD" -le 6 ]; then 
