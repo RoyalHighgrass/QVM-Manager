@@ -114,6 +114,13 @@ echo -e "\nCreating the `/usr/bin/qvm-manager` file for launching or creating QV
 
 sudo tee -a /usr/bin/qvm-manager > /dev/null << 'EOF'
 
+# Environment variables
+export GTK_IM_MODULE=none
+export XDG_RUNTIME_DIR=none
+export WAYLAND_DISPLAY=wayland-0
+export GDK_BACKEND=x11
+export MESA_LOADER_DRIVER_OVERRIDE=i965
+export LIBGL_ALWAYS_SOFTWARE=1
 
 # User manual (Man Page)
 user_manual="$HOME/QVM/User_Manual_-_QVM_Documentation.txt"
