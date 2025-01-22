@@ -26,7 +26,7 @@ get_url() {
 echo "$iso_img"
 	
 iso_img=$(echo "$iso_img" | yad --list --title="$title Available ISO Images" \
-	--image="$HOME/QVM/config_files/logo_images/qemu2-2.png" \
+	--image="$HOME/QVM/config_files/logo_images/qvm-2.png" \
 	--text="<b>Select an ISO image to download</b>" \
     --buttons-layout=center --on-top \
 	--separator="" --column="Available ISO Images" --height=500 --width=400 \
