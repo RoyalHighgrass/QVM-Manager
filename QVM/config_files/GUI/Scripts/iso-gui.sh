@@ -34,7 +34,7 @@ else
 		fi
 		selected_iso=$(yad --title="QVM-v1.0.3 - Local ISO Image(s)" \
 		    --width=400 --height=300 \
-		    --image="$HOME/QVM/config_files/logo_images/qemu2-2.png" \
+		    --image="$HOME/QVM/config_files/logo_images/qvm-2.png" \
 		    --text="View and delete local ISO image(s)" \
 			--separator="" \
 			--buttons-layout=center \
@@ -87,7 +87,7 @@ else
 	if [ "$1" = "-i" ]; then
 		# Import manually downloaded ISO files
 		ISO_DEST="$HOME/QVM/config_files/ISO_Images/"
-		LOGO_PATH="$HOME/QVM/config_files/logo_images/qemu2-2.png"
+		LOGO_PATH="$HOME/QVM/config_files/logo_images/qvm-2.png"
 		
 		show_dialog() {
 		    yad --title="$1" --on-top \
@@ -137,7 +137,7 @@ else
 		cdromli=$(echo $cdrom | sed 's/ /\!/g')
 	    if ! [ -z "$cdrom" ]; then
 	        iso=$(echo $cdrom | yad --form \
-    			--image="$HOME/QVM/config_files/logo_images/qemu2-2.png" \
+    			--image="$HOME/QVM/config_files/logo_images/qvm-2.png" \
 	            --title="QVM-v1.0.3 - Eject Disk Image" \
 	            --text="The QVM cdrom can use multiple disks simultaneously.\nFor that reason it is always necessary to specify which disk to eject." \
 				--field="Select Image: ":CB "$cdromli"\
