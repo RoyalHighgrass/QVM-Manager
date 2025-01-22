@@ -518,7 +518,7 @@ sudo chmod +x $gui/qvm-manager-gui.sh
 sudo chmod +x $gui/Scripts/*.sh
 sudo chmod +x $settings/*.sh
 sudo chmod -R 755 $HOME/QVM
-sudo chown -R "$(whoami)" $HOME/QVM
+sudo chown -R $(whoami) $HOME/QVM
 
 if ! [ "$pm" = "pacman" ]; then
 	# Clone YAD repository & configure, make, and install YAD
