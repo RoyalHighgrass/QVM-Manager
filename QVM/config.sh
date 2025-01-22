@@ -516,7 +516,7 @@ if ! [ "$pm" = "pacman" ]; then
 	git clone https://github.com/v1cont/yad.git
 	cd yad/
 	autoreconf -ivf && intltoolize --force
-	bash configure
+	./configure
 	make
 	sudo make install
 	
@@ -530,7 +530,7 @@ if ! [ "$pm" = "pacman" ]; then
 	
 	# Configure with standalone option and custom defines
 	
-	CFLAGS="-DBORDERS=10 -DREMAIN -DCOMBO_EDIT" bash configure --enable-standalone
+	CFLAGS="-DBORDERS=10 -DREMAIN -DCOMBO_EDIT" ./configure --enable-standalone
 	
 	echo "YAD installation complete!"
 fi
