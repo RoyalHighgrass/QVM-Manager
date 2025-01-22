@@ -6,7 +6,7 @@ w="\033[0m"
 if [ "$1" = "-um" ]; then
 	yad --text-info --filename="../../User_Manual_-_QVM_Documentation.txt" \
 		--title="File Contents" --width=850 --height=800 --on-top \
-		--buttons-layout=center \
+		--icon=screensaver --buttons-layout=center \
 		--image="$HOME/QVM/config_files/logo_images/qvm-1.png" \
 		--text="<b>This User Manual contains the contents of the QVM man page, \
 which is updated with each new release to reflect new features and methodologies. QVM offers \
@@ -87,7 +87,7 @@ case $? in
 		main_menu() { yad --title "QVM-v1.0.3 - QEMU Virtual Machine Manager GUI" \
 		    --form --columns=2 --width="$SCREEN_WIDTH" --height="$SCREEN_HEIGHT" \
 		    --text="<b>$dev_message</b>"\
-		    --no-escape \
+		    --icon=screensaver --no-escape \
 		    --image="$HOME/QVM/config_files/logo_images/qvm-4.png" \
 		    --field="<b>Create/Start VM</b>":fbtn "./Scripts/qvm-gui.sh" \
 		    --field="<b>View/Delete VMs</b>":fbtn "./Scripts/qvm-gui.sh -vv" \
