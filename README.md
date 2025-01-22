@@ -64,7 +64,7 @@ cd /tmp/
 git clone https://github.com/RoyalHighgrass/QVM-Manager.git
 cd QVM-Manager
 sudo chmod +x QVM/config.sh
-./QVM/config.sh | tee -a ~/qvm_config_log.txt
+./QVM/config.sh
 ```
 The final command runs the config script and creates a log file in the users home directory for help with debugging.
 
@@ -72,7 +72,7 @@ The final command runs the config script and creates a log file in the users hom
 
 All packages listed below (excluding `YAD`) are available via the Debian & Kali Linux repositories. This application is yet to be tested on the following commonly used Linux OS's;
 `ArchLinux`, `Manjaro`, `ParrotOS` & `RaspiOS`.
-If you use one of these systems and any package listed below is not available via your systems repository, you may want to consider installing it manually from source before running the `./QVM/config.sh | ... ` command.
+If you use one of these systems and any package listed below is not available via your systems repository, you may want to consider installing it manually from source before running the `./QVM/config.sh` command.
 ```
 wget
 tree
