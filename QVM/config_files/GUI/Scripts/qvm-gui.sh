@@ -91,7 +91,7 @@ if ! vm_search | grep $img_nme; then
 	iso_=$(echo $iso_ | cut -d"|" -f1)
 	
 
-	if [ -z "$iso_" ] || ! [ "$iso_" =~ \.iso$ ]; then
+	if [[ -z "$iso_" ]] || ! [[ "$iso_" =~ \.iso$ ]]; then
 	    echo "Invalid ISO file selection!"
 	    exit 1
 	fi
