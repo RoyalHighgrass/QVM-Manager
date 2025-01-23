@@ -36,6 +36,11 @@ This project implements a Type 2 hypervisor for Linux-based `x86_64` systems usi
 
 Therefore, I recommend using a `bash shell` when running `QVM` for the best experience. I am actively working to improve compatibility across different platforms and shells and hope for this to be resolved in the official `v1.0.3` release. For more information see the [QVM Issues](https://github.com/RoyalHighgrass/QVM-Manager/issues) page. If you experience any issues while running QVM inside a bash environment, please do raise an issue about it as it will allow me to make the code more robust.
 
+This application is primarily developed and tested on a Kali Linux system.
+
+See [here](https://github.com/RoyalHighgrass/QVM-Manager/issues) for more information about which systems QVM has been tested on.
+
+#### Installation Guide
 First, make sure that your system is up-to-date & that `git` is installed:
 
 Using `apt`:
@@ -59,9 +64,7 @@ sudo chmod +x QVM/config.sh
 
 ## Requirements
 
-All packages listed below (excluding `YAD`) are available via the Debian & Kali Linux repositories using `apt`. ArchLinux users can install YAD using ``. This application is primarily developed and tested on a Kali Linux system with confirmed functionality on Ubuntu 24.04. 
-
-See [here](https://github.com/RoyalHighgrass/QVM-Manager/issues) for more information about which systems QVM has been tested on.
+All packages listed below (excluding `YAD`) are available via the Debian & Kali Linux repositories using `apt`. ArchLinux users can install YAD using `pacman`. 
 
 If you use one of these systems and any package listed below is not available via your systems repository, you may want to consider installing it manually from source before running the `./QVM/config.sh` command.
 ```
