@@ -364,7 +364,7 @@ if ! vm_search | grep $img_nme; then
 	echo -e "Saving your VM configuration...."
 	echo -e "Opening the VM interface..."
 
-	eval "$vm_command" & 
+	eval "$vm_command"
 	pid="$!"
 	echo "VM: $img_nme    Created: $(date)    Status: running    PID: $pid" >> $HOME/QVM/config_files/vm_log_files/qlog
 #	echo $! | tee -a $qlog
