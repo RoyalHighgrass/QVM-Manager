@@ -350,10 +350,10 @@ if [ -z "$vm_exists" ]; then
 			if [ "$kvm_e" = "Yes" ]; then
 				read -p "Enable KVM's KSM (Kernel Same-Page Merging) feature? [Y/n]: " ksm_
 				validate_input $ksm_
-				if [ "$ksm_" = [Nn] ] || [ "$ksm_" = ^[Nn]o$ ]; then
+				if [[ "$ksm_" = [Nn] ]] || [[ "$ksm_" = ^[Nn]o$ ]]; then
 					ksm_=""
 					break
-				elif [ "$ksm_" = [Yy] ] || [ "$ksm_" = ^[Ys]es$ ]; then
+				elif [[ "$ksm_" = [Yy] ]] || [[ "$ksm_" = ^[Ys]es$ ]]; then
 					ksm_=",mem-merge=on"
 					break
 				else
