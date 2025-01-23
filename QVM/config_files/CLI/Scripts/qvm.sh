@@ -49,7 +49,7 @@ if [ -z "$vm_exists" ]; then
 		read -p "Specify HD disk size (must be an 'int', minimum of '20-30' is recommended): " HD
 		validate_input $HD
 		if [[ "$HD" =~ ^[0-9]+$ ]]; then
-	        if [ "$HD" -ge 15 ] || [ "$HD" -lt "$available_host_storage" ]; then
+	        if [ "$HD" -ge 12 ] || [ "$HD" -lt "$available_host_storage" ]; then
 				break
 	        else
 	            if [ "$HD" -le 6 ]; then 
