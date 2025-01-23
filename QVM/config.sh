@@ -524,8 +524,11 @@ sudo chmod +x $settings/*.sh
 sudo chmod -R 755 $HOME/QVM
 sudo chown -R $(whoami) $HOME/QVM
 sudo chmod +x $HOME/Desktop/qvm.desktop
+sudo chown -R $(whoami) $HOME/Desktop/qvm.desktop
+sudo chmod -R 755 $HOME/Desktop/qvm.desktop
 sudo chmod +x /usr/share/applications/qvm.desktop
-
+sudo chown -R $(whoami) /usr/share/applications/qvm.desktop
+sudo chmod -R 755 /usr/share/applications/qvm.desktop
 echo -e "done!"
 
 if ! [ "$pm" = "pacman" ]; then
