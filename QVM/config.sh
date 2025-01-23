@@ -96,15 +96,11 @@ eval "$inst_method" "$packages"
 #sudo mkdir -p /sys/fs/cgroup/memory/qvm_machine
 #sudo mkdir -p $HOME/QVM/config_files/vm_log_files
 
-# Setup the QVM filesystem & copy or create in the necessary QVM files
+## Setup the QVM filesystem & copy or create in the necessary QVM files
 echo -e "\nSetting up the QVM file system...\n"
+
+# Create the QVM directory
 mkdir $HOME/QVM
-sudo cp README.md $HOME/QVM/
-sudo cp DevMessage.md $HOME/QVM/
-sudo cp -r QVM/* $HOME/QVM/
-sudo mkdir -p $config_f/ISO_Images/cdrom
-sudo mkdir -p $config_f/VM_Images
-sudo mkdir -p $config_f/vm_log_files
 
 # Get the users username
 _USER=$(whoami)
@@ -114,7 +110,7 @@ ICON_PATH="/home/$_USER/QVM/config_files/logo_images/qvm-2.png"
 DESKTOP="/home/$_USER/Desktop"
 
 # Create the .desktop icon file
-sudo echo "[Desktop Entry]
+echo "[Desktop Entry]
 Name=QVM 
 Version=v1.0.3
 StartupWMClass=QVM
@@ -125,8 +121,15 @@ Icon=$ICON_PATH
 Type=Application
 Categories=System;Administration;Tools;Other;
 Keywords=QVM;QEMU;Virtuialization;VM;Virtual Machine Manager;Type 2;Hypervisor;Linux;Open-source;
-" > "/usr/share/applications/qvm.desktop"
-sudo cp /usr/share/applications/qvm.desktop $HOME/QVM
+" > $HOME/QVM/qvm.desktop
+
+sudo cp $HOME/QVM/qvm.desktop /usr/share/applications/qvm.desktop
+sudo cp README.md $HOME/QVM/
+sudo cp DevMessage.md $HOME/QVM/
+sudo cp -r QVM/* $HOME/QVM/
+sudo mkdir -p $config_f/ISO_Images/cdrom
+sudo mkdir -p $config_f/VM_Images
+sudo mkdir -p $config_f/vm_log_files
 
 # Create the /usr/bin/ instance & initialise the 'qvm-manager' startup command
 echo -e "\nCreating the 'qvm-manager' command file for launching or creating QVM sessions & instances ....\n"
