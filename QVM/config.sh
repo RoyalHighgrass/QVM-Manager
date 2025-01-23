@@ -121,9 +121,9 @@ Icon=$ICON_PATH
 Type=Application
 Categories=Administration;System;Other;
 Keywords=QVM;QEMU;Virtuialization;VM;Virtual Machine Manager;Type 2;Hypervisor;Linux;Open-source;
-" > $HOME/QVM/qvm.desktop
+" > $HOME/qvm.desktop
 
-sudo cp $HOME/QVM/qvm.desktop /usr/share/applications/qvm.desktop
+sudo cp $HOME/qvm.desktop /usr/share/applications/qvm.desktop
 sudo cp README.md $HOME/QVM/
 sudo cp DevMessage.md $HOME/QVM/
 sudo cp -r QVM/* $HOME/QVM/
