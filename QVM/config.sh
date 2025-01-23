@@ -507,9 +507,22 @@ fi
 
 EOF
 
+sudo tee -a /usr/share/applications/qvm.desktop > /dev/null << 'EOF'
+
+[Desktop Entry]
+Name=QVM 
+Comment=Type 2 QEMU hypervisor for Linux systems
+Exec=/usr/bin/qvm-manager --gui
+Icon=$HOME/QVM/config_files/logo_images/qvm-2.png
+Terminal=true
+Type=Application
+Categories=Hypervisor;
+
+EOF
+
 # Give all QVM files executable permissions
 
-echo -e "\nConfiguring files ....\n"
+echo -e -n "\nConfiguring newly created files ...\n"
 
 sudo chmod +x /usr/bin/qvm-manager
 sudo chmod +x $cli/qvm-manager.sh
@@ -519,6 +532,9 @@ sudo chmod +x $gui/Scripts/*.sh
 sudo chmod +x $settings/*.sh
 sudo chmod -R 755 $HOME/QVM
 sudo chown -R $(whoami) $HOME/QVM
+sudo chmod +x /usr/share/applications/qvm.desktop
+
+echo -e "done!"
 
 if ! [ "$pm" = "pacman" ]; then
 	echo -e -n "check for yad... "
