@@ -570,7 +570,8 @@ if ! [ "$pm" = "pacman" ]; then
 		# Configure with standalone option and custom defines
 		
 		CFLAGS="-DBORDERS=10 -DREMAIN -DCOMBO_EDIT" ./configure --enable-standalone
-		
+		sudo chmod -R 75 ~/.config/dconf
+
 		echo -e "YAD installation complete!\n"
 	else
  		echo -e "YAD is already installed ... skipping installation!\n"
