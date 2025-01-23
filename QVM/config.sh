@@ -521,7 +521,9 @@ sudo chmod -R 755 $HOME/QVM
 sudo chown -R $(whoami) $HOME/QVM
 
 if ! [ "$pm" = "pacman" ]; then
+	echo -e -n "check for yad... "
 	if ! which yad; then
+ 		echo -e "not found"
 		# Clone YAD repository & configure, make, and install YAD
 		
 		echo -e "\nInstall YAD ....\n"
@@ -542,7 +544,7 @@ if ! [ "$pm" = "pacman" ]; then
 		
 		CFLAGS="-DBORDERS=10 -DREMAIN -DCOMBO_EDIT" ./configure --enable-standalone
 		
-		echo "YAD installation complete!"
+		echo -e "YAD installation complete!\n"
 	else
  		echo -e "YAD is already installed ... skipping installation!\n"
  	fi
