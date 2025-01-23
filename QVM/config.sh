@@ -540,7 +540,7 @@ sudo chmod +x $cli/Scripts/*.sh
 sudo chmod +x $gui/qvm-manager-gui.sh
 sudo chmod +x $gui/Scripts/*.sh
 sudo chmod +x $settings/*.sh
-sudo chmod +x $HOME/QVM/qvm.desktop
+sudo chmod +x $HOME/qvm.desktop
 sudo chmod -R 755 $HOME/QVM
 sudo chown -R $(whoami) $HOME/QVM
 sudo chmod +x /usr/share/applications/qvm.desktop
