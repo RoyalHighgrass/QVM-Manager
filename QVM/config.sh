@@ -550,7 +550,7 @@ if ! [ "$pm" = "pacman" ]; then
  	fi
 fi
 
-cd $HOME
+cd ~/
 
 echo -e "QVM installation complete!\nUse the 'qvm-manager' or 'qvm-manager --gui' command to get started with your QVM virtualization experience.\nFor speedy usage both commands can be executed by pressing 'qv' then the 'tab' key to autocomlete the command then press 'enter' with or without ' --gui' appended to it. Happy virtualization! ~ P.H."
 echo -e "\nQEMU Virtual Machine Manager v1.0.3 © QVM 2024"
