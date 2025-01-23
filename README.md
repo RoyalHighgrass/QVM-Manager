@@ -38,7 +38,7 @@ Therefore, I recommend using a `bash shell` when running `QVM` for the best expe
 
 This application is primarily developed and tested on a Kali Linux system.
 
-See [here](https://github.com/RoyalHighgrass/QVM-Manager/issues) for more information about which systems QVM has been tested on.
+See [here](https://github.com/RoyalHighgrass/QVM-Manager/issues/11) for more information about which systems QVM has been tested on.
 
 #### Installation Guide
 First, make sure that your system is up-to-date & that `git` is installed:
