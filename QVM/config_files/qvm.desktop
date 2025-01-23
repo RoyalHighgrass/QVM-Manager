@@ -1,8 +1,0 @@
-
-[Desktop Entry]
-Name=QVM 
-Comment=Type 2 QEMU hypervisor for Linux systems
-Exec=/usr/bin/qvm-manager --gui
-Icon=$HOME/QVM/config_files/logo_images/qvm-2.png
-Type=Application
-Categories=System;Administration
