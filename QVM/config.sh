@@ -119,7 +119,7 @@ Comment=Type 2 QEMU hypervisor
 Exec=/usr/bin/qvm-manager --gui
 Icon=$ICON_PATH
 Type=Application
-Categories=System;Administration;Tools;Other;
+Categories=Administration;System;Other;
 Keywords=QVM;QEMU;Virtuialization;VM;Virtual Machine Manager;Type 2;Hypervisor;Linux;Open-source;
 " > $HOME/QVM/qvm.desktop
 
