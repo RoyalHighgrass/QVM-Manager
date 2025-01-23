@@ -60,7 +60,9 @@ sudo chmod +x QVM/config.sh
 ## Requirements
 
 All packages listed below (excluding `YAD`) are available via the Debian & Kali Linux repositories. This application is primarily developed and tested on a Kali Linux system. 
+
 See [here]() for more information about which systems QVM has been tested on.
+
 If you use one of these systems and any package listed below is not available via your systems repository, you may want to consider installing it manually from source before running the `./QVM/config.sh` command.
 ```
 wget
