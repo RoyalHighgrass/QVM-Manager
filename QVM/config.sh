@@ -89,30 +89,46 @@ esac
 
 eval "$inst_method" "$packages"
 
-## Upcoming resource management feature scheduled for the official `QVM-v1.0.4` release 
-
+### Upcoming resource management feature scheduled for the official `QVM-v1.0.4` release 
 ## Ensure necessary folders exist for CPU resource limiting processes
 #sudo mkdir -p /sys/fs/cgroup/cpu/qvm_machine
 #sudo mkdir -p /sys/fs/cgroup/cpuset/qvm_machine
 #sudo mkdir -p /sys/fs/cgroup/memory/qvm_machine
 #sudo mkdir -p $HOME/QVM/config_files/vm_log_files
 
-# Setup the QVM filesystem & copy in the necessary QVM files
-
+# Setup the QVM filesystem & copy or create in the necessary QVM files
 echo -e "\nSetting up the QVM file system...\n"
 mkdir $HOME/QVM
 sudo cp README.md $HOME/QVM/
 sudo cp DevMessage.md $HOME/QVM/
 sudo cp -r QVM/* $HOME/QVM/
-sudo cp -r QVM/qvm.desktop $HOME/Desktop/
-sudo cp -r QVM/qvm.desktop /usr/share/applications/
 sudo mkdir -p $config_f/ISO_Images/cdrom
 sudo mkdir -p $config_f/VM_Images
 sudo mkdir -p $config_f/vm_log_files
 
+# Get the users username
+_USER=$(whoami)
+
+# Define the icon path & the users desktop
+ICON_PATH="/home/$_USER/QVM/config_files/logo_images/qvm-2.png"
+DESKTOP="/home/$_USER/Desktop"
+
+# Create the .desktop icon file
+sudo echo "[Desktop Entry]
+Name=QVM 
+Version=v1.0.3
+StartupWMClass=QVM
+GenericName=qvm-manager;QVM Manager;
+Comment=Type 2 QEMU hypervisor
+Exec=/usr/bin/qvm-manager --gui
+Icon=$ICON_PATH
+Type=Application
+Categories=System;Other;Administration;Tools;
+Keywords=QVM;QEMU;Virtuialization;VM;Virtual Machine Manager;Type 2;Hypervisor;Linux;Open-source;
+" > "/usr/share/applications/qvm.desktop"
+sudo cp /usr/share/applications/qvm.desktop $HOME/QVM
 
 # Create the /usr/bin/ instance & initialise the 'qvm-manager' startup command
-
 echo -e "\nCreating the 'qvm-manager' command file for launching or creating QVM sessions & instances ....\n"
 
 sudo tee -a /usr/bin/qvm-manager > /dev/null << 'EOF'
@@ -521,15 +537,11 @@ sudo chmod +x $cli/Scripts/*.sh
 sudo chmod +x $gui/qvm-manager-gui.sh
 sudo chmod +x $gui/Scripts/*.sh
 sudo chmod +x $settings/*.sh
+sudo chmod +x $HOME/QVM/qvm.desktop
 sudo chmod -R 755 $HOME/QVM
 sudo chown -R $(whoami) $HOME/QVM
-sudo chmod +x $HOME/QVM/qvm.desktop
-sudo chmod +x $HOME/Desktop/qvm.desktop
-sudo chmod -R 755 $HOME/Desktop/qvm.desktop
-sudo chown -R $(whoami) $HOME/Desktop/qvm.desktop
 sudo chmod +x /usr/share/applications/qvm.desktop
 sudo chmod -R 755 /usr/share/applications/qvm.desktop
-sudo chown -R $(whoami) /usr/share/applications/qvm.desktop
 echo -e "done!"
 
 if ! [ "$pm" = "pacman" ]; then
