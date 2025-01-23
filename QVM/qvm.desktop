@@ -8,5 +8,5 @@ Comment=Type 2 QEMU hypervisor
 Exec=/usr/bin/qvm-manager --gui
 Icon=/home/$(whoami)/QVM/config_files/logo_images/qvm-2.png
 Type=Application
-Categories=System;Administration;
+Categories=System;Other;Administration;
 Keywords=QVM;QEMU;Virtuialization;VM;Virtual machine;Type 2;Hypervisor;Linux;Open-source;
