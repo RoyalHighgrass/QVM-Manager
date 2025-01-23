@@ -3,16 +3,14 @@
 
 echo -e "Installing basic required for QVM to work properly...\n"
 
-
 # Define QVM config paths
-
 config_f="$HOME/QVM/config_files"
 cli="$HOME/QVM/config_files/CLI"
 gui="$HOME/QVM/config_files/GUI"
 settings="$HOME/QVM/config_files/settings"
 
-# Install QVM dependencies
 
+## Install QVM dependencies
 # Determine package manager
 pm=$(which dnf || which yum || which pacman || which zypper || which apt | xargs basename)
 
@@ -87,7 +85,9 @@ case "$pm" in
 	;;
 esac
 
+# Install Linux packages/QVM dependencies
 eval "$inst_method" "$packages"
+
 
 ### Upcoming resource management feature scheduled for the official `QVM-v1.0.4` release 
 ## Ensure necessary folders exist for CPU resource limiting processes
@@ -96,9 +96,9 @@ eval "$inst_method" "$packages"
 #sudo mkdir -p /sys/fs/cgroup/memory/qvm_machine
 #sudo mkdir -p $HOME/QVM/config_files/vm_log_files
 
+
 ## Setup the QVM filesystem & copy or create in the necessary QVM files
 echo -e "\nSetting up the QVM file system...\n"
-
 # Create the QVM directory
 mkdir $HOME/QVM
 
@@ -527,13 +527,11 @@ else
     esac
 fi
 
-
 EOF
+echo "done!"
 
 # Give all QVM files executable permissions
-
 echo -e -n "\nConfiguring newly created files ...\n"
-
 sudo chmod +x /usr/bin/qvm-manager
 sudo chmod +x $cli/qvm-manager.sh
 sudo chmod +x $cli/Scripts/*.sh
@@ -547,14 +545,14 @@ sudo chmod +x /usr/share/applications/qvm.desktop
 sudo chmod -R 755 /usr/share/applications/qvm.desktop
 echo -e "done!"
 
+# Verify host OS & install YAD manually if necessary
 if ! [ "$pm" = "pacman" ]; then
 	echo -e -n "check for yad... "
 	if ! which yad; then
  		echo -e "not found"
-		# Clone YAD repository & configure, make, and install YAD
-		
+   
+		# Clone YAD repository & configure, make, and install YAD		
 		echo -e "\nInstall YAD ....\n"
-		
 		cd /tmp/
 		git clone https://github.com/v1cont/yad.git
 		cd yad/
@@ -564,14 +562,11 @@ if ! [ "$pm" = "pacman" ]; then
 		sudo make install
 		
 		# Update icon cache
-		
 		sudo gtk-update-icon-cache
 		
 		# Configure with standalone option and custom defines
-		
 		CFLAGS="-DBORDERS=10 -DREMAIN -DCOMBO_EDIT" ./configure --enable-standalone
 		sudo chmod -R 75 ~/.config/dconf
-
 		echo -e "YAD installation complete!\n"
 	else
  		echo -e "YAD is already installed ... skipping installation!\n"
@@ -580,5 +575,5 @@ fi
 
 cd ~/
 
-echo -e "QVM installation complete!\nUse the 'qvm-manager' or 'qvm-manager --gui' command to get started with your QVM virtualization experience.\nFor speedy usage both commands can be executed by pressing 'qv' then the 'tab' key to autocomlete the command then press 'enter' with or without ' --gui' appended to it. Happy virtualization! ~ P.H."
+echo -e "QVM installation complete!\n\nUse the 'qvm-manager' or 'qvm-manager --gui' command to get started with your QVM virtualization experience.\nFor speedy usage both commands can be executed by pressing 'qv' then the 'tab' key to autocomlete the command then press 'enter' with or without ' --gui' appended to it. Happy virtualization! ~ P.H."
 echo -e "\nQEMU Virtual Machine Manager v1.0.3 © QVM 2024"
