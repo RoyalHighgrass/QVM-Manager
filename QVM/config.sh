@@ -104,13 +104,16 @@ mkdir $HOME/QVM
 sudo cp README.md $HOME/QVM/
 sudo cp DevMessage.md $HOME/QVM/
 sudo cp -r QVM/* $HOME/QVM/
+sudo cp -r QVM/qvm.desktop $HOME/Desktop/
+sudo cp -r QVM/qvm.desktop /usr/share/applications/
 sudo mkdir -p $config_f/ISO_Images/cdrom
 sudo mkdir -p $config_f/VM_Images
 sudo mkdir -p $config_f/vm_log_files
 
+
 # Create the /usr/bin/ instance & initialise the 'qvm-manager' startup command
 
-echo -e "\nCreating the '\/usr\/bin\/qvm-manager' file for launching or creating QVM sessions & instances ....\n"
+echo -e "\nCreating the 'qvm-manager' command file for launching or creating QVM sessions & instances ....\n"
 
 sudo tee -a /usr/bin/qvm-manager > /dev/null << 'EOF'
 
@@ -508,19 +511,6 @@ fi
 
 EOF
 
-sudo tee -a /usr/share/applications/qvm.desktop > /dev/null << 'EOF'
-
-[Desktop Entry]
-Name=QVM 
-Comment=Type 2 QEMU hypervisor for Linux systems
-Exec=/usr/bin/qvm-manager --gui
-Icon=$HOME/QVM/config_files/logo_images/qvm-2.png
-Terminal=true
-Type=Application
-Categories=Hypervisor;
-
-EOF
-
 # Give all QVM files executable permissions
 
 echo -e -n "\nConfiguring newly created files ...\n"
@@ -533,6 +523,7 @@ sudo chmod +x $gui/Scripts/*.sh
 sudo chmod +x $settings/*.sh
 sudo chmod -R 755 $HOME/QVM
 sudo chown -R $(whoami) $HOME/QVM
+sudo chmod +x $HOME/Desktop/qvm.desktop
 sudo chmod +x /usr/share/applications/qvm.desktop
 
 echo -e "done!"
