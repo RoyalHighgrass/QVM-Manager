@@ -521,27 +521,31 @@ sudo chmod -R 755 $HOME/QVM
 sudo chown -R $(whoami) $HOME/QVM
 
 if ! [ "$pm" = "pacman" ]; then
-	# Clone YAD repository & configure, make, and install YAD
-	
-	echo -e "\nInstall YAD ....\n"
-	
-	cd /tmp/
-	git clone https://github.com/v1cont/yad.git
-	cd yad/
-	autoreconf -ivf && intltoolize --force
-	./configure
-	make
-	sudo make install
-	
-	# Update icon cache
-	
-	sudo gtk-update-icon-cache
-	
-	# Configure with standalone option and custom defines
-	
-	CFLAGS="-DBORDERS=10 -DREMAIN -DCOMBO_EDIT" ./configure --enable-standalone
-	
-	echo "YAD installation complete!"
+	if ! which yad; then
+		# Clone YAD repository & configure, make, and install YAD
+		
+		echo -e "\nInstall YAD ....\n"
+		
+		cd /tmp/
+		git clone https://github.com/v1cont/yad.git
+		cd yad/
+		autoreconf -ivf && intltoolize --force
+		./configure
+		make
+		sudo make install
+		
+		# Update icon cache
+		
+		sudo gtk-update-icon-cache
+		
+		# Configure with standalone option and custom defines
+		
+		CFLAGS="-DBORDERS=10 -DREMAIN -DCOMBO_EDIT" ./configure --enable-standalone
+		
+		echo "YAD installation complete!"
+	else
+ 		echo -e "YAD is already installed ... skipping installation!\n"
+ 	fi
 fi
 
 cd $HOME
