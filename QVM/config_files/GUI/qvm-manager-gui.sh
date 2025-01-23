@@ -3,6 +3,15 @@
 b="\033[34m"
 w="\033[0m"
 
+# Environment variables
+export GTK_IM_MODULE=none
+export XDG_RUNTIME_DIR=none
+export WAYLAND_DISPLAY=wayland-0
+export GDK_BACKEND=x11
+export MESA_LOADER_DRIVER_OVERRIDE=i965
+export LIBGL_ALWAYS_SOFTWARE=1
+export XDG_CONFIG_HOME="$HOME/.config"
+
 if [ "$1" = "-um" ]; then
 	yad --text-info --filename="../../User_Manual_-_QVM_Documentation.txt" \
 		--title="File Contents" --width=850 --height=800 --on-top \
@@ -18,14 +27,6 @@ its capabilities.</b>" \
 		--button="Close":1
 		exit 0
 fi
-
-# Environment variables
-export GTK_IM_MODULE=none
-export XDG_RUNTIME_DIR=none
-export WAYLAND_DISPLAY=wayland-0
-export GDK_BACKEND=x11
-export MESA_LOADER_DRIVER_OVERRIDE=i965
-export LIBGL_ALWAYS_SOFTWARE=1
 
 credit() { echo -e "$(cat << 'EOF'
 \033[34m
