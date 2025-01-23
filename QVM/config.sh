@@ -121,6 +121,7 @@ export WAYLAND_DISPLAY=wayland-0
 export GDK_BACKEND=x11
 export MESA_LOADER_DRIVER_OVERRIDE=i965
 export LIBGL_ALWAYS_SOFTWARE=1
+export XDG_CONFIG_HOME="$HOME/.config"
 
 # User manual (Man Page)
 user_manual="$HOME/QVM/User_Manual_-_QVM_Documentation.txt"
