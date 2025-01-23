@@ -48,16 +48,6 @@ Using `pacman`:
 sudo pacman -Syu
 sudo pacman -S git
 ```
-Using `dnf`:
-```
-dnf upgrade
-dnf install git
-```
-Using `yum`:
-```
-sudo yum update && sudo yum upgrade
-sudo yum install git
-```
 To install `QVM-Manager`, follow these steps:
 ```
 cd /tmp/
@@ -69,8 +59,8 @@ sudo chmod +x QVM/config.sh
 
 ## Requirements
 
-All packages listed below (excluding `YAD`) are available via the Debian & Kali Linux repositories. This application is yet to be tested on the following commonly used Linux OS's;
-`ArchLinux`, `Manjaro`, `ParrotOS` & `RaspiOS`.
+All packages listed below (excluding `YAD`) are available via the Debian & Kali Linux repositories. This application is primarily developed and tested on a Kali Linux system. 
+See [here]() for more information about which systems QVM has been tested on.
 If you use one of these systems and any package listed below is not available via your systems repository, you may want to consider installing it manually from source before running the `./QVM/config.sh` command.
 ```
 wget
