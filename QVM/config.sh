@@ -543,6 +543,7 @@ sudo chmod -R 755 $HOME/QVM
 sudo chown -R $(whoami) $HOME/QVM
 sudo chmod +x /usr/share/applications/qvm.desktop
 sudo chmod -R 755 /usr/share/applications/qvm.desktop
+sudo chmod -R 755 ~/.config/dconf
 echo -e "done!"
 
 # Verify host OS & install YAD manually if necessary
@@ -566,7 +567,6 @@ if ! [ "$pm" = "pacman" ]; then
 		
 		# Configure with standalone option and custom defines
 		CFLAGS="-DBORDERS=10 -DREMAIN -DCOMBO_EDIT" ./configure --enable-standalone
-		sudo chmod -R 75 ~/.config/dconf
 		echo -e "YAD installation complete!\n"
 	else
  		echo -e "YAD is already installed ... skipping installation!\n"
