@@ -63,9 +63,10 @@ sudo chmod +x QVM/config.sh
 ```
 Not using `apt` or `pacman`:
 ```
-If you are not using `apt` or `pacman` as your package manager, you will have to install all required packages
-mannually before running the `./QVM/config.sh` command which will ask you if you have done so and are ready to
-proceed. Proceeding without installing the necessary packages will cause the installation to fail.
+If you are not using `apt` or `pacman` as your package manager, you will have to install
+all required packages mannually before running the `./QVM/config.sh` command which will
+ask you if you have done so and are ready to proceed. Proceeding without installing the
+necessary packages will cause the installation to fail.
 ```
 
 ## Requirements
