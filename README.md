@@ -102,7 +102,9 @@ libvirt-daemon
 libvirt-clients-qemu
 qemu-kvm 
 qemu-system-common
+qemu-system-arm
 qemu-system-x86
+qemu-efi-aarch64
 qemu-system-modules-opengl
 qemu-utils
 grub-firmware-qemu
