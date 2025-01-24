@@ -61,10 +61,12 @@ cd QVM-Manager
 sudo chmod +x QVM/config.sh
 ./QVM/config.sh
 ```
+Not using `apt` or `pacman`:
+If you are not using `apt` or `pacman` as your package manager, you will have to install all required packages mannually before running the `./QVM/config.sh` command which will ask you if you have done so and are ready to proceed. Proceeding without installing the necessary packages will cause the installation to fail.
 
 ## Requirements
 
-All packages listed below (excluding `YAD`) are available via the Debian & Kali Linux repositories using `apt`. ArchLinux users can install YAD using `pacman`. 
+All packages listed below are essential minimum requirements for QVM to function properly and (except for YAD) are all available through the Debian, Ubuntu and Kali Linux repositories via `apt`. Arch Linux users can install `YAD` using `pacman`. If you're using a distribution other than Kali, Debian, or Ubuntu, you'll need to manually install all the required packages and may have to find alternative versions if the exact package isn't available. Additional packages can be added as needed for enhanced functionality. 
 
 If you use one of these systems and any package listed below is not available via your systems repository, you may want to consider installing it manually from source before running the `./QVM/config.sh` command.
 ```
