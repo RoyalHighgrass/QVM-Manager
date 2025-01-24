@@ -518,7 +518,7 @@ if ! [[ "$1" = "--uninstall" ]]; then
 	    esac
 	fi
 	
-	EOF
+EOF
 	echo "done!"
 	
 	# Give all QVM files executable permissions
