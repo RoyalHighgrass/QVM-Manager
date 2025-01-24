@@ -12,7 +12,7 @@ settings="$HOME/QVM/config_files/settings"
 
 ## Install QVM dependencies
 # Determine package manager
-pm=$(which dnf || which yum || which pacman || which zypper || which apt)
+pm=$(which dnf 2>/dev/null || which yum 2>/dev/null || which pacman 2>/dev/null || which zypper 2>/dev/null || which apt 2>/dev/null)
 pm=$(basename $pm)
 # Determine host OS
 host_os=$(cat /etc/os-release | grep NAME | cut -d'"' -f2 | grep -v "=" | tail -n 1)
