@@ -18,7 +18,7 @@ pm=$(which dnf || which yum || which pacman || which zypper || which apt | xargs
 host_os=$(cat /etc/os-release | grep NAME | cut -d'"' -f2 | grep -v "=" | tail -n 1)
 
 # Common packages across distributions
-common_packages="wget tree git locate zenity wmctrl make autoconf gawk acpi bc cmake intltool bridge-utils \
+common_packages="wget tree locate zenity wmctrl make autoconf gawk acpi bc cmake intltool bridge-utils \
 	mgba-sdl"
 
 # Distro-specific packages
