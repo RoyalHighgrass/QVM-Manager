@@ -23,10 +23,10 @@ if ! [[ "$1" = "--uninstall" ]]; then
 	
 	# Distro-specific packages
 	apt_dependencies="cpu-checker original-awk mawk libgtk-4-1 libgtk-3-common \
-		libgtk-4-common libgtk-3-0t64 libgtk-3-dev cgroup-tools libvirt-clients \
+		libgtk-4-common libgtk-3-dev cgroup-tools libvirt-clients \
 		libvirt-daemon-system virtinst libvirt-daemon qemu-kvm automake intltool \
 		qemu-system-common qemu-system-arm qemu-system-x86 qemu-efi-aarch64 \
-  		qemu-system-modules-opengl libsdl2-2.0-0 libsdl2-net-2.0-0 mednafen \
+  		libsdl2-2.0-0 libsdl2-net-2.0-0 mednafen \
     		build-essential mesa-vulkan-drivers libwebkit2gtk-4.0-doc libwebkit2gtk-4.1-0 \
       		libwebkit2gtk-4.1-dev libgtksourceview-3.0-dev libgspell-1-dev"
 	 
@@ -51,8 +51,8 @@ if ! [[ "$1" = "--uninstall" ]]; then
 	        inst_method="$apt_pm"
 	        packages+=" $apt_dependencies"
 			case "$host_os" in
-			    *Debian*|*Kali*)
-		  			packages+=" gtk4-layer-shell-doc"
+			    *Kali*)
+		  			packages+=" gtk4-layer-shell-doc libgtk-3-0t64 qemu-system-modules-opengl"
 		  		;;
 		 	esac
 	    ;;
