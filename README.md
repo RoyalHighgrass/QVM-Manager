@@ -46,12 +46,12 @@ First, make sure that your system is up-to-date & that `git` is installed:
 Using `apt`:
 ```
 sudo apt update && sudo apt upgrade -y
-sudo apt install git
+sudo apt install git -y
 ```
 Using `pacman`:
 ```
-sudo pacman -Syu
-sudo pacman -S git
+sudo pacman -Syu --noconfirm
+sudo pacman -S git --noconfirm
 ```
 To install `QVM-Manager`, follow these steps:
 ```
