@@ -99,7 +99,6 @@ if ! [[ "$1" = "--uninstall" ]]; then
 	
 	# Define the icon path & the users desktop
 	ICON_PATH="/home/$_USER/QVM/config_files/logo_images/qvm-2.png"
-	DESKTOP="/home/$_USER/Desktop"
 	
 	# Create the .desktop icon file
 	echo "[Desktop Entry]
@@ -574,6 +573,7 @@ else
 	echo -e "qvm-manager: Removing QVM from the system... "
  	# Confirm choice
   	read -p "qvm-manager: Are you sure you want to purge all QVM files? [Y/n]: " uninstall
+	uninstall=${uninstall:-Y} 
   	# Validate input
    	case $uninstall in
    		[Yy])	# Remove files
