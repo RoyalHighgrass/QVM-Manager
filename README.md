@@ -41,7 +41,7 @@ This application is primarily developed and tested on a Kali Linux system.
 See [here](https://github.com/RoyalHighgrass/QVM-Manager/issues/11#issuecomment-2606083067) for more information about which systems QVM has been tested on.
 
 #### Installation Guide
-First, make sure that your system is up-to-date & that `git` is installed:
+First, make sure that your system is up-to-date & that `git` is installed & also up-to-date:
 
 Using `apt`:
 ```
