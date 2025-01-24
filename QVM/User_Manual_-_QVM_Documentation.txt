@@ -105,13 +105,20 @@ EXAMPLES
         qvm-manager --show-snap myvm
                 List all snapshots of the "myvm" virtual machine.
 
-GUI TIPS & HINTS
+        qvm-manager --revert myvm --tag backup1
+                Roll the "myvm" virtual machine back to the point that the
+                "backup1" snapshot was taken. Roll backs cannot be reversed.
+
+TIPS & HINTS
         - VM templating can only be implemented via the GUI.
-        - VMs can only be renamed via the GUI.
         - Most GUI messages are automatically sent to the CLI, providing a useful
           log of the current session's activities.
         - It is generally much easier to manage VMs via the GUI. However, using
-          the CLI can be a more efficient way completing certain tasks.
+          the CLI can be a more efficient way of completing certain tasks.
+        - VM's can only be renamed via the GUI.
+        - QVM does not allow snapshots to be taken of running machines. Power 
+          down the virtual machine in order to take a snapshot of it.
+        - VM roll backs can only be done via the CLI when using '--revert'.
 
 AUTHOR
         Written by P.H.
