@@ -19,20 +19,20 @@ host_os=$(cat /etc/os-release | grep NAME | cut -d'"' -f2 | grep -v "=" | tail -
 
 # Common packages across distributions
 common_packages="wget tree locate zenity wmctrl make autoconf gawk acpi bc cmake intltool bridge-utils \
-	mgba-sdl"
+	mgba-sdl mesa-utils"
 
 # Distro-specific packages
 apt_dependencies="cpu-checker original-awk mawk libgtk-4-1 libgtk-3-common \
 	libgtk-4-common libgtk-3-0t64 libgtk-3-dev cgroup-tools libvirt-clients \
 	libvirt-daemon-system virtinst libvirt-daemon qemu-kvm automake intltool \
 	qemu-system-common qemu-system-x86 qemu-system-modules-opengl libsdl2-2.0-0 \
-	libsdl2-net-2.0-0 mednafen build-essential mesa-vulkan-drivers mesa-utils \
+	libsdl2-net-2.0-0 mednafen build-essential mesa-vulkan-drivers \
 	libwebkit2gtk-4.0-doc libwebkit2gtk-4.1-0 libwebkit2gtk-4.1-dev libgtksourceview-3.0-dev libgspell-1-dev"
  
 pacman_dependencies="yad gtk-layer-shell gtk3 gtk3-docs gtk3-demos gtk4 gtk4-docs gtk4-demos libportal-gtk3 \
 	libportal-gtk4 libindicator-gtk3 libvirt libvirt-dbus libvirt-glib libguestfs virt-firmware \
 	vulkan-virtio gcc libdaemon qemu-full qemu-guest-agent qemu-system-arm qemu-system-aarch64 \
-	qemu-system-x86 qemu-arch-extra glbinding lib32-mesa sdl2"
+	glbinding mesa vulkan-mesa-layers sdl2"
 
 # Installation command templates
 apt_pm="sudo apt install -y"
