@@ -34,12 +34,6 @@ pacman_dependencies="yad gtk-layer-shell gtk3 gtk3-docs gtk3-demos gtk4 gtk4-doc
 	vulkan-virtio gcc libdaemon qemu-full qemu-guest-agent qemu-system-arm qemu-system-aarch64 \
 	qemu-system-x86 qemu-arch-extra glbinding lib32-mesa sdl2"
 
-zypper_dependencies="libvirt qemu-kvm qemu-tools virt-manager bridge-utils libguestfs-tools"
-
-dnf_dependencies="libvirt qemu-kvm virt-manager bridge-utils guestfs-tools"
-
-yum_dependencies="$dnf_dependencies"
-
 # Installation command templates
 apt_pm="sudo apt install -y"
 pacman_pm="sudo pacman -S --noconfirm"
@@ -65,23 +59,20 @@ case "$pm" in
         inst_method="$pacman_pm"
         packages+=" $pacman_dependencies"
     ;;
-    zypper)
-        inst_method="$zypper_pm"
-        packages+=" $zypper_dependencies"
-    ;;
-    dnf)
-        inst_method="$dnf_pm"
-        packages+=" $dnf_dependencies"
-    ;;
-    yum)
-        inst_method="$yum_pm"
-        packages+=" $yum_dependencies"
-    ;;
     *)
         echo "qvm-manager: Error: Unsupported package manager: $pm"
 		echo -e "The following packages must be manually installed before proceeding with this config script!:\nQVM Dependencies;\n\n$apt_dependencies"
   		echo "\n**Note**: The QVM settup wizard will fail if this is not done before proceeding!"
-    	exit 1
+		read -p "Are you ready to proceed? [Y/n]: " proceed
+		proceed=${proceed:-Y} 
+		case $proceed in
+		  [Yy]) 
+		    # continue
+		    ;;
+		  *) 
+		    exit 1
+		    ;;
+		esac
 	;;
 esac
 
