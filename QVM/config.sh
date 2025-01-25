@@ -558,7 +558,6 @@ sudo chmod +x /usr/share/applications/qvm.desktop
 sudo chmod -R 755 /usr/share/applications/qvm.desktop
 sudo chmod -R 755 ~/.config/dconf
 sudo chmod +x $HOME/QVM/uninstall.sh
-sudo update-desktop-database
 echo -e "done!"
 
 # Verify host OS & install YAD manually if necessary
@@ -586,6 +585,7 @@ fi
 
 # Update icon cache
 sudo gtk-update-icon-cache
+sudo update-desktop-database
 
 echo -e "QVM installation complete!\n\nUse the 'qvm-manager' or 'qvm-manager --gui' command to get started with your QVM virtualization experience.\nFor speedy usage both commands can be executed by pressing 'qv' then the 'tab' key to autocomlete the command then press 'enter' with or without ' --gui' appended to it. Happy virtualization! ~ P.H."
 echo -e "\nQEMU Virtual Machine Manager v1.0.3 © QVM 2024"
