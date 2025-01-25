@@ -97,19 +97,19 @@ mkdir $HOME/QVM
 _USER=$(whoami)
 
 # Define the icon path & the users desktop
-ICON_PATH="/home/$_USER/QVM/config_files/logo_images/qvm-2.png"
+ICON_PATH="/usr/share/icons/hicolor/scalable/apps/qvm-2.png"
 
 # Create the .desktop icon file
 echo "[Desktop Entry]
 Name=qvm
 Version=v1.0.3
-StartupWMClass=Nemo;QVM;
+StartupWMClass=qvm
 GenericName=QVM;qvm-manager;QVM Manager;
 Comment=Type 2 QEMU hypervisor CLI tool
 Exec=/usr/bin/qvm-manager --gui
-Icon=$ICON_PATH
+Icon=qvm
 Type=Application
-Categories=Other;Administration;System;Linux apps;Emulator;
+Categories=Other;Administration;System;Linux apps;
 Keywords=QVM;QEMU;Virtuialization;VM;Virtual Machine Manager;Type 2;Hypervisor;Linux;Open-source;
 " > $HOME/qvm.desktop
 
@@ -120,6 +120,7 @@ sudo cp -r QVM/* $HOME/QVM/
 sudo mkdir -p $config_f/ISO_Images/cdrom
 sudo mkdir -p $config_f/VM_Images
 sudo mkdir -p $config_f/vm_log_files
+sudo cp QVM/config_files/logo_images/qvm-2.png /usr/share/icons/hicolor/scalable/apps/
 
 # Create the /usr/bin/ instance & initialise the 'qvm-manager' startup command
 echo -e -n "Creating the 'qvm-manager' command file for launching or creating QVM sessions & instances ...."
