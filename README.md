@@ -66,7 +66,7 @@ Not using `apt` or `pacman`?
 ###### **Note**: If you are not using `apt` or `pacman` as your package manager, you will have to install all required packages mannually before running the `./QVM/config.sh` command which will ask you if you have done so and are ready to proceed. 
 Proceeding without manually installing the necessary packages will cause the installation to fail.
 
-Once the installation is complete, the `QVM` icon should automatically appear in your systems application menu and application search results. In the event that this does not happen, you will most likely need to either run the '`sudo update-desktop-database`' command or restart your system, possibly both.
+Once the installation is complete, the `QVM` icon should automatically appear in your systems application menu and application search results. In the event that this does not happen, you will most likely need to either; run the '`sudo update-desktop-database`' command or restart your system, possibly both.
 
 ## Requirements
 
