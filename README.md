@@ -66,6 +66,8 @@ Not using `apt` or `pacman`?
 ###### **Note**: If you are not using `apt` or `pacman` as your package manager, you will have to install all required packages mannually before running the `./QVM/config.sh` command which will ask you if you have done so and are ready to proceed. 
 Proceeding without manually installing the necessary packages will cause the installation to fail.
 
+Once the installation is complete, the `QVM` icon should automatically appear in your systems application menu and application search results. In the event that this does not happen, you will most likely need to either run the '`sudo update-desktop-database`' command or restart your system, possibly both.
+
 ## Requirements
 
 All packages listed below are essential minimum requirements for QVM to function properly and (except for YAD) are all available through the Debian, Ubuntu and Kali Linux repositories via `apt`. Arch Linux users can install them or any alternative versions and `YAD` using `pacman`. If you're using a package manager other than `apt` or `pacman`, you'll need to manually install all the required packages and will most likely have to find suitable alternatives if the exact package isn't available via your preferred package manager. 
