@@ -97,20 +97,20 @@ mkdir $HOME/QVM
 _USER=$(whoami)
 
 # Define the icon path & the users desktop
-ICON_PATH="/usr/share/icons/hicolor/scalable/apps/qvm-2.png"
+ICON_PATH="$config_f/logo_images/qvm-2.png"
 
 # Create the .desktop icon file
 echo "[Desktop Entry]
-Name=qvm
+Name=QVM
 Version=v1.0.3
-StartupWMClass=qvm
+StartupWMClass=qvm-2
 GenericName=QVM;qvm-manager;QVM Manager;
 Comment=Type 2 QEMU hypervisor CLI tool
 Exec=/usr/bin/qvm-manager --gui
-Icon=qvm
+Icon=$ICON_PATH
 Type=Application
 Categories=Other;Administration;System;Linux apps;
-Keywords=QVM;QEMU;Virtuialization;VM;Virtual Machine Manager;Type 2;Hypervisor;Linux;Open-source;
+Keywords=QVM;QEMU;Quick Emulator;Virtuialization;VM;Virtual Machine Manager;Type 2;Hypervisor;Linux;Open-source;
 " > $HOME/qvm.desktop
 
 sudo cp $HOME/qvm.desktop /usr/share/applications/qvm.desktop
@@ -120,7 +120,6 @@ sudo cp -r QVM/* $HOME/QVM/
 sudo mkdir -p $config_f/ISO_Images/cdrom
 sudo mkdir -p $config_f/VM_Images
 sudo mkdir -p $config_f/vm_log_files
-sudo cp QVM/config_files/logo_images/qvm-2.png /usr/share/icons/hicolor/scalable/apps/
 
 # Create the /usr/bin/ instance & initialise the 'qvm-manager' startup command
 echo -e -n "Creating the 'qvm-manager' command file for launching or creating QVM sessions & instances ...."
@@ -526,14 +525,16 @@ echo "
 #!/bin/bash
 
 # Remove all QVM files
-echo -e "qvm-manager: Removing QVM from the system... "
+echo -e \"qvm-manager: Removing QVM from the system... \"
 # Confirm choice
-read -p "qvm-manager: Are you sure you want to purge all QVM files? [Y/n]: " uninstall
-uninstall=${uninstall:-Y} 
+read -p \"qvm-manager: Are you sure you want to purge all QVM files? [Y/n]: \" uninstall
 # Validate input
-case $uninstall in
+case \$uninstall in
 	[Yy])	# Remove files
 			sudo rm -r ~/QVM ~/qvm.desktop /usr/bin/qvm-manager /usr/share/applications/qvm.desktop
+   			sudo update-desktop-database
+	  		sudo gtk-update-icon-cache
+	 		echo -e \"done!\"
 	;;
 	*)	# Exit
 		exit 1
@@ -561,11 +562,11 @@ echo -e "done!"
 
 # Verify host OS & install YAD manually if necessary
 if ! [ "$pm" = "pacman" ]; then
-	echo -e -n "Check for yad... "
+	echo -e -n "Checking for YAD ... "
 	if ! which yad; then
 		echo -e "not found"
 		# Clone YAD repository & configure, make, and install YAD		
-		echo -e "\nInstall YAD ...."
+		echo -e "\nInstalling YAD ..."
 		cd /tmp/
 		git clone https://github.com/v1cont/yad.git
 		cd yad/
@@ -585,7 +586,6 @@ fi
 # Update icon cache
 sudo gtk-update-icon-cache
 
-cd ~/
-
 echo -e "QVM installation complete!\n\nUse the 'qvm-manager' or 'qvm-manager --gui' command to get started with your QVM virtualization experience.\nFor speedy usage both commands can be executed by pressing 'qv' then the 'tab' key to autocomlete the command then press 'enter' with or without ' --gui' appended to it. Happy virtualization! ~ P.H."
 echo -e "\nQEMU Virtual Machine Manager v1.0.3 © QVM 2024"
+cd $HOME
