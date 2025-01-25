@@ -68,6 +68,7 @@ Proceeding without manually installing the necessary packages will cause the ins
 ## Requirements
 
 All packages listed below are essential minimum requirements for QVM to function properly and (except for YAD) are all available through the Debian, Ubuntu and Kali Linux repositories via `apt`. Arch Linux users can install them or any alternative versions and `YAD` using `pacman`. If you're using a package manager other than `apt` or `pacman`, you'll need to manually install all the required packages and will most likely have to find suitable alternatives if the exact package isn't available via your preferred package manager. 
+###### **Note**: A required package may simply be a component of another package, meaning that you'll need to install the parent package to access its components.
 
 Additional packages of your choosing can be added as needed for enhanced functionality.
 ```
@@ -94,8 +95,6 @@ libgtk-3-dev
 yad (github)
 acpi
 bc
-tr
-xrandr
 cgroup-tools
 libvirt-clients 
 libvirt-daemon-system 
