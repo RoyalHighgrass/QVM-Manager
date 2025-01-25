@@ -555,6 +555,7 @@ sudo chmod +x $HOME/QVM/uninstall.sh
 sudo chmod +x /usr/share/applications/qvm.desktop
 sudo chmod -R 755 /usr/share/applications/qvm.desktop
 sudo chmod -R 755 ~/.config/dconf
+sudo update-desktop-database
 echo -e "done!"
 
 # Verify host OS & install YAD manually if necessary
