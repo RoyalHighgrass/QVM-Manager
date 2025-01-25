@@ -553,10 +553,12 @@ sudo chmod +x $settings/*.sh
 sudo chmod +x $HOME/qvm.desktop
 sudo chmod -R 755 $HOME/QVM
 sudo chown -R $(whoami) $HOME/QVM
-sudo chmod +x $HOME/QVM/uninstall.sh
+sudo chmod +x ~/qvm.desktop
+sudo chmod -R 755 ~/qvm.desktop
 sudo chmod +x /usr/share/applications/qvm.desktop
 sudo chmod -R 755 /usr/share/applications/qvm.desktop
 sudo chmod -R 755 ~/.config/dconf
+sudo chmod +x $HOME/QVM/uninstall.sh
 sudo update-desktop-database
 echo -e "done!"
 
