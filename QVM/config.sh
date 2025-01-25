@@ -540,7 +540,7 @@ case $uninstall in
 esac
 " > $HOME/QVM/uninstall.sh
 
-# Give all QVM files executable permissions
+# Give all QVM files executable permissions & non-root ownership
 echo -e -n "\nConfiguring newly created files ...\n"
 sudo chmod +x /usr/bin/qvm-manager
 sudo chmod +x $cli/qvm-manager.sh
@@ -573,9 +573,6 @@ if ! [ "$pm" = "pacman" ]; then
 		make
 		sudo make install
 		
-		# Update icon cache
-		sudo gtk-update-icon-cache
-		
 		# Configure with standalone option and custom defines
 		CFLAGS="-DBORDERS=10 -DREMAIN -DCOMBO_EDIT" ./configure --enable-standalone
 		echo -e "YAD installation complete!\n"
@@ -583,6 +580,9 @@ if ! [ "$pm" = "pacman" ]; then
 		echo -e "YAD is already installed ... skipping installation!\n"
 	fi
 fi
+
+# Update icon cache
+sudo gtk-update-icon-cache
 
 cd ~/
 
