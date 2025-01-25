@@ -101,11 +101,11 @@ ICON_PATH="/home/$_USER/QVM/config_files/logo_images/qvm-2.png"
 
 # Create the .desktop icon file
 echo "[Desktop Entry]
-Name=QVM 
+Name=qvm
 Version=v1.0.3
-StartupWMClass=QVM
-GenericName=qvm-manager;QVM Manager;
-Comment=Type 2 QEMU hypervisor
+StartupWMClass=Nemo;QVM;
+GenericName=QVM;qvm-manager;QVM Manager;
+Comment=Type 2 QEMU hypervisor CLI tool
 Exec=/usr/bin/qvm-manager --gui
 Icon=$ICON_PATH
 Type=Application
