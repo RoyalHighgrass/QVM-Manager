@@ -53,7 +53,7 @@ Using `pacman`:
 sudo pacman -Syu --noconfirm
 sudo pacman -S git --noconfirm
 ```
-To install `QVM-Manager`, follow these steps:
+To install `QVM-Manager`, use the following command:
 ```
 curl -fsSL https://raw.githubusercontent.com/RoyalHighgrass/QVM-Manager/main/QVM/config.sh | bash
 ```
