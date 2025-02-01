@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo -e "\nQEMU Virtual Machine Manager v1.0.3 © QVM 2024"
+echo -e "\nQEMU Virtual Machine Manager v1.0.3 © QVM 2024\n\n+ Running the QVM Manager config script...."
 
 # Move to the 'tmp' folder and clone the QVM files
 echo "+ qvm-manager: Cloning the necessary QVM config files..."
@@ -8,7 +8,7 @@ cd /tmp/
 git clone https://github.com/RoyalHighgrass/QVM-Manager.git
 cd QVM-Manager
 
-echo -e "+ qvm-manager: Installing basic required for QVM to work properly...\n"
+echo -e "+ qvm-manager: Installing basic required for QVM to work properly..."
 
 # Define QVM config paths
 config_f="$HOME/QVM/config_files"
@@ -97,7 +97,7 @@ eval "$inst_method" "$packages"
 
 
 ## Setup the QVM filesystem & copy or create in the necessary QVM files
-echo -e "\n+ qvm-manager: Setting up the QVM-v1.0.3 file system...\n"
+echo -e "+ qvm-manager: Setting up the QVM-v1.0.3 file system..."
 # Create the QVM directory
 mkdir $HOME/QVM
 
@@ -130,7 +130,7 @@ sudo mkdir -p $config_f/VM_Images
 sudo mkdir -p $config_f/vm_log_files
 
 # Create the /usr/bin/ instance & initialise the 'qvm-manager' startup command
-echo -e -n "+ qvm-manager: Creating the 'qvm-manager' command file for launching or creating QVM sessions & instances ...."
+echo -e -n "+ qvm-manager: Creating the 'qvm-manager' command file for launching or creating QVM sessions & instances ... "
 
 sudo tee -a /usr/bin/qvm-manager > /dev/null << 'EOF'
 
@@ -551,7 +551,7 @@ esac
 " > $HOME/QVM/uninstall.sh
 
 # Give all QVM files executable permissions & non-root ownership
-echo -e -n "\n+ qvm-manager: Configuring newly created files ...\n"
+echo -e -n "qvm-manager: Configuring newly created files ... "
 sudo chmod +x /usr/bin/qvm-manager
 sudo chmod +x $cli/qvm-manager.sh
 sudo chmod +x $cli/Scripts/*.sh
@@ -566,7 +566,7 @@ sudo chmod +x /usr/share/applications/qvm.desktop
 sudo chmod -R 755 /usr/share/applications/qvm.desktop
 sudo chmod -R 755 ~/.config/dconf
 sudo chmod +x $HOME/QVM/uninstall.sh
-echo -e "+ done!"
+echo -e "done!"
 
 # Verify host OS & install YAD manually if necessary
 if ! [ "$pm" = "pacman" ]; then
@@ -574,7 +574,7 @@ if ! [ "$pm" = "pacman" ]; then
 	if ! which yad; then
 		echo -e "not found"
 		# Clone YAD repository & configure, make, and install YAD		
-		echo -e "\n+ qvm-manager: Installing YAD ..."
+		echo -e "+ qvm-manager: Installing YAD ..."
 		cd /tmp/
 		git clone https://github.com/v1cont/yad.git
 		cd yad/
@@ -585,9 +585,9 @@ if ! [ "$pm" = "pacman" ]; then
 		
 		# Configure with standalone option and custom defines
 		CFLAGS="-DBORDERS=10 -DREMAIN -DCOMBO_EDIT" ./configure --enable-standalone
-		echo -e "+ qvm-manager: YAD installation complete!\n"
+		echo -e "+ qvm-manager: YAD installation complete!"
 	else
-		echo -e "+ qvm-manager: YAD is already installed ... skipping installation!\n"
+		echo -e "+ qvm-manager: YAD is already installed ... skipping installation!"
 	fi
 fi
 
