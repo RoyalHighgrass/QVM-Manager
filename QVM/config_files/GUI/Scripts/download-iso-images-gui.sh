@@ -66,7 +66,8 @@ case $? in
 					echo "$url"
 					file_name="debian-12.iso"
 		        else
-				    yad --info --text="A Debian ISO image has already been downloaded!"
+				    yad --info --text="A Debian ISO image has already been downloaded!" \
+					--buttons-layout=center --button="OK"
 					exit 1
 	            fi
 			;;
@@ -77,7 +78,8 @@ case $? in
 					echo "$url"
 					file_name="arch-linux.iso"
 		        else
-				    yad --info --text="A Arch Linux ISO image has already been downloaded!"
+				    yad --info --text="A Arch Linux ISO image has already been downloaded!" \
+					--buttons-layout=center --button="OK"
 					exit 1
 	            fi
 			;;
@@ -88,7 +90,8 @@ case $? in
 					echo "$url"
 					file_name="kali-linux.iso"
 		        else
-				    yad --info --text="A Kali Linux ISO image has already been downloaded!"
+				    yad --info --text="A Kali Linux ISO image has already been downloaded!" \
+					--buttons-layout=center --button="OK"
 					exit 1
 	            fi
 			;;
@@ -99,7 +102,8 @@ case $? in
 					echo "$url"
 					file_name="ubuntu-noble.iso"
 		        else
-				    yad --info --text="A Ubuntu Noble ISO image has already been downloaded!"
+				    yad --info --text="A Ubuntu Noble ISO image has already been downloaded!" \
+					--buttons-layout=center --button="OK"
 					exit 1
 	            fi
 			;;
@@ -110,18 +114,20 @@ case $? in
 					echo "$url"
 					file_name="ubuntu-server.iso"
 		        else
-				    yad --info --text="A Ubuntu Server ISO image has already been downloaded!"
+				    yad --info --text="A Ubuntu Server ISO image has already been downloaded!" \
+					--buttons-layout=center --button="OK"
 					exit 1
 	            fi
 			;;
 	    	6)	# Pull-ISO-Raspi-OS-Image 
 		        if ! find $HOME/QVM/ -type f -name "*.iso" | grep "raspios.iso" &>/dev/null; then
-					target="RaspiOS"
+					target="Raspian"
 					url=$(./../settings/recommended_iso_files.sh "raspi-os")
 					echo "$url"
 					file_name="raspi-os.iso"
 		        else
-				    yad --info --text="A Raspian ISO image has already been downloaded!"
+				    yad --info --text="A Raspian ISO image has already been downloaded!" \
+					--buttons-layout=center --button="OK"
 					exit 1
 	            fi
 			;;
@@ -153,7 +159,8 @@ case $? in
 					echo "$url"
 					file_name="manjaro-${version}.iso"
 		        else
-				    yad --info --text="A Manjaro $manj_type ISO image has already been downloaded!"
+				    yad --info --text="A Manjaro $manj_type ISO image has already been downloaded!" \
+					--buttons-layout=center --button="OK"
 					exit 1
 	            fi
 			;;
@@ -164,7 +171,8 @@ case $? in
 					echo "$url"
 					file_name="parrot-os.iso"
 		        else
-				    yad --info --text="A Parrot OS ISO image has already been downloaded!"
+				    yad --info --text="A Parrot OS ISO image has already been downloaded!" \
+					--buttons-layout=center --button="OK"
 					exit 1
 	            fi
 			;;
@@ -175,7 +183,8 @@ case $? in
 					echo "$url"
 					file_name="fedora.iso"
 		        else
-				    yad --info --text="A Fedora ISO image has already been downloaded!"
+				    yad --info --text="A Fedora ISO image has already been downloaded!" \
+					--height=250 --buttons-layout=center --button="OK"
 					exit 1
 	            fi
 			;;
@@ -186,7 +195,8 @@ case $? in
 					echo "$url"
 					file_name="linux-mint.iso"
 		        else
-				    yad --info --text="A Linux Mint ISO image has already been downloaded!"
+				    yad --info --text="A Linux Mint ISO image has already been downloaded!" \
+					--buttons-layout=center --button="OK"
 					exit 1
 	            fi
 			;;
