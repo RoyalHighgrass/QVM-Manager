@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo -e "\nQEMU Virtual Machine Manager v1.0.3 © QVM 2024\n\n+ Running the QVM Manager config script...."
+echo -e "\nQEMU Virtual Machine Manager v1.0.3 © QVM 2024\n\nRunning the 'qvm-manager' config script...."
 
 # Move to the 'tmp' folder and clone the QVM files
 echo "+ qvm-manager: Cloning the necessary QVM config files..."
@@ -551,7 +551,7 @@ esac
 " > $HOME/QVM/uninstall.sh
 
 # Give all QVM files executable permissions & non-root ownership
-echo -e -n "qvm-manager: Configuring newly created files ... "
+echo -e -n "+ qvm-manager: Configuring newly created files ... "
 sudo chmod +x /usr/bin/qvm-manager
 sudo chmod +x $cli/qvm-manager.sh
 sudo chmod +x $cli/Scripts/*.sh
