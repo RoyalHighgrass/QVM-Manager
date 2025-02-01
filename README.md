@@ -55,12 +55,7 @@ sudo pacman -S git --noconfirm
 ```
 To install `QVM-Manager`, follow these steps:
 ```
-cd /tmp/
-git clone https://github.com/RoyalHighgrass/QVM-Manager.git
-cd QVM-Manager
-sudo chmod +x QVM/config.sh
-./QVM/config.sh
-cd ~/
+curl -fsSL https://github.com/RoyalHighgrass/QVM-Manager/blob/main/QVM/config.sh | sh
 ```
 Not using `apt` or `pacman`?
 ###### **Note**: If you are not using `apt` or `pacman` as your package manager, you will have to install all required packages mannually before running the `./QVM/config.sh` command which will ask you if you have done so and are ready to proceed. 
