@@ -55,7 +55,7 @@ sudo pacman -S git --noconfirm
 ```
 To install `QVM-Manager`, follow these steps:
 ```
-curl -fsSL https://github.com/RoyalHighgrass/QVM-Manager/blob/main/QVM/config.sh | bash
+curl -fsSL https://raw.githubusercontent.com/RoyalHighgrass/QVM-Manager/main/QVM/config.sh | bash
 ```
 Not using `apt` or `pacman`?
 ###### **Note**: If you are not using `apt` or `pacman` as your package manager, you will have to install all required packages mannually before running the `./QVM/config.sh` command which will ask you if you have done so and are ready to proceed. 
