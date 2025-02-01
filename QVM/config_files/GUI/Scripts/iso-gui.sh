@@ -6,6 +6,10 @@ iso_search=$(echo -e "\033[34mSearching for ISO images...\n\033[0m" && \
     find ~/QVM/ -type f -name "*.iso" | cut -d"/" -f8 | grep iso | sed 's/.iso/.iso (cdrom)/g' | sort
 )
 
+if [[ "$1" = "gip" ]]; then
+	echo "$iso_search"
+fi
+
 iso_menu() { yad --title "QVM-1.0.3 - Manage ISO Images" \
     --form --columns=1 --width=250 --height=250 \
     --image="$HOME/QVM/config_files/logo_images/qvm-2.png" \
@@ -23,7 +27,7 @@ else
 	# View & delete ISO images
 	if [ "$1" = "-v" ]; then
 		echo -e "$iso_search"
-		iso_files=$(find "$HOME" -type f -name "*.iso" -printf "%f\n" | cut -d. -f1 | sort)
+		iso_files=$(find "$HOME/QVM/" -type f -name "*.iso" -printf "%f\n" | cut -d. -f1 | sort)
 		if echo "$iso_files" | grep GUI &>/dev/null; then
 			iso_files=$(echo "$iso_files" | grep GUI | sed 's/$/& (Currently downloading...\)/g')
 		fi
@@ -56,8 +60,9 @@ else
 
 				case $? in
 					0)	# Process the selected files for deletion
-					    echo "$selected_iso" | while read -r file; do
-							sudo rm "$HOME/QVM/config_files/ISO_Images/${selected_iso}.iso"
+						selected_iso=$(./Scripts/iso-gui.sh "gip" | grep "$selected_iso")
+						echo "$selected_iso" | while read -r file; do
+							sudo rm "$HOME/QVM/config_files/ISO_Images/$selected_iso"
 							if [ "$?" = 0 ]; then
 							    echo "The $selected_iso ISO image has successfully been deleted!" && \
 								yad --title="QVM-v1.0.3 - Operation successful!" \
