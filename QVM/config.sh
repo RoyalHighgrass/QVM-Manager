@@ -512,25 +512,45 @@ else
 		;;
 		--start)
 			# Start an existing VM.
-		if [ -z "$2" ]; then
-		echo "qvm-manager: Error: Invalid input: No VM name provided!"
-		else
-		if ! find $HOME/QVM/ -type f -name "*.img" | grep "$2" &>/dev/null; then
-			echo "qvm-manager: Error: That VM does not exist!"
-		else
-			if ps aux | grep -q "[q]emu-system.*$2" &>/dev/null; then
-			echo -e "${b}qvm-manager: Operation failed: The ${w}$2${b} VM is already running!${w}"
+			if [ -z "$2" ]; then
+				echo "qvm-manager: Error: Invalid input: No VM name provided!"
 			else
-			echo -e "${b}Starting the${w} $2 ${b}virtual machine. Running mounted VM image..."
-			sleep 1
-			start_command=$(cat $HOME/QVM/config_files/vm_log_files/${2}_vm_restart)
-			echo -e "${b}Opening the ${w}$2${b} VM interface...${w}"
-			eval "$start_command"
-			echo -e "${w}$2 ${b}VM interface closed..."
-			echo -e "The ${w}$2${b} virtual machine has been shut down and is no longer running!${w}\n"
+				if ! find $HOME/QVM/ -type f -name "*.img" | grep "$2" &>/dev/null; then
+					echo "qvm-manager: Error: That VM does not exist!"
+				else
+					if ps aux | grep -q "[q]emu-system.*$2" &>/dev/null; then
+					echo -e "${b}qvm-manager: Operation failed: The ${w}$2${b} VM is already running!${w}"
+					else
+					echo -e "${b}Starting the${w} $2 ${b}virtual machine. Running mounted VM image..."
+					sleep 1
+					start_command=$(cat $HOME/QVM/config_files/vm_log_files/${2}_vm_restart)
+					echo -e "${b}Opening the ${w}$2${b} VM interface...${w}"
+					eval "$start_command"
+					echo -e "${w}$2 ${b}VM interface closed..."
+					echo -e "The ${w}$2${b} virtual machine has been shut down and is no longer running!${w}\n"
+					fi
+				fi
 			fi
-		fi
-		fi
+		;;
+  		--uninstall)
+			# Make sure that QVM is not running
+			./../settings/stop-qvm.sh
+			# Remove all QVM files
+			echo -e \"qvm-manager: Removing QVM from the system... \"
+			# Confirm choice
+			read -p \"qvm-manager: Are you sure you want to purge all QVM files? [Y/n]: \" uninstall
+			# Validate input
+			case \$uninstall in
+				[Yy])	# Remove files
+						sudo rm -r ~/QVM ~/*qvm.desktop /usr/bin/qvm-manager /usr/share/applications/*qvm.desktop
+			   			sudo update-desktop-database
+				  		sudo gtk-update-icon-cache
+				 		echo -e \"done!\"
+				;;
+				*)	# Exit
+					exit 1
+				;;
+			esac
 		;;
 		--version|-v)
 			# Display version information of QVM installation.
@@ -566,30 +586,6 @@ if [[ \"$rvp\" = \"qemu-system*\" ]]; then
 	killall zenity
 fi
 " > $settings/stop-qvm.sh
-
-# Creating QVM uninstall script 
-echo "
-#!/bin/bash
-
-# Make sure that QVM is not running
-./$settings/stop-qvm.sh
-# Remove all QVM files
-echo -e \"qvm-manager: Removing QVM from the system... \"
-# Confirm choice
-read -p \"qvm-manager: Are you sure you want to purge all QVM files? [Y/n]: \" uninstall
-# Validate input
-case \$uninstall in
-	[Yy])	# Remove files
-			sudo rm -r ~/QVM ~/*qvm.desktop /usr/bin/qvm-manager /usr/share/applications/*qvm.desktop
-   			sudo update-desktop-database
-	  		sudo gtk-update-icon-cache
-	 		echo -e \"done!\"
-	;;
-	*)	# Exit
-		exit 1
-	;;
-esac
-" > $HOME/QVM/uninstall.sh
 
 # Give all QVM files executable permissions & non-root ownership
 echo -e -n "+ qvm-manager: Configuring newly created files ... "
