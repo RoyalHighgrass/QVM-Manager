@@ -122,29 +122,6 @@ Categories=Other;Administration;System;Linux apps;
 Keywords=QVM;QEMU;Quick Emulator;Virtuialization;VM;Virtual Machine Manager;Type 2;Hypervisor;Linux;Open-source;
 " > $HOME/start-qvm.desktop
 
-# Create the 'Stop QVM' config file
-
-echo "#!/bin/bash
-
-rproc=$(ps -e)
-ryp=$(echo \"$rproc\" | grep yad)
-rqp=$(echo \"$rproc\" | grep qvm)
-rzp=$(echo \"$rproc\" | grep zenity)
-rvp=$(echo \"$rproc\" | grep qemu-system)
-if ! [[ -z \"$ryp\" ]]; then
-	killall yad
-fi
-if [[ \"$rqp\" ]]; then
-	killall qvm*
-fi
-if [[ \"$rzp\" = \"zenity\" ]]; then
-	killall zenity
-fi
-if [[ \"$rvp\" = \"qemu-system*\" ]]; then
-	killall zenity
-fi
-" > $settings/stop-qvm.sh
-
 # Create the 'Stop QVM' .desktop icon file
 echo "[Desktop Entry]
 Name=Stop QVM
@@ -567,10 +544,34 @@ fi
 EOF
 echo "done!"
 
+# Create the 'Stop QVM' config file
+echo "#!/bin/bash
+
+rproc=$(ps -e)
+ryp=$(echo \"$rproc\" | grep yad)
+rqp=$(echo \"$rproc\" | grep qvm)
+rzp=$(echo \"$rproc\" | grep zenity)
+rvp=$(echo \"$rproc\" | grep qemu-system)
+if ! [[ -z \"$ryp\" ]]; then
+	killall yad
+fi
+if [[ \"$rqp\" ]]; then
+	killall qvm*
+fi
+if [[ \"$rzp\" = \"zenity\" ]]; then
+	killall zenity
+fi
+if [[ \"$rvp\" = \"qemu-system*\" ]]; then
+	killall zenity
+fi
+" > $settings/stop-qvm.sh
+
 # Creating QVM uninstall script 
 echo "
 #!/bin/bash
 
+# Make sure that QVM is not running
+./$settings/stop-qvm.sh
 # Remove all QVM files
 echo -e \"qvm-manager: Removing QVM from the system... \"
 # Confirm choice
