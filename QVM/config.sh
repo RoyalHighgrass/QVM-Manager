@@ -580,7 +580,7 @@ read -p \"qvm-manager: Are you sure you want to purge all QVM files? [Y/n]: \" u
 # Validate input
 case \$uninstall in
 	[Yy])	# Remove files
-			sudo rm -r ~/QVM ~/qvm.desktop /usr/bin/qvm-manager /usr/share/applications/qvm.desktop
+			sudo rm -r ~/QVM ~/*qvm.desktop /usr/bin/qvm-manager /usr/share/applications/*qvm.desktop
    			sudo update-desktop-database
 	  		sudo gtk-update-icon-cache
 	 		echo -e \"done!\"
