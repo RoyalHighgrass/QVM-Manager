@@ -65,7 +65,7 @@ Proceeding without manually installing the necessary packages will cause the ins
 
 To uninstall `QVM-Manager`, you can use the following command:
 ```
-~/QVM/uninstall.sh
+qvm-manager --uninstall
 ```
 
 ## Requirements
