@@ -1,19 +1,12 @@
 #!/bin/bash
 
 rproc=$(ps -e)
-ryp=$(echo "$rproc" | grep yad)
-rqp=$(echo "$rproc" | grep qvm)
-rzp=$(echo "$rproc" | grep zenity)
-rvp=$(echo "$rproc" | grep qemu-system)
-if ! [[ -z "$ryp" ]]; then
+if echo "$rproc" | grep yad; then
 	killall yad
-fi
-if [[ "$rqp" ]]; then
+elif echo "$rproc" | grep qvm; then
 	killall qvm*
-fi
-if [[ "$rzp" = "zenity" ]]; then
+elif echo "$rproc" | grep zenity; then
 	killall zenity
-fi
-if [[ "$rvp" = "qemu-system*" ]]; then
-	killall zenity
+elif echo "$rproc" | grep qemu-system; then
+	killall qemu-system*
 fi
