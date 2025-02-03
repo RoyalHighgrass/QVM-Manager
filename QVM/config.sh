@@ -137,8 +137,8 @@ Categories=Other;Administration;System;Linux apps;
 Keywords=QVM;QEMU;Quick Emulator;Virtuialization;VM;Virtual Machine Manager;Type 2;Hypervisor;Linux;Open-source;
 " > $HOME/stop-qvm.desktop
 
-sudo cp $HOME/start-qvm.desktop /usr/share/applications/qvm.desktop
-sudo cp $HOME/stop-qvm.desktop /usr/share/applications/qvm.desktop
+sudo cp $HOME/start-qvm.desktop /usr/share/applications/start-qvm.desktop
+sudo cp $HOME/stop-qvm.desktop /usr/share/applications/stop-qvm.desktop
 sudo cp README.md $HOME/QVM/
 sudo cp DevMessage.md $HOME/QVM/
 sudo cp -r QVM/* $HOME/QVM/
@@ -546,7 +546,7 @@ EOF
 echo "done!"
 
 # Create the 'Stop QVM' config file
-echo "#!/bin/bash
+sudo echo "#!/bin/bash
 
 rproc=$(ps -e)
 ryp=$(echo \"$rproc\" | grep yad)
