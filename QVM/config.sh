@@ -534,7 +534,8 @@ else
 		;;
   		--uninstall)
 			# Make sure that QVM is not running
-			./../settings/stop-qvm.sh
+			cd \"$QVMgui\"
+   			bash ./../settings/stop-qvm.sh
 			# Remove all QVM files
 			echo -e \"qvm-manager: Removing QVM from the system... \"
 			# Confirm choice
