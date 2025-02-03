@@ -104,24 +104,63 @@ mkdir $HOME/QVM
 # Get the users username
 _USER=$(whoami)
 
-# Define the icon path & the users desktop
+# Define icon path & the users application menu icons
 ICON_PATH="$config_f/logo_images/qvm-2.png"
 
-# Create the .desktop icon file
+# Create the 'Start QVM' .desktop icon file
 echo "[Desktop Entry]
-Name=QVM
+Name=Start QVM
 Version=v1.0.3
-StartupWMClass=qvm-2
+StartupWMClass=qvm-manager
 GenericName=QVM;qvm-manager;QVM Manager;
 Comment=Type 2 QEMU hypervisor
 Exec=/usr/bin/qvm-manager --gui
+Terminal=true
 Icon=$ICON_PATH
 Type=Application
 Categories=Other;Administration;System;Linux apps;
 Keywords=QVM;QEMU;Quick Emulator;Virtuialization;VM;Virtual Machine Manager;Type 2;Hypervisor;Linux;Open-source;
-" > $HOME/qvm.desktop
+" > $HOME/start-qvm.desktop
 
-sudo cp $HOME/qvm.desktop /usr/share/applications/qvm.desktop
+# Create the 'Stop QVM' config file
+
+echo "#!/bin/bash
+
+rproc=$(ps -e)
+ryp=$(echo \"$rproc\" | grep yad)
+rqp=$(echo \"$rproc\" | grep qvm)
+rzp=$(echo \"$rproc\" | grep zenity)
+rvp=$(echo \"$rproc\" | grep qemu-system)
+if ! [[ -z \"$ryp\" ]]; then
+	killall yad
+fi
+if [[ \"$rqp\" ]]; then
+	killall qvm*
+fi
+if [[ \"$rzp\" = \"zenity\" ]]; then
+	killall zenity
+fi
+if [[ \"$rvp\" = \"qemu-system*\" ]]; then
+	killall zenity
+fi
+" > $settings/stop-qvm.sh
+
+# Create the 'Stop QVM' .desktop icon file
+echo "[Desktop Entry]
+Name=Stop QVM
+Version=v1.0.3
+StartupWMClass=qvm-manager
+GenericName=QVM;qvm-manager;QVM Manager;
+Comment=Type 2 QEMU hypervisor
+Exec=/usr/bin/qvm-manager --gui
+Terminal=true
+Icon=$ICON_PATH
+Type=Application
+Categories=Other;Administration;System;Linux apps;
+Keywords=QVM;QEMU;Quick Emulator;Virtuialization;VM;Virtual Machine Manager;Type 2;Hypervisor;Linux;Open-source;
+" > $HOME/stop-qvm.desktop
+
+sudo cp $HOME/*qvm.desktop /usr/share/applications/qvm.desktop
 sudo cp README.md $HOME/QVM/
 sudo cp DevMessage.md $HOME/QVM/
 sudo cp -r QVM/* $HOME/QVM/
@@ -562,8 +601,8 @@ sudo chmod -R 755 $HOME/QVM/*.sh
 sudo chown -R $(whoami) $HOME/QVM
 sudo chmod +x $HOME/qvm.desktop
 sudo chmod -R 755 $HOME/qvm.desktop
-sudo chmod +x /usr/share/applications/qvm.desktop
-sudo chmod -R 755 /usr/share/applications/qvm.desktop
+sudo chmod +x /usr/share/applications/*qvm.desktop
+sudo chmod -R 755 /usr/share/applications/*qvm.desktop
 sudo chmod -R 755 ~/.config/dconf
 sudo chmod +x $HOME/QVM/uninstall.sh
 echo -e "done!"
