@@ -189,10 +189,28 @@ case $? in
 	            fi
 			;;
 	    	10)	# Pull-ISO-Linux-Mint-Image 
-		        if ! find $HOME/QVM/ -type f -name "*.iso" | grep "debian-mint.iso" &>/dev/null; then
+		        if ! find $HOME/QVM/ -type f -name "*.iso" | grep "linux-mint.iso" &>/dev/null; then
 					target="Linux Mint"
-					url=$(./../settings/recommended_iso_files.sh "linux-mint")
-					echo "$url"
+					echo -e "${b}Available versions of Linux Mint;${w}"
+					d_type=$(echo -e "Linux Mint Mate Desktop (2.8GB)\nLinux Mint Xfce Desktop (2.7GB)\nLinux Mint Cinnamon Desktop (2.8GB)" | nl -s ".  ")
+					echo "$d_type"
+					d_type=$(echo "$d_type" | yad --list --title="Available Linux Mint images" \
+						--column="Available versions of Linux Mint" --height=200 --width=400)
+			        if [ -z "$d_type" ]; then
+						echo -e "Error: Operation cancelled!"
+						exit 1
+					fi
+					if echo $d_type | grep "Mate" &>/dev/null; then
+						d_type="mate"
+					elif echo $d_type | grep "Xfce" &>/dev/null; then
+						d_type="xfce"
+					elif echo $d_type | grep "Cinnamon" &>/dev/null; then
+						d_type="cin"
+					else
+					 	echo "qvm-manager: An unexpected error has occured!"
+						exit 1
+					fi
+					url=$(./../settings/recommended_iso_files.sh "linux-mint" "$d_type")
 					file_name="linux-mint.iso"
 		        else
 				    yad --info --text="A Linux Mint ISO image has already been downloaded!" \
@@ -201,8 +219,7 @@ case $? in
 	            fi
 			;;
 		esac
-		if ! [[ -z "$url" ]]; then
-			echo "$url"
+		if ! [ -z "$url" ]; then
 			iso_img_nme=$(basename "$url")
 	        yad --question --title="$title Confirm Download" --buttons-layout=center --on-top \
 				--text="Are you sure you want to download the official ${target} ISO image?" \
