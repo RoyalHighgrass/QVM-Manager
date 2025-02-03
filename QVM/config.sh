@@ -568,21 +568,21 @@ echo "done!"
 
 # Give all QVM files executable permissions & non-root ownership
 echo -e -n "[+] qvm-manager: Configuring newly created files ... "
-sudo chmod [+]x /usr/bin/qvm-manager
-sudo chmod [+]x $cli/qvm-manager.sh
-sudo chmod [+]x $cli/Scripts/*.sh
-sudo chmod [+]x $gui/qvm-manager-gui.sh
-sudo chmod [+]x $gui/Scripts/*.sh
-sudo chmod [+]x $settings/*.sh
+sudo chmod +x /usr/bin/qvm-manager
+sudo chmod +x $cli/qvm-manager.sh
+sudo chmod +x $cli/Scripts/*.sh
+sudo chmod +x $gui/qvm-manager-gui.sh
+sudo chmod +x $gui/Scripts/*.sh
+sudo chmod +x $settings/*.sh
 sudo chmod -R 755 $HOME/QVM/*.sh
 sudo chown -R $(whoami) $HOME/QVM
-sudo chmod [+]x $HOME/start-qvm.desktop
+sudo chmod +x $HOME/start-qvm.desktop
 sudo chmod -R 755 $HOME/start-qvm.desktop
-sudo chmod [+]x $HOME/stop-qvm.desktop
+sudo chmod +x $HOME/stop-qvm.desktop
 sudo chmod -R 755 $HOME/stop-qvm.desktop
-sudo chmod [+]x /usr/share/applications/start-qvm.desktop
+sudo chmod +x /usr/share/applications/start-qvm.desktop
 sudo chmod -R 755 /usr/share/applications/start-qvm.desktop
-sudo chmod [+]x /usr/share/applications/stop-qvm.desktop
+sudo chmod +x /usr/share/applications/stop-qvm.desktop
 sudo chmod -R 755 /usr/share/applications/stop-qvm.desktop
 sudo chmod -R 755 ~/.config/dconf
 echo -e "done!"
