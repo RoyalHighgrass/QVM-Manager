@@ -18,7 +18,7 @@ iso_menu() { yad --title "QVM-1.0.3 - Manage ISO Images" \
     --field="<b>Download ISO Images</b>":fbtn "./Scripts/download-iso-images-gui.sh" \
     --field="<b>Import ISO Images</b>":fbtn "./Scripts/iso-gui.sh -i" \
     --field="<b>Eject VM ISO Disk</b>":fbtn "./Scripts/iso-gui.sh -e" \
-    --button=Close:1
+    --no-buttons --auto-close --close-on-unfocus
 }
 
 if [ -z "$1" ]; then
