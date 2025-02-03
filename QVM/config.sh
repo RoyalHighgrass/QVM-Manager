@@ -575,14 +575,15 @@ sudo chmod +x $gui/Scripts/*.sh
 sudo chmod +x $settings/*.sh
 sudo chmod -R 755 $HOME/QVM/*.sh
 sudo chown -R $(whoami) $HOME/QVM
-sudo chmod +x $HOME/qvm.desktop
-sudo chmod -R 755 $HOME/qvm.desktop
+sudo chmod +x $HOME/start-qvm.desktop
+sudo chmod -R 755 $HOME/start-qvm.desktop
+sudo chmod +x $HOME/stop-qvm.desktop
+sudo chmod -R 755 $HOME/stop-qvm.desktop
 sudo chmod +x /usr/share/applications/start-qvm.desktop
 sudo chmod -R 755 /usr/share/applications/start-qvm.desktop
 sudo chmod +x /usr/share/applications/stop-qvm.desktop
 sudo chmod -R 755 /usr/share/applications/stop-qvm.desktop
 sudo chmod -R 755 ~/.config/dconf
-sudo chmod +x $HOME/QVM/uninstall.sh
 echo -e "done!"
 
 # Verify host OS & install YAD manually if necessary
