@@ -129,15 +129,16 @@ Version=v1.0.3
 StartupWMClass=qvm-manager
 GenericName=QVM;qvm-manager;QVM Manager;
 Comment=Type 2 QEMU hypervisor
-Exec=/usr/bin/qvm-manager --gui
-Terminal=true
+Exec=/$settings/stop-qvm.sh
+Terminal=false
 Icon=$ICON_PATH
 Type=Application
 Categories=Other;Administration;System;Linux apps;
 Keywords=QVM;QEMU;Quick Emulator;Virtuialization;VM;Virtual Machine Manager;Type 2;Hypervisor;Linux;Open-source;
 " > $HOME/stop-qvm.desktop
 
-sudo cp $HOME/*qvm.desktop /usr/share/applications/qvm.desktop
+sudo cp $HOME/start-qvm.desktop /usr/share/applications/qvm.desktop
+sudo cp $HOME/stop-qvm.desktop /usr/share/applications/qvm.desktop
 sudo cp README.md $HOME/QVM/
 sudo cp DevMessage.md $HOME/QVM/
 sudo cp -r QVM/* $HOME/QVM/
@@ -602,8 +603,10 @@ sudo chmod -R 755 $HOME/QVM/*.sh
 sudo chown -R $(whoami) $HOME/QVM
 sudo chmod +x $HOME/qvm.desktop
 sudo chmod -R 755 $HOME/qvm.desktop
-sudo chmod +x /usr/share/applications/*qvm.desktop
-sudo chmod -R 755 /usr/share/applications/*qvm.desktop
+sudo chmod +x /usr/share/applications/start-qvm.desktop
+sudo chmod -R 755 /usr/share/applications/start-qvm.desktop
+sudo chmod +x /usr/share/applications/stop-qvm.desktop
+sudo chmod -R 755 /usr/share/applications/stop-qvm.desktop
 sudo chmod -R 755 ~/.config/dconf
 sudo chmod +x $HOME/QVM/uninstall.sh
 echo -e "done!"
