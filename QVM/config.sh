@@ -534,19 +534,19 @@ else
 		;;
   		--uninstall)
 			# Make sure that QVM is not running
-			cd \"$QVMgui\"
+			cd "$QVMgui"
    			bash ./../settings/stop-qvm.sh
 			# Remove all QVM files
-			echo -e \"qvm-manager: Removing QVM from the system... \"
+			echo -e "qvm-manager: Removing QVM from the system... "
 			# Confirm choice
-			read -p \"qvm-manager: Are you sure you want to purge all QVM files? [Y/n]: \" uninstall
+			read -p "qvm-manager: Are you sure you want to purge all QVM files? [Y/n]: " uninstall
 			# Validate input
-			case \$uninstall in
+			case $uninstall in
 				[Yy])	# Remove files
 						sudo rm -r ~/QVM ~/*qvm.desktop /usr/bin/qvm-manager /usr/share/applications/*qvm.desktop
 			   			sudo update-desktop-database
 				  		sudo gtk-update-icon-cache
-				 		echo -e \"done!\"
+				 		echo -e "done!"
 				;;
 				*)	# Exit
 					exit 1
