@@ -3,12 +3,12 @@
 echo -e "\nQEMU Virtual Machine Manager v1.0.3 © QVM 2024\n\nRunning the 'qvm-manager' config script...."
 
 # Move to the 'tmp' folder and clone the QVM files
-echo "+ qvm-manager: Cloning the necessary QVM config files..."
+echo "[+] qvm-manager: Cloning the necessary QVM config files..."
 cd /tmp/
 git clone https://github.com/RoyalHighgrass/QVM-Manager.git
 cd QVM-Manager
 
-echo -e "+ qvm-manager: Installing basic required for QVM to work properly..."
+echo -e "[+] qvm-manager: Installing basic required for QVM to work properly..."
 
 # Define QVM config paths
 config_f="$HOME/QVM/config_files"
@@ -68,10 +68,10 @@ case "$pm" in
 		packages+=" $pacman_dependencies"
 	;;
 	*)
-		echo "+ qvm-manager: qvm-manager: Error: Unsupported package manager: $pm"
-		echo -e "+ The following packages must be manually installed before proceeding with this config script!:\nQVM Dependencies;\n\n$apt_dependencies"
-		echo "\n+ **Note**: The QVM settup wizard will fail if this is not done before proceeding!"
-		read -p "+ Are you ready to proceed? [Y/n]: " proceed
+		echo "[+] qvm-manager: qvm-manager: Error: Unsupported package manager: $pm"
+		echo -e "[+] The following packages must be manually installed before proceeding with this config script!:\nQVM Dependencies;\n\n$apt_dependencies"
+		echo "\n[+] **Note**: The QVM settup wizard will fail if this is not done before proceeding!"
+		read -p "[+] Are you ready to proceed? [Y/n]: " proceed
 		proceed=${proceed:-Y} 
 		case $proceed in
 		  [Yy]) 
@@ -97,7 +97,7 @@ eval "$inst_method" "$packages"
 
 
 ## Setup the QVM filesystem & copy or create in the necessary QVM files
-echo -e "+ qvm-manager: Setting up the QVM-v1.0.3 file system..."
+echo -e "[+] qvm-manager: Setting up the QVM-v1.0.3 file system..."
 # Create the QVM directory
 mkdir $HOME/QVM
 
@@ -147,7 +147,7 @@ sudo mkdir -p $config_f/VM_Images
 sudo mkdir -p $config_f/vm_log_files
 
 # Create the /usr/bin/ instance & initialise the 'qvm-manager' startup command
-echo -e -n "+ qvm-manager: Creating the 'qvm-manager' command configuration file for launching or creating QVM sessions & instances ... "
+echo -e -n "[+] qvm-manager: Creating the 'qvm-manager' command configuration file for launching or creating QVM sessions & instances ... "
 
 sudo tee -a /usr/bin/qvm-manager > /dev/null << 'EOF'
 
@@ -567,33 +567,33 @@ EOF
 echo "done!"
 
 # Give all QVM files executable permissions & non-root ownership
-echo -e -n "+ qvm-manager: Configuring newly created files ... "
-sudo chmod +x /usr/bin/qvm-manager
-sudo chmod +x $cli/qvm-manager.sh
-sudo chmod +x $cli/Scripts/*.sh
-sudo chmod +x $gui/qvm-manager-gui.sh
-sudo chmod +x $gui/Scripts/*.sh
-sudo chmod +x $settings/*.sh
+echo -e -n "[+] qvm-manager: Configuring newly created files ... "
+sudo chmod [+]x /usr/bin/qvm-manager
+sudo chmod [+]x $cli/qvm-manager.sh
+sudo chmod [+]x $cli/Scripts/*.sh
+sudo chmod [+]x $gui/qvm-manager-gui.sh
+sudo chmod [+]x $gui/Scripts/*.sh
+sudo chmod [+]x $settings/*.sh
 sudo chmod -R 755 $HOME/QVM/*.sh
 sudo chown -R $(whoami) $HOME/QVM
-sudo chmod +x $HOME/start-qvm.desktop
+sudo chmod [+]x $HOME/start-qvm.desktop
 sudo chmod -R 755 $HOME/start-qvm.desktop
-sudo chmod +x $HOME/stop-qvm.desktop
+sudo chmod [+]x $HOME/stop-qvm.desktop
 sudo chmod -R 755 $HOME/stop-qvm.desktop
-sudo chmod +x /usr/share/applications/start-qvm.desktop
+sudo chmod [+]x /usr/share/applications/start-qvm.desktop
 sudo chmod -R 755 /usr/share/applications/start-qvm.desktop
-sudo chmod +x /usr/share/applications/stop-qvm.desktop
+sudo chmod [+]x /usr/share/applications/stop-qvm.desktop
 sudo chmod -R 755 /usr/share/applications/stop-qvm.desktop
 sudo chmod -R 755 ~/.config/dconf
 echo -e "done!"
 
 # Verify host OS & install YAD manually if necessary
 if ! [ "$pm" = "pacman" ]; then
-	echo -e -n "+ qvm-manager: Checking for YAD ... "
+	echo -e -n "[+] qvm-manager: Checking for YAD ... "
 	if ! which yad; then
 		echo -e "not found"
 		# Clone YAD repository & configure, make, and install YAD		
-		echo -e "+ qvm-manager: Installing YAD ..."
+		echo -e "[+] qvm-manager: Installing YAD ..."
 		cd /tmp/
 		git clone https://github.com/v1cont/yad.git
 		cd yad/
@@ -604,9 +604,9 @@ if ! [ "$pm" = "pacman" ]; then
 		
 		# Configure with standalone option and custom defines
 		CFLAGS="-DBORDERS=10 -DREMAIN -DCOMBO_EDIT" ./configure --enable-standalone
-		echo -e "+ qvm-manager: YAD installation complete!"
+		echo -e "[+] qvm-manager: YAD installation complete!"
 	else
-		echo -e "+ qvm-manager: YAD is already installed ... skipping installation!"
+		echo -e "[+] qvm-manager: YAD is already installed ... skipping installation!"
 	fi
 fi
 
@@ -614,6 +614,6 @@ fi
 sudo gtk-update-icon-cache
 sudo update-desktop-database
 
-echo -e "+ qvm-manager: QVM installation complete!\n\nUse the 'qvm-manager' or 'qvm-manager --gui' command to get started with your QVM virtualization experience.\nFor speedy usage both commands can be executed by pressing 'qv' then the 'tab' key to autocomlete the command then press 'enter' with or without ' --gui' appended to it. Happy virtualization! ~ P.H."
+echo -e "[+] qvm-manager: QVM installation complete!\n\nUse the 'qvm-manager' or 'qvm-manager --gui' command to get started with your QVM virtualization experience.\nFor speedy usage both commands can be executed by pressing 'qv' then the 'tab' key to autocomlete the command then press 'enter' with or without ' --gui' appended to it. Happy virtualization! ~ P.H."
 echo -e "\nQEMU Virtual Machine Manager v1.0.3 © QVM 2024"
 cd $HOME
