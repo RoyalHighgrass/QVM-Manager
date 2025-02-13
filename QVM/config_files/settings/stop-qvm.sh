@@ -8,5 +8,5 @@ elif echo "$rproc" | grep qvm; then
 elif echo "$rproc" | grep zenity; then
 	killall zenity
 elif echo "$rproc" | grep qemu-system; then
-	killall qemu-system*
+	killall qemu-system-x86_64
 fi
