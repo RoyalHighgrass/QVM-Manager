@@ -78,6 +78,9 @@ OPTIONS
         --start <vm_name>
                 Start an existing VM.
 
+        --uninstall
+                Uninstall QVM & remove all configuration files.
+
         --version, -v [VALUE]
                 Display version information of QVM installation.
                     -ac: Version data for QVM & its components.
