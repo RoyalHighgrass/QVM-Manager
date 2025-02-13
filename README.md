@@ -41,17 +41,17 @@ This application is primarily developed and tested on a Kali Linux system.
 See [here](https://github.com/RoyalHighgrass/QVM-Manager/issues/11#issuecomment-2606083067) for more information about which systems QVM has been tested on.
 
 #### Installation Guide
-First, make sure that your system is up-to-date & that `git` is installed & also up-to-date:
+First, make sure that your system is up-to-date & that `git` & `curl` are installed & also up-to-date:
 
 Using `apt`:
 ```
 sudo apt update && sudo apt upgrade -y
-sudo apt install git -y
+sudo apt install git curl -y
 ```
 Using `pacman`:
 ```
 sudo pacman -Syu --noconfirm
-sudo pacman -S git --noconfirm
+sudo pacman -S git curl --noconfirm
 ```
 To install `QVM-Manager`, use the following command:
 ```
