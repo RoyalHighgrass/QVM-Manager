@@ -226,7 +226,7 @@ case $? in
 				--button="Yes:0" --button="No:1"
 		    if [ $? -eq 0 ]; then
                 if wget -c "$url" 2>&1 | sed -u 's/^/# /' | zenity --progress \
-					--title="$title Downloading ISO: ${target}" --width=300 --percentage=0 \
+					--title="$title Downloading ISO: ${target}" --width=280 --percentage=0 \
 					--text="Downloading the '${target}.iso' image." --auto-close 2>/dev/null; then
 					zenity --info --title="$title Download Completed" \
 						--text="${target} download completed successfully."
