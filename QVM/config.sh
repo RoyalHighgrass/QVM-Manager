@@ -26,7 +26,7 @@ host_os=$(cat /etc/os-release | grep NAME | cut -d'"' -f2 | grep -v "=" | tail -
 
 # Common packages across distributions
 common_packages="wget tree locate zenity wmctrl make autoconf gawk acpi bc cmake intltool bridge-utils \
-	mgba-sdl mesa-utils"
+	mgba-sdl mesa-utils elinks"
 
 # Distro-specific packages
 apt_dependencies="cpu-checker original-awk mawk libgtk-4-1 libgtk-3-common \
