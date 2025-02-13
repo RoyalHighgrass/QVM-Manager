@@ -122,8 +122,6 @@ TIPS & HINTS
         - QVM does not allow snapshots to be taken of running machines. Power 
           down the virtual machine in order to take a snapshot of it.
         - VM roll backs can only be done via the CLI when using '--revert'.
-        - In theory, QVM should not let you run more than 2 VM's at any time. In
-          some cases, QVM may only allow you to run 1 machine at a time.
 
 AUTHOR
         Written by P.H.
