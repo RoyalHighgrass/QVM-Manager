@@ -226,14 +226,14 @@ case $? in
 				--button="Yes:0" --button="No:1"
 		    if [ $? -eq 0 ]; then
                 if wget -c "$url" 2>&1 | sed -u 's/^/# /' | zenity --progress \
-					--title="$title Downloading ISO: ${target}" --width=280 --percentage=0 \
+					--title="$title Downloading ISO: ${target}" --width=200 --percentage=0 \
 					--text="Downloading the '${target}.iso' image." --auto-close 2>/dev/null; then
 					zenity --info --title="$title Download Completed" \
-						--text="${target} download completed successfully."
+						--text="${target} download completed successfully." 2>/dev/null
 					echo "Moving $iso_img_nme to $HOME/QVM/config_files/ISO_Images/$file_name"
 					sudo mv $iso_img_nme "$HOME/QVM/config_files/ISO_Images/$file_name"
 				else
-					zenity --error --title="$title Download Failed" --text="${target} download failed."
+					zenity --error --title="$title Download Failed" --text="${target} download failed." 2>/dev/null
 					sudo rm $iso_img_nme
 				fi
 		    fi
