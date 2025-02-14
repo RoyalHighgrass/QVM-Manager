@@ -44,7 +44,7 @@ check_libvirt() {
 }
 
 check_vga() {
-	locate .so | grep -E "vga|gl" | grep vga
+	basename $(locate .so | grep -E "vga|gl" | grep vga)
 }
 
 check_mgba() {
