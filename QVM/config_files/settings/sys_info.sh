@@ -28,7 +28,7 @@ check_kvm_support() {
 
 # Function to get network interfaces
 get_network_interfaces() {
-	ifconfig | grep BROA | cut -d: -f1
+	ifconfig | grep BROA | cut -d: -f1 2>/dev/null || ip addr | grep BROA | awk -F": " '{print $2}'
 }
 
 check_qemu() {
