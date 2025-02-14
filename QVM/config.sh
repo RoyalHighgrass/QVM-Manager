@@ -30,12 +30,12 @@ common_packages="wget tree locate zenity wmctrl make autoconf gawk acpi bc cmake
 
 # Distro-specific packages
 apt_dependencies="cpu-checker original-awk mawk libgtk-4-1 libgtk-3-common \
-	libgtk-4-common libgtk-3-dev cgroup-tools libvirt-clients \
+	libgtk-3-dev cgroup-tools libvirt-clients \
 	libvirt-daemon-system virtinst libvirt-daemon qemu-kvm automake intltool \
 	qemu-system-common qemu-system-arm qemu-system-x86 qemu-efi-aarch64 \
-	libsdl2-2.0-0 libsdl2-net-2.0-0 mednafen libgtk-4-dev gtk-4-examples \
-	build-essential mesa-vulkan-drivers libwebkit2gtk-4.0-doc libwebkit2gtk-4.1-0 \
-	libwebkit2gtk-4.1-dev libgtksourceview-3.0-dev libgspell-1-dev grub-pc-bin"
+	libsdl2-2.0-0 libsdl2-net-2.0-0 mednafen \
+	build-essential mesa-vulkan-drivers libwebkit2gtk-4.0-doc \
+	libgtksourceview-3.0-dev libgspell-1-dev grub-pc-bin"
  
 pacman_dependencies="yad gtk-layer-shell gtk3 gtk3-docs gtk3-demos gtk4 gtk4-docs gtk4-demos libportal-gtk3 \
 	libportal-gtk4 libindicator-gtk3 libvirt libvirt-dbus libvirt-glib libguestfs virt-firmware \
@@ -62,6 +62,12 @@ case "$pm" in
 				packages+=" gtk4-layer-shell-doc libgtk-3-0t64 qemu-system-modules-opengl"
 			;;
 		esac
+  		is_rpi=$(cat /etc/hostname)
+  		if [[ "$is_rpi" != "raspberry" ]]; then
+			packages+=" libgtk-4-common libgtk-4-dev libwebkit2gtk-4.1-0 libwebkit2gtk-4.1-dev gtk-4-examples"
+   		else
+	 		packages+=" libwebkit2gtk-4.0-doc"
+		fi
 	;;
 	pacman)
 		inst_method="$pacman_pm"
