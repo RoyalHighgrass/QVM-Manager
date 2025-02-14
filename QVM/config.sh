@@ -66,7 +66,7 @@ case "$pm" in
   		if [[ "$is_rpi" != "raspberry" ]]; then
 			packages+=" libgtk-4-common libgtk-4-dev libwebkit2gtk-4.1-0 libwebkit2gtk-4.1-dev gtk-4-examples libgtk-4-1"
    		else
-	 		packages+=" libwebkit2gtk-4.0-doc"
+	 		packages+=" "
 		fi
 	;;
 	pacman)
@@ -616,7 +616,10 @@ fi
 # Install additional GTK functionality
 if [[ "$pm" != "pacman" ]]; then
 	sudo apt install -y libgtksourceview-3.0-dev
+elif [[ "$is_rpi" != "raspberry" ]]; then
+	sudo apt install -y libwebkit2gtk-4.0-dev
 fi
+sudo apt install libgspell-1-dev
 
 # Update system database & icon cache
 sudo updatedb
