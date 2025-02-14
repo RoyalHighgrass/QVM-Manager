@@ -60,7 +60,7 @@ qlog="$HOME/QVM/config_files/vm_log_files/qemu.log"
 # Verify user input
 if [ -z "$img_nme" ]; then
 	if ps -e | grep qvm-manager &>/dev/null; then
-		echo -e "${b}Error: Invalid entry! Operation Cancelled.${w}"
+		echo -e "${b}qvm-manager: Error: Invalid entry! Operation Cancelled.${w}"
 		exit 1
 	else
 		exit 1
@@ -87,12 +87,12 @@ if ! vm_search | grep $img_nme; then
 		--title="Choose OS Installation Media" --buttons-layout=center \
 		--text="Select the ISO image to use to create the new VM:" \
 		--image="$HOME/QVM/config_files/logo_images/qvm-2.png" \
-		--field="Select Files:FL" ~/QVM/config_files/ISO_Images/cdrom)
+		--field="Select Files:FL" ~/QVM/config_files/ISO_Images/cdrom 2>/dev/null)
 	iso_=$(echo $iso_ | cut -d"|" -f1)
 	
 
 	if [[ -z "$iso_" ]] || ! [[ "$iso_" =~ \.iso$ ]]; then
-	    echo "Invalid ISO file selection!"
+	    echo "qvm-manager: Error: Invalid ISO file selection!"
 	    exit 1
 	fi
 
