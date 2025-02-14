@@ -32,7 +32,7 @@ get_network_interfaces() {
 }
 
 check_qemu() {
-	echo -e "Version: $(qemu-system-x86_64 --version | cut -d"(" -f2 | awk -F" " '{print $2}')"
+	echo -e "Version: $(qemu-system-x86_64 --version | head -n 1 | awk -F" " '{print $6}' | sed 's/)//g')"
 }
 
 check_opengl() {
