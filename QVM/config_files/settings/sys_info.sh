@@ -32,7 +32,9 @@ get_network_interfaces() {
 }
 
 check_qemu() {
-	echo -e "$(dpkg -s qemu-system | grep Vers)"
+	if ! echo -e "$(dpkg -s qemu-system | grep Vers)"; then
+		qemu-system-x86_64 --version | cut -d"(" -f1
+ 	fi
 }
 
 check_opengl() {
@@ -40,11 +42,15 @@ check_opengl() {
 }
 
 check_libvirt() {
-	echo -e "$(dpkg -s libvirt-dev | grep Vers)"
+	if ! echo -e "$(dpkg -s libvirt-dev | grep Vers)"; then
+		libvirtd --version
+	fi
 }
 
 check_vga() {
-	locate vga- | grep qemu | cut -d/ -f6
+	if ! locate vga- | grep qemu | cut -d/ -f6; then
+ 		locate .so | grep vga
+  	fi
 }
 
 check_mgba() {
