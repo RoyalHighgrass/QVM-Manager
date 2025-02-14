@@ -616,7 +616,8 @@ if ! [ "$pm" = "pacman" ]; then
 	fi
 fi
 
-# Update icon cache
+# Update system database & icon cache
+sudo updatedb
 sudo gtk-update-icon-cache
 sudo update-desktop-database
 
