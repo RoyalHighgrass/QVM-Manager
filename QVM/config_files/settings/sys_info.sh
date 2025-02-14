@@ -44,9 +44,7 @@ check_libvirt() {
 }
 
 check_vga() {
-	if ! locate vga- | grep qemu | cut -d/ -f6; then
- 		locate .so | grep vga
-  	fi
+	locate .so | grep -E "vga|gl" | grep vga
 }
 
 check_mgba() {
