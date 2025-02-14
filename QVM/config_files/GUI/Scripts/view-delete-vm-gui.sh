@@ -30,11 +30,11 @@ if [ "$1" = "-d" ]; then
 			--button="Cancel":1 --button="OK":0
 		case $? in
 			0)	echo ""
-				yad --title="QVM-v1.0.3 - Deleting the $2 VM" --height=150 --text="<b>Deleting the $2 VM! Depending on its HD size (i.e. 65GB+), it may take up to a minute or more!</b>" --button="OK":0
+				yad --title="QVM-v1.0.3 - Deleting the $2 VM" --height=150 --text="Deleting the $2 VM! Depending on its HD size (i.e. 65GB+), it may take up to a minute or more!" --button="OK":0
 				sudo rm "${path}${2}.img"
 				sudo rm "$HOME/QVM/config_files/vm_log_files/${2}_vm_"*
 				if ! $(get_vm_info | grep "$2" &>/dev/null); then
-					echo "VM: $2,Deleted: $(date), Status: shutdown,PID: ${pid}" >> $HOME/QVM/config_files/vm_log_files/qlog
+					echo "VM: $2,Deleted: $(date)" >> $HOME/QVM/config_files/vm_log_files/qlog
 					yad --title="QVM-v1.0.3 - Operation successful" --on-top \
 						--text="The $2 VM image has successfully been deleted." \
 	        			--button="OK":0
