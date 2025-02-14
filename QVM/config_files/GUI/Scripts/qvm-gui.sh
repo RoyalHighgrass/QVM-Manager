@@ -357,7 +357,6 @@ if ! vm_search | grep $img_nme; then
 	echo $vmr > $HOME/QVM/config_files/vm_log_files/${img_nme}_vm_restart
 	echo -e "${b}Saving ${w}$img_nme${b} VM specs...${w}"
 	echo $vm_specs > $HOME/QVM/config_files/vm_log_files/${img_nme}_vm_specs
-	echo $vm_specs
 	
 	# Start the newly created virtual machine
 	echo -e "Starting the $img_nme VM..."
