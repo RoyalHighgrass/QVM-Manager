@@ -17,7 +17,7 @@ iso_menu() { yad --title "QVM-1.0.3 - Manage ISO Images" \
     --field="<b>View Local ISO Images</b>":fbtn "./Scripts/iso-gui.sh -v" \
     --field="<b>Download ISO Images</b>":fbtn "./Scripts/download-iso-images-gui.sh" \
     --field="<b>Import ISO Images</b>":fbtn "./Scripts/iso-gui.sh -i" \
-    --field="<b>Eject VM ISO Disk</b>":fbtn "./Scripts/iso-gui.sh -e" \
+    --field="<b>Eject ISO Disk</b>":fbtn "./Scripts/iso-gui.sh -e" \
     --no-buttons --auto-close --close-on-unfocus
 }
 
@@ -166,7 +166,9 @@ else
 	                --pulsate \
 	                --auto-close 
 				if ! $(ls ../ISO_Images/cdrom/ | cut -d. -f1 | grep "$iso"); then
-	            	echo "ISO disk ejected."
+	            	echo "'$iso'ISO disk ejected."
+			        zenity --error --title="Eject '$iso' ISO Disk" \
+			            --text="There are no ISO disks in the QVM cdrom!" --timeout=3 2>/dev/null
 				else
 					echo "Unexpected error: Operation Cancelled!"
 				fi
