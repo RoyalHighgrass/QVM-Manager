@@ -33,7 +33,7 @@ get_network_interfaces() {
 
 check_qemu() {
 	if ! echo -e "$(dpkg -s qemu-system | grep Vers)"; then
-		qemu-system-x86_64 --version | cut -d"(" -f1
+		qemu-system-x86_64 --version | cut -d"(" -f1 | awk -F" " '{print $3,$4}'
  	fi
 }
 
