@@ -63,6 +63,7 @@ case "$pm" in
 			;;
 		esac
   		is_rpi=$(cat /etc/hostname)
+		echo "$is_rpi system"
   		if [[ "$is_rpi" != "raspberry" ]]; then
 			packages+=" libgtk-4-common libgtk-4-dev libwebkit2gtk-4.1-0 libwebkit2gtk-4.1-dev gtk-4-examples libgtk-4-1"
    		else
