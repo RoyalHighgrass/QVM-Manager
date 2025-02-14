@@ -29,7 +29,7 @@ common_packages="wget tree locate zenity wmctrl make autoconf gawk acpi bc cmake
 	mgba-sdl mesa-utils elinks"
 
 # Distro-specific packages
-apt_dependencies="cpu-checker original-awk mawk libgtk-4-1 libgtk-3-common \
+apt_dependencies="cpu-checker original-awk mawk libgtk-3-common \
 	libgtk-3-dev cgroup-tools libvirt-clients \
 	libvirt-daemon-system virtinst libvirt-daemon qemu-kvm automake intltool \
 	qemu-system-common qemu-system-arm qemu-system-x86 qemu-efi-aarch64 \
@@ -64,7 +64,7 @@ case "$pm" in
 		esac
   		is_rpi=$(cat /etc/hostname)
   		if [[ "$is_rpi" != "raspberry" ]]; then
-			packages+=" libgtk-4-common libgtk-4-dev libwebkit2gtk-4.1-0 libwebkit2gtk-4.1-dev gtk-4-examples"
+			packages+=" libgtk-4-common libgtk-4-dev libwebkit2gtk-4.1-0 libwebkit2gtk-4.1-dev gtk-4-examples libgtk-4-1"
    		else
 	 		packages+=" libwebkit2gtk-4.0-doc"
 		fi
