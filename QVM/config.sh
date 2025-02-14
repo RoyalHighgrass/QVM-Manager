@@ -35,7 +35,7 @@ apt_dependencies="cpu-checker original-awk mawk libgtk-3-common \
 	qemu-system-common qemu-system-arm qemu-system-x86 qemu-efi-aarch64 \
 	libsdl2-2.0-0 libsdl2-net-2.0-0 mednafen \
 	build-essential mesa-vulkan-drivers libwebkit2gtk-4.0-doc \
-	libgtksourceview-3.0-dev libgspell-1-dev grub-pc-bin"
+	libgspell-1-dev grub-pc-bin"
  
 pacman_dependencies="yad gtk-layer-shell gtk3 gtk3-docs gtk3-demos gtk4 gtk4-docs gtk4-demos libportal-gtk3 \
 	libportal-gtk4 libindicator-gtk3 libvirt libvirt-dbus libvirt-glib libguestfs virt-firmware \
@@ -611,6 +611,11 @@ if ! [ "$pm" = "pacman" ]; then
   		echo -e "[+] qvm-manager: YAD installation complete!" || \
 		echo -e "[+] qvm-manager: YAD is already installed ... skipping installation!"
 	fi
+fi
+
+# Install additional GTK functionality
+if [[ "$pm" != "pacman" ]]; then
+	sudo apt install -y libgtksourceview-3.0-dev
 fi
 
 # Update system database & icon cache
