@@ -597,21 +597,18 @@ echo -e "done!"
 if ! [ "$pm" = "pacman" ]; then
 	echo -e -n "[+] qvm-manager: Checking for YAD ... "
 	if ! which yad; then
-		echo -e "not found"
+		echo -e "not found!"
 		# Clone YAD repository & configure, make, and install YAD		
 		echo -e "[+] qvm-manager: Installing YAD ..."
 		cd /tmp/
 		git clone https://github.com/v1cont/yad.git
 		cd yad/
+		# Configure with standalone option and custom defines
 		autoreconf -ivf && intltoolize --force
 		./configure
 		make
-		sudo make install
-		
-		# Configure with standalone option and custom defines
-		CFLAGS="-DBORDERS=10 -DREMAIN -DCOMBO_EDIT" ./configure --enable-standalone
-		echo -e "[+] qvm-manager: YAD installation complete!"
-	else
+		sudo make install && CFLAGS="-DBORDERS=10 -DREMAIN -DCOMBO_EDIT" ./configure --enable-standalone && \
+  		echo -e "[+] qvm-manager: YAD installation complete!" || \
 		echo -e "[+] qvm-manager: YAD is already installed ... skipping installation!"
 	fi
 fi
