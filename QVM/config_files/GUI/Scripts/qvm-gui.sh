@@ -97,9 +97,9 @@ if ! vm_search | grep $img_nme; then
 	fi
 
 	# Get VM specifications
-	host_free_space=$(df -h | grep "kvm" | cut -d"G" -f3 | sed 's/   //g')
+	host_free_space=$(df -h | grep "/dev/" | head -n 1 | cut -d"G" -f3 | sed 's/   //g')
 	host_cpu=$(nproc)
-	host_free_memory=$(free -h | awk '/^Mem:/ {print $4}' | sed 's/[^0-9.]//g')
+	host_free_memory=$(free -h | awk '/^Mem:/ {print $7}' | sed 's/[^0-9.]//g')
 	suggested_vm_memory=$(echo "scale=2; (88/100) * $host_free_memory" | bc)
 	suggested_vm_memory=$(echo "$suggested_vm_memory (recommended)")
 
