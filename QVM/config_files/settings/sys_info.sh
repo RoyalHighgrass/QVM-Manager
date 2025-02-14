@@ -40,7 +40,7 @@ check_opengl() {
 }
 
 check_libvirt() {
-	echo -e "Version: $(libvirtd --version | awk -F" " '{print $3}'
+	echo -e "Version: $(libvirtd --version | awk -F" " '{print $3}')"
 }
 
 check_vga() {
