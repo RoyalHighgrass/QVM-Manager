@@ -40,9 +40,7 @@ check_opengl() {
 }
 
 check_libvirt() {
-	if ! echo -e "$(dpkg -s libvirt-dev | grep Vers)"; then
-		libvirtd --version
-	fi
+	echo -e "Version: $(libvirtd --version | awk -F" " '{print $3}'
 }
 
 check_vga() {
