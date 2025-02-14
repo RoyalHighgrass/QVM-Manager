@@ -167,10 +167,10 @@ else
 	                --auto-close 
 				if ! $(ls ../ISO_Images/cdrom/ | cut -d. -f1 | grep "$iso"); then
 	            	echo "'$iso'ISO disk ejected."
-			        zenity --error --title="Eject '$iso' ISO Disk" \
-			            --text="There are no ISO disks in the QVM cdrom!" --timeout=3 2>/dev/null
+			        zenity --error --title="Eject ISO Disk" \
+			            --text="The '$iso'ISO disk has been ejected!" --timeout=3 2>/dev/null
 				else
-					echo "Unexpected error: Operation Cancelled!"
+					echo "qvm-manager: Unexpected error: Operation Cancelled!"
 				fi
 	        else
 	            echo "Selected ISO does not exist in the QVM cdrom!"
