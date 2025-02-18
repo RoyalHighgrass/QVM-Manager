@@ -55,6 +55,10 @@ check_mednafen() {
 	echo -e "$(dpkg -s mednafen | grep Vers)"
 }
 
+check_gtk() {
+	echo ""
+}
+
 check_zenity() {
 	echo -e "$(dpkg -s zenity | grep Vers)"
 }
@@ -94,6 +98,7 @@ yad --width=500 \
     --field="VGA":RO "$(check_vga)" \
     --field="Network Interfaces":RO "$(get_network_interfaces)" \
     --field="mednafen":RO "$(check_mednafen)" \
+    --field="GTK":RO "$(check_gtk)" \
     --field="Zenity":RO "$(check_zenity)" \
     --field="YAD":RO "$(check_yad)" \
     --buttons-layout=center \
