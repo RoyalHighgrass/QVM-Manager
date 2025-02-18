@@ -21,23 +21,21 @@ vvm=$(ls "$path" | sed 's/.img//g')
 if [ "$1" = "-d" ]; then
 	if [ -n "$2" ]; then
 		yad --bar --on-top \
-	        --title="QVM-v1.0.3 - Delete VM - $2" \
-            --width=300 \
-            --height=200 \
+	        --title="QVM-v1.0.3 - Delete VM - $2" --width=300 --height=200 \
 	        --text="Are you sure that you want delete this virtual machine?" \
-	        --pulsate \
-	        --auto-close \
-			--button="Cancel":1 --button="OK":0
+	        --pulsate --auto-close --button="Cancel":1 --button="OK":0 --buttons-layout=center
 		case $? in
 			0)	echo ""
-				yad --title="QVM-v1.0.3 - Deleting the $2 VM" --height=150 --text="Deleting the $2 VM! Depending on its HD size (i.e. 65GB+), it may take up to a minute or more!" --button="OK":0
+				yad --title="QVM-v1.0.3 - Deleting the $2 VM" --height=150 \
+					--text="Deleting the $2 VM! Depending on its HD size (i.e. 65GB+), it may take up to a minute or more!" \
+	 				--button="OK":0 --buttons-layout=center
 				sudo rm "${path}${2}.img"
 				sudo rm "$HOME/QVM/config_files/vm_log_files/${2}_vm_"*
 				if ! $(get_vm_info | grep "$2" &>/dev/null); then
 					echo "VM: $2,Deleted: $(date)" >> $HOME/QVM/config_files/vm_log_files/qlog
 					yad --title="QVM-v1.0.3 - Operation successful" --on-top \
 						--text="The $2 VM image has successfully been deleted." \
-	        			--button="OK":0
+	        			--button="OK":0 --buttons-layout=center
 	        		echo "The $2 VM image has successfully been deleted."
 					exit 0
 				else
@@ -58,11 +56,10 @@ if [ "$1" = "-rn" ]; then
 	echo -e "\033[34mRename a VM...\033[0m"
 	rename=$(echo $vvm | yad --on-top --form --width=480 \
     	--image="$HOME/QVM/config_files/logo_images/qvm-2.png" \
-		--title="QVM-v1.0.3 - Rename a VM" \
-    	--on-top --separator='' \
+		--title="QVM-v1.0.3 - Rename a VM" --on-top --separator='' \
 		--text="Enter a new name for the '$vvm' virtual machine" \
-		--field="New VM Name": "" \
-		--button="Cancel":1 --button="Rename VM":0)
+		--field="New VM Name": "" --buttons-layout=center \
+  		--button="Cancel":1 --button="Rename VM":0)
 	case $? in
 		0)	echo -e "\033[34mRenaming the\033[0m ${vvm} \033[34mVM to\033[0m ${rename}\033[34m!"
 			sudo mv $HOME/QVM/config_files/VM_Images/${vvm}.img $HOME/QVM/config_files/VM_Images/${rename}.img && \
@@ -73,12 +70,12 @@ if [ "$1" = "-rn" ]; then
 				0)	echo -e "The '$2' VM was successfully renamed to '$rename'!"
 					yad --title="QVM-v1.0.3 - Operation successful..." --on-top \
 						--text="The '$2' VM was successfully renamed to '$rename'!" \
-		        		--button="OK":0
+		        		--button="OK":0 --buttons-layout=center
 				;;
 				1)	echo -e "Error: Rename operation failed!"
 					yad --title="QVM-v1.0.3 - Operation failed..." --on-top \
 						--text="The $2 VM image has not been renamed." \
-		        		--button="OK":0
+		        		--button="OK":0 --buttons-layout=center
 				;;
 			esac
 			exit 0
@@ -101,8 +98,8 @@ if ! [ -z "$vvm" ]; then
 fi
 
 vms=$(echo $vvm | yad --on-top --form --width=300 --height=150 \
-     --buttons-layout=center \
-	 --image="$HOME/QVM/config_files/logo_images/qvm-2.png" \
+    --buttons-layout=center \
+	--image="$HOME/QVM/config_files/logo_images/qvm-2.png" \
 	--title="QVM-1.0.3 - View VM Specs" \
     --text="<b>$(echo $1 | awk -F "VM" '{print $2}' | sed 's/I/VM I/g')</b>" \
 	--field="<b>Select VM: </b>":CB "$vvme" \
@@ -120,6 +117,7 @@ case $? in
 		hd=$(echo $vmss | awk -F '" "' '{print $4}')
 		format=$(echo $vmss | awk -F '" "' '{print $5}')
 		display=$(echo $vmss | awk -F '" "' '{print $8}')
+		gtk=$(echo $vmss | awk -F '" "' '{print $11}')
 		vga=$(echo $vmss | awk -F '" "' '{print $9}')
 		gmem=$(echo $vmss | awk -F '" "' '{print $10}' | cut -d"\"" -f1)
 		
