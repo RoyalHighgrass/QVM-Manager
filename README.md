@@ -36,11 +36,11 @@ This project implements a Type 2 hypervisor for Linux-based `x86_64` systems usi
 
 Therefore, I recommend using a `bash shell` when running `QVM` for the best experience. I am actively working to improve compatibility across different platforms and shells and hope for this to be resolved in the official `v1.0.3` release. For more information see the [QVM Issues](https://github.com/RoyalHighgrass/QVM-Manager/issues) page. If you experience any issues while running QVM inside a bash environment, please do raise an issue about it as it will allow me to make the code more robust.
 
+#### Installation Guide
 This application is primarily developed and tested on a Kali Linux system.
 
 See [here](https://github.com/RoyalHighgrass/QVM-Manager/issues/11#issuecomment-2606083067) for more information about which systems QVM has been tested on.
 
-#### Installation Guide
 First, make sure that your system is up-to-date & that `git` & `curl` are installed & also up-to-date:
 
 Using `apt`:
