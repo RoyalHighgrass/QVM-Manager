@@ -119,7 +119,7 @@ while true; do
 				read -p "Enter a VM name (Enter '0' or leave blank to cancel): " vm_name
 				if ! [ "$vm_name" = "0" ] || [ -z "$vm_name" ]; then
 		            read -p "Enter snapshot name/tag: " snapshot_name
-		            qemu-img snapshot -c "\_${snapshot_name}\_" "./../VM_Images/$vm_name.img" && \
+		            qemu-img snapshot -c "_${snapshot_name}_" "./../VM_Images/$vm_name.img" && \
 						echo -e "Snapshot saved successfully!\n" || echo -e "Snapshot creation failed!\n"
 				fi
 			else
