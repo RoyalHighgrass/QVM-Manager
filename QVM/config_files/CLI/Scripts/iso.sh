@@ -4,11 +4,11 @@ b="\033[34m"
 w="\033[0m"
 
 iso_menu() {
-echo -e "$(cat << 'EOF'
-
+echo -e "
 ------------------------------------------------------------------------
 =================> QEMU Virtual Machine Manager ©2024 <================= 
------------------------ ISO File Management Menu ----------------------- 
+----------------------- ISO File Management Menu -----------------------
+${b}ISO File Management Menu:${w}
 
 Options:
     1. View all ISO images
@@ -16,9 +16,7 @@ Options:
     3. Import ISO images
     4. Eject an ISO image from the QVM cdrom
     5. Delete an ISO image
-    0. Return to main menu 
-EOF
-)"
+    0. Return to main menu"
 }
 
 delete-iso() { echo -e "
