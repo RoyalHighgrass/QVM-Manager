@@ -13,7 +13,7 @@ A P	$$ |  $$ |$$ |   $$ |$$$  \ /$$$ |    __________
 Q R	$$ |__$$ | $$  /$$/  $$ $$ $$/$$ |   $$$$$$$$$$ |
 E V	$$ /  $$ |  $$ $$/   $$ |$$$/ $$ |   $$$$$$$$$$/
 M I	$$ $$ $$<    $$$/    $$ | $/  $$ |
-U S	 $$$$$$\ |    $/     $$/      $$/ 	  QVM Manager v1.0.1
+U S	 $$$$$$\ |    $/     $$/      $$/ 	  QVM Manager v1.0.3
   O	     $$$/                         
   R
  __       __        Create & manage QEMU virtual machines with ease! 
@@ -33,15 +33,15 @@ EOF
 }
 
 main_menu() {
-echo -e "$(cat << 'EOF'
-
+echo -e "
 ------------------------------------------------------------------------
-=========> QEMU Virtual Machine Manager ©2024 <=========
-------------------------------- Main Menu ------------------------------
+================> ${b}QEMU Virtual Machine Manager © 2024${w} <=================
+------------------------------------------------------------------------
+${b}Main Menu:${w}
 
 Select one of the following options;
 
-Options:
+${b}Options:${w}
     1. Create or start VM
     2. List all VMs
     3. Save a VM snapshot
@@ -49,9 +49,7 @@ Options:
     5. Delete a snapshot
     6. Delete a VM
     7. Manage ISO images
-    0. Exit
-EOF
-)"
+    0. Exit"
 }
 
 trap 'echo -e "\n${b}Exiting... QVM was forced to stop running!${w}\n" && exit 1' SIGINT
@@ -95,7 +93,9 @@ if [ "$1" = "-gv" ]; then
 fi
 
 # Name / Info displayed on launch
+echo -e "${b}"
 app_name_info
+echo -e "${w}"
 
 # Main menu loop
 while true; do
@@ -120,10 +120,10 @@ while true; do
 				if ! [ "$vm_name" = "0" ] || [ -z "$vm_name" ]; then
 		            read -p "Enter snapshot name/tag: " snapshot_name
 		            qemu-img snapshot -c "_${snapshot_name}_" "./../VM_Images/$vm_name.img" && \
-						echo -e "Snapshot saved successfully!\n" || echo -e "Snapshot creation failed!\n"
+						echo -e "Snapshot saved successfully!\n" || echo -e "qvm-manager: Snapshot creation failed!\n"
 				fi
 			else
-				echo -e "${b}You have not created any virtual machines yet! Please create a VM in order to save a snapshot.${w}"
+				echo -e "${b}qvm-manager: You have not created any virtual machines yet! Please create a VM in order to save a snapshot.${w}"
 			fi
             ;;
         4)
@@ -135,13 +135,13 @@ while true; do
 				if ! [ "$vm_name" = "0" ] || [ -z "$vm_name" ]; then
 		            ckss=$(qemu-img snapshot -l "./../VM_Images/$vm_name.img")
 					if [ -z "$ckss" ]; then
-						echo -e "${b}No snapshots have been saved of the ${w}$vm_name${b} virtual machine!${w}"
+						echo -e "${b}qvm-manager: No snapshots have been saved of the ${w}$vm_name${b} virtual machine!${w}"
 					else
 						qemu-img snapshot -l "./../VM_Images/$vm_name.img" | sed 's/_//g'
 					fi
 				fi
 			else
-				echo -e "${b}You have not created any virtual machines yet! Please create a VM in order to view saved snapshots.${w}"
+				echo -e "${b}qvm-manager: You have not created any virtual machines yet! Please create a VM in order to view saved snapshots.${w}"
 			fi
             ;;
         5)
@@ -158,11 +158,11 @@ while true; do
 						snapshot_search
 			            read -p "Enter snapshot name/tag (Enter '0' to cancel): " snapshot_name
 			            qemu-img snapshot -d "_${snapshot_name}_" "./../VM_Images/$vm_name.img" && \
-							echo -e "${b}Snapshot deleted successfully!${w}\n" || echo -e "${b}Snapshot deletion failed!${w}\n"
+							echo -e "${b}qvm-manager: Snapshot deleted successfully!${w}\n" || echo -e "${b}Snapshot deletion failed!${w}\n"
 					fi
 				fi
 			else
-				echo -e "${b}You have not created any virtual machines yet! Please create a VM in order to delete a snapshot.${w}"
+				echo -e "${b}qvm-manager: You have not created any virtual machines yet! Please create a VM in order to delete a snapshot.${w}"
 			fi
             ;;
         6)
@@ -177,13 +177,13 @@ while true; do
 		                rm "$HOME/QVM/config_files/VM_Images/$vm_name.img" && \
 						rm "$HOME/QVM/config_files/vm_log_files/${vm_name}_vm_specs" && \
 						rm "$HOME/QVM/config_files/vm_log_files/${vm_name}_vm_restart" && \
-						echo -e "The $vm_name VM has been deleted!\n" || echo -e "Failed to delete the $vm_name VM\n"
+						echo -e "qvm-manager: The $vm_name VM has successfully been deleted!\n" || echo -e "qvm-manager: Failed to delete the $vm_name VM\n"
 		            else
-		                echo -e "${b}Deletion cancelled.${w}"
+		                echo -e "${b}qvm-manager: Deletion cancelled.${w}"
 		            fi
 				fi
 			else
-				echo -e "${b}You cannot delete a VM because you have not created any virtual machines yet!${w}"
+				echo -e "${b}qvm-manager: You cannot delete a VM because you have not created any virtual machines yet!${w}"
 			fi
             ;;
         7)  
@@ -194,7 +194,7 @@ while true; do
             exit 0
             ;;
         *)
-            echo -e "${b}Invalid option. Please try again...${w}"
+            echo -e "${b}qvm-manager: Invalid option. Please try again...${w}"
             ;;
     esac
 done
