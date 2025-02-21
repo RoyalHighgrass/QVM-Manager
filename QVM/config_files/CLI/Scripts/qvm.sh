@@ -591,8 +591,7 @@ if [ -z "$vm_exists" ]; then
 	echo $vm_specs
 	
 	# Create QEMU virtual hard drive image with qcow2 format and specified size
-	echo -e "${b}Creating the ${w}$img_nme${b} hard drive storage ... "
-    qemu-img create -f $format "./../VM_Images/$img_nme.img" "${HD}G"
+	echo -e -n "${b}Creating the ${w}$img_nme${b} hard drive storage ... $(qemu-img create -f $format "./../VM_Images/$img_nme.img" "${HD}G")"
 	echo -e " ... done!${w}"
 
 	# Start the newly created virtual machine
