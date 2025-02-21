@@ -1,4 +1,4 @@
-#!/bin/bash
+h#!/bin/bash
 
 b="\033[34m"
 w="\033[0m"
@@ -21,18 +21,16 @@ EOF
 )"
 }
 
-delete-iso() { echo -e "$(cat << 'EOF'
-
+delete-iso() { echo -e "
 ------------------------------------------------------------------------
-=================> QEMU Virtual Machine Manager ©2024 <================= 
--------------- ISO File Management Menu: Delete ISO image -------------- 
+================> ${b}QEMU Virtual Machine Manager © 2024${w} <================= 
+------------------------------------------------------------------------
+${b}ISO File Management Menu < Delete ISO image:${w}
 
 Options:
     1. Delete a specific ISO image
     2. Delete all ISO images
-    0. Return to iso management menu
-EOF
-)"
+    0. Return to iso management menu"
 
 read -p "Enter a number to select an ISO image (Enter '0' or leave blank to cancel): " option
 
@@ -94,8 +92,10 @@ if [ "$1" = "-gi" ]; then
 fi
 
 while true; do
-	iso_menu
-	read -p "Enter a number between 0-5: " option
+	echo -e "${b}"
+ 	iso_menu
+	echo -e "${w}"
+ 	read -p "Enter a number between 0-5: " option
 	case $option in
 		1)	echo -e "${b}Listing ISO images..."
 			iso_search
