@@ -48,7 +48,7 @@ Options:
     4. View snapshots
     5. Delete a snapshot
     6. Delete a VM
-    7. ISO images
+    7. Manage ISO images
     0. Exit
 EOF
 )"
