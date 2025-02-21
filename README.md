@@ -95,7 +95,7 @@ libgtk-3-common
 libgtk-4-common 
 libgtk-3-0t64 
 libgtk-3-dev 
-yad (github)
+yad (pacman/github)
 acpi
 bc
 cgroup-tools
