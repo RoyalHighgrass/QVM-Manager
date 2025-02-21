@@ -3,11 +3,10 @@ h#!/bin/bash
 b="\033[34m"
 w="\033[0m"
 
-iso_menu() {
-echo -e "
+iso_menu() { echo -e "
 ------------------------------------------------------------------------
-=================> QEMU Virtual Machine Manager ©2024 <================= 
------------------------ ISO File Management Menu -----------------------
+================> ${b}QEMU Virtual Machine Manager © 2024${w} <================= 
+------------------------------------------------------------------------
 ${b}ISO File Management Menu:${w}
 
 Options:
@@ -71,7 +70,7 @@ iso_search() {
 	echo -e "${b}ISO Images Found:${w} $(find ~/QVM/config_files/ISO_Images -type f -name '*.iso' | wc -l)"
     echo -e "${b}ISO images inside the QVM cdrom;${w}"
     find ~/QVM/ -type f -name "*.iso" | cut -d"/" -f8 | grep iso | sed 's/.iso/.iso (cdrom)/g'
-    echo -e "\n${b}ISO images stored in the QVM filesystem;${w}"
+    echo -e "\n${b}ISO images stored outside of the QVM cdrom;${w}"
 	find ~/QVM/ -type f -name "*.iso" | cut -d"/" -f7 | grep -v cdrom
 }
 
