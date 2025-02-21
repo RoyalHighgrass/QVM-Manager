@@ -172,44 +172,47 @@ if [ -z "$vm_exists" ]; then
 		fi
 	done
 	
-	# Audio Driver Models
-	echo -e "${b}Available audio drivers models;${w}"
-	echo -e "none\nac97\nadlib\ncs43221a\nes1370\nhda\nsb16\nintel-hda" | nl
-	while true; do
-		read -p "Enter a number between 1-7 to select an Audio driver: " AUDM
-		validate_input $AUDM
-		if [ $AUDM -ge 0 ] && [ $AUDM -lt 7 ]; then
-			if [ "$AUDM" = "1" ]; then
-				AUDM="none"
-				break
-			elif [ "$AUDM" = "2" ]; then
-				AUDM="ac97"
-				break
-			elif [ "$AUDM" = "3" ]; then
-				AUDM="adlib"
-				break
-			elif [ "$AUDM" = "4" ]; then
-				AUDM="cs43221a"
-				break
-			elif [ "$AUDM" = "5" ]; then
-				AUDM="nes1370"
-				break
-			elif [ "$AUDM" = "6" ]; then
-				AUDM="hda"
-				break
-			elif [ "$AUDM" = "7" ]; then
-				AUDM="sb16"
-				break
+	if [[ "$AUD" = "none" ]]; then
+		new_vm_command+=""
+	else
+		# Audio Driver Models
+		echo -e "${b}Available audio drivers models;${w}"
+		echo -e "none\nac97\nadlib\ncs43221a\nes1370\nhda\nsb16\nintel-hda" | nl
+		while true; do
+			read -p "Enter a number between 1-7 to select an Audio driver: " AUDM
+			validate_input $AUDM
+			if [ $AUDM -ge 0 ] && [ $AUDM -lt 7 ]; then
+				if [ "$AUDM" = "1" ]; then
+					AUDM="none"
+					break
+				elif [ "$AUDM" = "2" ]; then
+					AUDM="ac97"
+					break
+				elif [ "$AUDM" = "3" ]; then
+					AUDM="adlib"
+					break
+				elif [ "$AUDM" = "4" ]; then
+					AUDM="cs43221a"
+					break
+				elif [ "$AUDM" = "5" ]; then
+					AUDM="nes1370"
+					break
+				elif [ "$AUDM" = "6" ]; then
+					AUDM="hda"
+					break
+				elif [ "$AUDM" = "7" ]; then
+					AUDM="sb16"
+					break
+				fi
+			else
+				echo -e "${b}invalid!${w}"
 			fi
-		else
-			echo -e "${b}invalid!${w}"
-		fi
-	done
-	
-	snd_id=$(( RANDOM % 1000 + 1 ))
-	snd_id="${AUD}${snd_id}"
-	new_vm_command+=" -audio ${AUD},model=${AUDM}"
-	echo $snd_id
+		done
+		
+		snd_id=$(( RANDOM % 1000 + 1 ))
+		snd_id="${AUD}${snd_id}"
+		new_vm_command+=" -audio ${AUD},model=${AUDM}"
+	fi
 	
 	# Enable Debug Mode
 	new_vm_command+=" -d cpu_reset -d guest_errors"
@@ -558,22 +561,18 @@ if [ -z "$vm_exists" ]; then
 
 	# CPU resource limiting processes
 #	qemu_limit="qvm_${img_nme}_limit_group"
-	
 #	sudo cgcreate -g cpu:/sys/fs/cgroup/cpu/qvm_machine/$qemu_limit
-	
 #	microseconds=100000
 #	total_microseconds=$(($microseconds * $host_cpu))
 #	vm_res_lim=$(echo $vm_specs | cut -d" " -f13)
 #	vm_res_lim=$(($total_microseconds * $vm_res_lim / 100))
-
 #	sudo cgset -r cpu.cfs_period_us=$microseconds /sys/fs/cgroup/cpu/$qemu_limit
 #	sudo cgset -r cpu.cfs_quota_us=$vm_res_lim /sys/fs/cgroup/cpu/$qemu_limit
-	
+
 #	vm_command+="sudo cgexec -g cpu:/sys/fs/cgroup/cpu/$qemu_limit"
 	vm_command+=" ${new_vm_command}"
 	
 	dt=$(date)
-	
 	vm_specs="${CPU}\""
 	vm_specs+=" \"${MEM}\""
 	vm_specs+=" \"${os_basename}\""
@@ -592,22 +591,23 @@ if [ -z "$vm_exists" ]; then
 	echo $vm_specs
 	
 	# Create QEMU virtual hard drive image with qcow2 format and specified size
-	echo -e "${b}Create the ${w}$img_nme${b} hard drive..."
+	echo -e "${b}Creating the ${w}$img_nme${b} hard drive storage ... "
     qemu-img create -f $format "./../VM_Images/$img_nme.img" "${HD}G"
+	echo -e " ... done!${w}"
 
 	# Start the newly created virtual machine
-	echo -e "Starting the $img_nme VM..."
+	echo -e "${b}Starting the ${w}$img_nme${b} VM..."
 	echo -e "Saving your VM configuration...."
 	echo -e "Opening the VM interface..."
 	eval "$vm_command"
-	echo -e "$img_nme VM interface closed..."
-	echo -e "The $img_nme virtual machine has been shut down and is no longer running!\n"
+	echo -e "The ${w}$img_nme${b} VM interface closed..."
+	echo -e "The ${w}$img_nme${b} virtual machine has been shut down and is no longer running!${w}\n"
 else
-    echo -e "${b}Starting the${w} $img_nme ${b}virtual machine. Running mounted VM image..."
+    echo -e "${b}Starting the ${w}$img_nme${b} virtual machine. Running the mounted VM image..."
 	sleep 1
 	start_command=$(cat $HOME/QVM/config_files/vm_log_files/${img_nme}_vm_restart)
 	echo -e "Opening the VM interface..."
 	eval "$start_command"
-	echo -e "${w}$img_nme ${b}VM interface closed..."
-	echo -e "The ${w}$img_nme${b} virtual machine has been shut down and is no longer running!\033[0m\n"
+	echo -e "The ${w}$img_nme ${b}VM interface closed..."
+	echo -e "The ${w}$img_nme${b} virtual machine has been shut down and is no longer running!${w}\n"
 fi
