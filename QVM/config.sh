@@ -146,7 +146,6 @@ Keywords=QVM;QEMU;Quick Emulator;Virtuialization;VM;Virtual Machine Manager;Type
 sudo cp $HOME/start-qvm.desktop /usr/share/applications/start-qvm.desktop
 sudo cp $HOME/stop-qvm.desktop /usr/share/applications/stop-qvm.desktop
 sudo cp README.md $HOME/QVM/
-sudo cp DevMessage.md $HOME/QVM/
 sudo cp -r QVM/* $HOME/QVM/
 sudo mkdir -p $config_f/ISO_Images/cdrom
 sudo mkdir -p $config_f/VM_Images
