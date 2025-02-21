@@ -49,26 +49,21 @@ if ! [ "$option" = 0 ] || [ -z "$option" ]; then
 					echo -e "${b}Failed to delete the${w} $delete ${b}image!${w}\n"
 			fi
 		;;
-		
 		2)	read -p "Are you sure that you want to permanently delete all ISO images in your local database? [y/N]: " confirm
 			if [ -z "$confirm" ] || [ "$confirm" = ^[Nn]o$ ]; then
 				echo -e "${b}Operation Cancelled! ISO images not deleted!${w}"
 			elif [ "$confirm" = [Yy] ]; then
 				sudo rm $HOME/QVM/config_files/ISO_Images/*.iso
 				case $? in
-					0)	echo -e "${b}All ISO images successfully deleted!${w}\n"
-					;;
-					1)	echo -e "${b}Failed to delete local ISO images!${w}\n"
-					;;
+					0)	echo -e "${b}All ISO images successfully deleted!${w}\n";;
+					1)	echo -e "${b}Failed to delete local ISO images!${w}\n";;
 				esac
 			else
 				echo -e "${b}Error: Invalid entry! Operation Cancelled.${w}\n" && exit 1
 			fi
 		;;
-		
 		0)	exit 0
 		;;
-		
 		*)	echo -e "Error!"
 		;;
 	esac
@@ -84,6 +79,15 @@ iso_search() {
 	find ~/QVM/ -type f -name "*.iso" | cut -d"/" -f7 | grep -v cdrom
 }
 
+get_url() {
+    if ! iso_search | grep "${1}.iso" &>/dev/null; then
+		local url=$(./../settings/recommended_iso_files.sh "$1" "$2")
+		echo "$url"
+	else
+		echo -e "qvm-manager: Operation cancelled! Image already downloaded!"
+	fi
+}
+
 if [ "$1" = "-gi" ]; then
 	iso_search
 	exit 0
@@ -92,215 +96,125 @@ fi
 while true; do
 	iso_menu
 	read -p "Enter a number between 0-5: " option
-	[ -z "$option" ] && echo -e "${b}Error: Invalid entry! Operation Cancelled.${w}\n" && exit 1
-
 	case $option in
 		1)	echo -e "${b}Listing ISO images..."
 			iso_search
 		;;
 		
 		2)	echo -e "${b}Available ISO images to download:${w}"
-	        echo -e "Debian 12\nArchLinux\nKali Linux\nUbuntu Noble\nUbuntu (Server)\nRaspiOS\nManjaro\nParrotOS\nOther..." | nl -s ". "
+	        echo -e "Debian 12\nArchLinux\nKali Linux\nUbuntu Noble\nUbuntu Server\nRaspiOS\nManjaro\nParrotOS\nFedora\nLinux Mint\nOther..." | nl -s ". "
 	        echo -e "${b}Note: Downloads can be cancelled by pressing '${w}CTRL+C${b}' once!${w}"
 	        read -p "Enter a number to select an ISO image (Enter '0' or leave blank to cancel): " iso_img
 			if [ "$iso_img" = "0" ]; then
 				break
 			fi
-			[ -z "$iso_img" ] && echo -e "Error: Invalid entry! Operation Cancelled.\n" && exit 1
-			while true; do
-				case $iso_img in
+			[ -z "$iso_img" ] && echo -e "${b}qvm-manager: Error: Invalid entry! Operation Cancelled.${w}" && exit 1
+			case $iso_img in
 					1)	# Pull-ISO-Debian-12-Image
-						if ! iso_search | grep "debian-12.iso" &>/dev/null; then
-							url=$(elinks --dump https://debian.org/download | grep https | grep -E "netinst.iso" | awk -F"https" "{print \"https\" \$2}")
-				            read -p "Are you sure? [y/N]: " confirm
-							if [[ "$confirm" =~ ^[yY]$ ]]; then
-							    echo -e "${b}Downloading the Debian 12 ISO image...${w}\n"
-							    if sudo wget --no-cookies "$url" -O "$HOME/QVM/config_files/ISO_Images/debian-12.iso"; then
-							        echo -e "${b}The Debian 12 ISO image downloaded successfully!${w}\n"
-							    else
-							        echo -e "\n${b}Operation Error: Download failed!${w}\n"
-							        sudo rm -f "$HOME/QVM/config_files/ISO_Images/debian-12.iso"
-							    fi
-							    break
-							fi
-
-						else
-							echo -e "${b}A Debian ISO image has already been downloaded!\n${w}"
-							break
-						fi
+						echo -n -e "${b}Retrieving the Debian 12 image URL ... ${w}"
+						iso_name="debian-12"
+						url=$(get_url "$iso_name")
+						echo -e "${b}done.${w}"
 					;;
-						
-					2)	# Pull-ISO-ArchLinux-Image
-						if ! iso_search | grep "archlinux.iso" &>/dev/null; then
-				            read -p "Are you sure? [y/N]: " confirm
-				            if [[ "$confirm" =~ ^[yY]$ ]]; then
-								echo -e "${b}Downloading the Arch Linux ISO image...\n${w}"
-								url=$(elinks -dump https://archlinux.mailtunnel.eu/iso/latest/ | awk -F ". " '{print $3}' | \
-									grep -v -E "sig|torrent|2024" | grep -i "x86_64.*\.iso"); 
-								if sudo wget --no-cookies "$url" -O "$HOME/QVM/config_files/ISO_Images/archlinux.iso"; then
-							        echo -e "${b}The ArchLinux ISO image downloaded successfully!${w}\n"
-							    else
-							        echo -e "\n${b}Operation Error: Download failed!${w}\n"
-							        sudo rm -f "$HOME/QVM/config_files/ISO_Images/archlinux.iso"
-								fi
-								break
-							fi
-						else
-							echo -e "${b}A Arch Linux ISO image has already been downloaded!\n${w}"
-							break
-						fi
+					2)	# Pull-ISO-Arch-Linux-Image
+						echo -n -e "${b}Retrieving the Arch Linux image URL ... ${w}"
+						iso_name="arch-linux"
+						url=$(get_url "$iso_name")
+						echo -e "${b}done.${w}"
 					;;
-						
 					3)	# Pull-ISO-Kali-Linux-Image
-						if ! iso_search | grep "kali-linux.iso" &>/dev/null; then
-				            read -p "Are you sure? [y/N]: " confirm
-				            if [[ "$confirm" =~ ^[yY]$ ]]; then
-								echo -e "${b}Downloading the Kali Linux ISO image...\n${w}"
-								url="https://cdimage.kali.org/kali-2024.4/kali-linux-2024.4-installer-netinst-amd64.iso"
-								if sudo wget --no-cookies "$url" -O $HOME/QVM/config_files/ISO_Images/kali-linux.iso; then
-							        echo -e "${b}The Kali Linux ISO image downloaded successfully!${w}\n"
-								
-							    else
-							        echo -e "\n${b}Operation Error: Download failed!${w}\n"
-							        sudo rm -f "$HOME/QVM/config_files/ISO_Images/kali-linux.iso"
-								fi
-								break
-							fi
-						else
-							echo -e "${b}A Kali Linux ISO image has already been downloaded!\n${w}"
+						echo -n -e "${b}Retrieving the Kali Linux image URL ... ${w}"
+						iso_name="kali-linux"
+						url=$(get_url "$iso_name")
+						echo -e "${b}done.${w}"
+					;;
+					4)	# Pull-ISO-Ubuntu-Noble-Image
+						echo -n -e "${b}Retrieving the Ubuntu Noble image URL ... ${w}"
+						iso_name="ubuntu-noble"
+						url=$(get_url "$iso_name")
+						echo -e "${b}done.${w}"
+					;;
+					5)	# Pull-ISO-Ubuntu-Server-Image
+						echo -n -e "${b}Retrieving the Ubuntu Server image URL ... ${w}"
+						iso_name="ubuntu-server"
+						url=$(get_url "$iso_name")
+						echo -e "${b}done.${w}"
+					;;
+					6)	# Pull-ISO-Raspi-OS-Image
+						echo -n -e "${b}Retrieving the RaspiOS image URL ... ${w}"
+						iso_name="raspi-os"
+						url=$(get_url "$iso_name")
+						echo -e "${b}done.${w}"
+					;;
+					7)	# Pull-ISO-Manjaro-Image
+						echo -e "${b}Available Manjaro ISO images:${w}"
+				        echo -e "Manjaro KDE Desktop\nManjaro Xfce Desktop\nManjaro Gnome Desktop" | nl -s ". "
+				        echo -e "${b}Note: Downloads can be cancelled by pressing '${w}CTRL+C${b}' once!${w}"
+				        read -p "Enter a number to select an ISO image (Enter '0' or leave blank to cancel): " manj_type
+						if [ "$manj_type" = "0" ]; then
+							echo -e "${b}qvm-manager: Error! Invalid input!${w}"
 							break
 						fi
+						iso_name="manjaro-"
+						case "$manj_type" in
+							1)	echo -n "Retrieving the Manjaro KDE image URL ... ${w}"
+								iso_name+="kde"
+								url=$(get_url "$iso_name")
+								echo -e "${b}done.${w}"
+							;;
+							2)	echo -n "Retrieving the Manjaro Xfce image URL ... ${w}"
+								iso_name+="xfce"
+								url=$(get_url "$iso_name")
+								echo -e "${b}done.${w}"
+							;;
+							3)	echo -n "Retrieving the Manjaro Gnome image URL ... ${w}"
+								iso_name+="gnome"
+								url=$(get_url "$iso_name")
+								echo -e "${b}done.${w}"
+							;;
+						esac
 					;;
-						
-					4)	# Pull-ISO-Ubuntu-24-Noble-Image
-						if ! iso_search | grep "ubuntu-noble.iso" &>/dev/null; then
-				            read -p "Are you sure? [y/N]: " confirm
-				            if [[ "$confirm" =~ ^[yY]$ ]]; then
-								url=$(elinks --dump https://releases.ubuntu.com/noble | grep "https" | grep ".iso" | \
-									grep -v -E "png|torrent|zsync" | awk -F". " "{print \$3}" | sort | uniq | grep desktop)
-								echo -e "${b}Downloading the Ubuntu 24.04 ISO image...\n${w}"
-								if sudo wget --no-cookies "$url" -O "$HOME/QVM/config_files/ISO_Images/ubuntu-noble.iso"; then
-									echo -e "${b}The${w} Ubuntu 20.24 ${b}image downloaded successfully!${w}\n"
-								
-							    else
-							        echo -e "\n${b}Operation Error: Download failed!${w}\n"
-							        sudo rm -f "$HOME/QVM/config_files/ISO_Images/ubuntu-noble.iso"
-								fi
-								break
-							fi
-						else
-							echo -e "${b}A Ubuntu Noble ISO image has already been downloaded!\n${w}"
-							break
-						fi	
+					8)	# Pull-ISO-Parrot-OS-Image
+						echo -n "Retrieving the Parrot OS image URL ... ${w}"
+						iso_name="parrot-os"
+						url=$(get_url "$iso_name")
+						echo -e "${b}done.${w}"
 					;;
-				
-					5)	# Pull-Ubuntu-Server-Image
-						url="https://releases.ubuntu.com/24.04.1/ubuntu-24.04.1-live-server-amd64.iso"
-						iso_name=$()
-						if ! iso_search | grep "ubuntu-server" &>/dev/null; then
-				            read -p "Are you sure? [y/N]: " confirm
-				            if [[ "$confirm" =~ ^[yY]$ ]]; then
-								echo -e "${b}Downloading the $iso_name ISO image...\n${w}"
-								if sudo wget --no-cookies "$url" -O $HOME/QVM/config_files/ISO_Images/ubuntu-server.iso; then
-									echo -e "${b}The${w} Ubuntu Server ${b}image downloaded successfully!${w}\n"
-								
-							    else
-							        echo -e "\n${b}Operation Error: Download failed!${w}\n"
-							        sudo rm -f "$HOME/QVM/config_files/ISO_Images/ubuntu-server.iso"
-								fi
-								break
-							fi
-						else
-							echo -e "${b}A Ubuntu Server ISO image has already been downloaded!\n${w}"
+					9)	# Pull-ISO-Fedora-Image
+						echo -n "Retrieving the Fedora image URL ... ${w}"
+						iso_name="fedora"
+						url=$(get_url "$iso_name")
+						echo -e "${b}done.${w}"
+					;;
+					10)	# Pull-ISO-Linux-Mint-Image
+						echo -e "${b}Available Linux Mint ISO images:${w}"
+				        echo -e "Linux Mint Cinnamon Desktop\nLinux Mint Xfce Desktop\nLinux Mint Mate Desktop" | nl -s ". "
+				        echo -e "${b}Note: Downloads can be cancelled by pressing '${w}CTRL+C${b}' once!${w}"
+				        read -p "Enter a number to select an ISO image (Enter '0' or leave blank to cancel): " mint_type
+						if [ "$mint_type" = "0" ]; then
+							echo -e "${b}qvm-manager: Error! Invalid input!${w}"
 							break
 						fi
+						iso_name="linux-mint"
+						case "$mint_type" in
+							1)	echo -n -e "${b}Retrieving the Linux Mint Cinnamon image URL ... ${w}"
+								url=$(get_url "$iso_name" "cin")
+								iso_name+="-cinnamon"
+								echo -e "${b}done."${w}
+							;;
+							2)	echo -n -e "${b}Retrieving the Linux Mint Xfce image URL ... ${w}"
+								url=$(get_url "$iso_name" "xfce")
+								iso_name+="-xfce"
+								echo -e "${b}done."${w}
+							;;
+							3)	echo -n -e "${b}Retrieving the Linux Mint Mate image URL ... ${w}"
+								url=$(get_url "$iso_name" "mate")
+								iso_name+="-mate"
+								echo -e "${b}done.${w}"
+							;;
+						esac
 					;;
-					6)	# Pull-Raspi-OS-Image
-						if ! iso_search | grep "raspios.iso" &>/dev/null; then
-				            read -p "Are you sure? [y/N]: " confirm
-				            if [[ "$confirm" =~ ^[yY]$ ]]; then
-								echo -e "${b}Downloading the Kali Linux ISO image...\n${w}"
-								url="https://downloads.raspberrypi.com/rpd_x86/images/rpd_x86-2022-07-04/2022-07-01-raspios-bullseye-i386.iso"
-								if sudo wget --no-cookies "$url" -O $HOME/QVM/config_files/ISO_Images/raspios.iso; then
-									echo -e "${b}The${w} Ubuntu 20.24 ${b}image downloaded successfully!${w}\n"
-								
-							    else
-							        echo -e "\n${b}Operation Error: Download failed!${w}\n"
-							        sudo rm -f "$HOME/QVM/config_files/ISO_Images/raspios.iso"
-								fi
-								break
-							fi
-						else
-							echo -e "${b}A Raspi OS ISO image has already been downloaded!\n${w}"
-							break
-						fi
-					;;
-					
-					7)	# Pull-Manjaro-Image
-						while true; do
-							echo -e "${b}Available Manjaro OS images;${w}"
-		        			echo -e "Manjaro KDE Plasma\nManjaro Xfce\nManjaro GNOME" | nl
-							read -p "Enter a number between 1-3 (Enter '0' to cancel): " manj_type
-							case $manj_type in
-								1)	manj_type="kde"
-									url="https://download.manjaro.org/kde/24.2.1/manjaro-kde-24.2.1-241216-linux612.iso"
-									break
-								;;
-								2)	manj_type="xfce"
-									url="https://download.manjaro.org/xfce/24.2.1/manjaro-xfce-24.2.1-241216-linux612.iso"
-									break
-								;;
-								3)	manj_type="gnome"
-									url="https://download.manjaro.org/gnome/24.2.1/manjaro-gnome-24.2.1-241216-linux612.iso"
-									break
-								;;
-								0)	exit 1
-								;;
-								*)	echo -e "${b}Error: Invalid entry! Enter a number between 1-3.${w}"
-								;;
-							esac
-						done
-						if ! iso_search | grep "manjaro" | grep "$manj_type" &>/dev/null; then
-				            read -p "Are you sure? [y/N]: " confirm
-				            if [[ "$confirm" =~ ^[yY]$ ]]; then
-								iso_name=$(echo $url | awk -F "/" '{print $NF}' | cut -d. -f1)
-								echo -e "${b}Downloading the $iso_name ISO image...\n${w}"
-								if sudo wget --no-cookies "$url" -O $HOME/QVM/config_files/ISO_Images/${iso_name}.iso; then 
-									echo -e "${b}The${w} Ubuntu 20.24 ${b}image downloaded successfully!${w}\n"
-								
-							    else
-							        echo -e "\n${b}Operation Error: Download failed!${w}\n"
-							        sudo rm -f "$HOME/QVM/config_files/ISO_Images/${iso_name}.iso"
-								fi
-								break
-							fi
-						else
-							echo -e "${b}Operation failed: A '${w}manjaro-$manj_type${b}' image has already been downloaded!\n${w}"
-							break
-						fi
-					;;
-					8) # Pull-Parrot-OS-Image
-						url="https://deb.parrot.sh/parrot/iso/6.2/Parrot-security-6.2_amd64.iso"
-						iso_name=$(echo $url | awk -F "/" '{print $NF}' | cut -d. -f1)
-						if ! iso_search | grep "$iso_name" &>/dev/null; then
-				            read -p "Are you sure? [y/N]: " confirm
-				            if [[ "$confirm" =~ ^[yY]$ ]]; then
-								echo -e "${b}Downloading the $iso_name ISO image...\n${w}"
-								if sudo wget --no-cookies "$url" -O $HOME/QVM/config_files/ISO_Images/${iso_name}.iso; then
-									echo -e "${b}The${w} Ubuntu 20.24 ${b}image downloaded successfully!${w}\n"
-								
-							    else
-							        echo -e "\n${b}Operation Error: Download failed!${w}\n"
-							        sudo rm -f "$HOME/QVM/config_files/ISO_Images/${iso_name}.iso"
-								fi
-								break
-							fi
-						else
-							echo -e "${b}A $iso_name image has already been downloaded!\n${w}"
-							break
-						fi
-					;;
-					9)	# Pull-Other-Images
+					11)	# Pull-Other-Images
 						read -p "Enter the full download URL for your desired ISO image (Enter '0' to cancel): " other_iso
 						if ! [ "$other_iso" = "0" ] || [ -z "$other_iso" ]; then
 							url="$other_iso"
@@ -310,25 +224,41 @@ while true; do
 								echo -e "${b}Downloading the${w} $other_iso_name ${b}ISO image...${w}\n"
 								if ! [ $(iso_search | grep "$other_iso_name") ]; then
 									if sudo wget --no-cookies "$url" -O $HOME/QVM/config_files/ISO_Images/${other_iso_name}.iso; then
-										echo -e "${b}The${w} Ubuntu 20.24 ${b}image downloaded successfully!${w}\n"
+										echo -e "${b}The${w} ${b}image downloaded successfully!${w}\n"
 								    else
-								        echo -e "\n${b}Operation Error: Download failed!${w}n\n"
+								        echo -e "\n${b}qvm-manager: Operation Error: Download failed!${w}n\n"
 								        sudo rm -f "$HOME/QVM/config_files/ISO_Images/${other_iso_name}.iso"
 									fi
 									break
 								else
-									echo -e "${b}Error: That OS disk image has already been downloaded & is ready to use!${w}"
+									echo -e "${b}qvm-manager: Error: That OS disk image has already been downloaded!${w}"
 									break
 								fi
 							fi
 						fi
-						break
+						exit 0
 					;;
-					
 					*)
 					;;
 				esac
-			done
+			    if iso_search | grep "$iso_name.iso" &>/dev/null; then
+					echo -e "${b}qvm-manager: Operation cancelled! That OS disk image has already been downloaded!${w}"
+					exit 1
+				fi
+				echo -e "${b}$url${w}"
+				if ! [ -z "$url" ]; then
+			        read -p "Are you sure you want to download this image? [y/N]: " confirm
+			        if [[ "$confirm" =~ ^[yY]$ ]]; then
+						echo -e "${b}Downloading the $iso_name ISO image...${w}"
+						if sudo wget --no-cookies "$url" -O $HOME/QVM/config_files/ISO_Images/${iso_name}.iso; then
+							echo -e "${b}The${w} "$iso_name" ${b}image downloaded successfully!${w}\n"
+						else
+						    echo -e "\n${b}qvm-manager: Operation Error: Download failed!${w}\n"
+						    sudo rm -f "$HOME/QVM/config_files/ISO_Images/${iso_name}.iso"
+						fi
+						break
+					fi
+				fi				
 		;;
 		3)	# Inform the user that the search for ISO images is starting
 			echo -e "${b}Searching for ISO images...${w}"
@@ -342,26 +272,20 @@ while true; do
 			    # Store the list of found ISO files in a variable
 			    list=$(find "$HOME" -type f -name "*.iso" | grep -v "ISO_Images")
 			    echo "$list"
-			
 			    # Iterate over each found file
 			    for file in $list; do
 			        # Construct the new file path
 			        new_name="$HOME/QVM/config_files/ISO_Images/${file##*/}"  # Use ##*/ to get only the filename
 			        new_name=$(echo $new_name | cut -d. -f1)
 			        new_name="${new_name%.*}.iso"  # Ensure it has .iso extension
-			
 			        # Move the file and check if it was successful
 			        sudo mv "$file" "$new_name"
 			        case $? in
-			            0)
-			                echo -e "${b}Image '$file' successfully imported as '$new_name'!${w}"
-			                ;;
-			            1)
-			                echo -e "${b}ISO import failed for '$file'!${w}"
-			                ;;
+			            0)	echo -e "${b}Image '$file' successfully imported as '$new_name'!${w}";;
+			            1)	echo -e "${b}qvm-manager: ISO import failed for '$file'!${w}";;
 			        esac
 			        echo -e ""
-			    done || echo -e "${b}ISO import failed!${w}"
+			    done || echo -e "${b}qvm-manager: ISO import failed!${w}"
 			fi
 
 		;;
@@ -377,7 +301,7 @@ while true; do
 						exit 1
 					fi
 					if ! [[ "$si" =~ ^[0-9]+$ ]]; then
-						echo -e "${b}Error: Invalid entry!${w}"
+						echo -e "${b}qvm-manager: Error: Invalid entry!${w}"
 					else
 						break
 					fi
@@ -388,12 +312,12 @@ while true; do
 					if [ "$eject" = "Y" ] || [ "$eject" = "y" ] || [ "$eject" = "yes" ]; then
 						sudo mv "$iso" "../ISO_Images/" && \
 						echo -e "${b}The '${w}$(echo $iso | xargs -0 basename -a)${b}' ISO disk image has been ejected!${w}" || \
-						echo -e "${b}Operation Failed: An unexpected error has ocurred!"
+						echo -e "${b}qvm-manager: Operation Failed: An unexpected error has ocurred!"
 						break
 					elif [ "$eject" = "N" ] || [ "$eject" = "n" ] || [ "$eject" = "no" ]; then
 						break
 					else
-						echo "Error: Invalid input!"
+						echo "qvm-manager: Error: Invalid input!"
 					fi
 				done
 			else
@@ -405,7 +329,7 @@ while true; do
 		;;
 		0)	exit 0
         ;;
-		*)	echo -e "${b}Invalid option. Please try again.${w}"
+		*)	echo -e "${b}qvm-manager: Invalid option! Please try again.${w}"
 		;;
 	esac
 done
