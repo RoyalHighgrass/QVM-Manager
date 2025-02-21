@@ -39,9 +39,7 @@ echo -e "
 ------------------------------------------------------------------------
 ${b}Main Menu:${w}
 
-Select one of the following options;
-
-${b}Options:${w}
+Options:
     1. Create or start VM
     2. List all VMs
     3. Save a VM snapshot
