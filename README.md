@@ -35,7 +35,7 @@ In autumn 2024, I discovered that virt-manager was deprecated, which explained s
 
 ### The Project
 
-As my first open-source project, developing QVM has been an enlightening experience. Overcoming various challenges has deepened my understanding of emulation processes and boosted my confidence in tackling complex projects.
+As my first truly open-source software development project, developing QVM has been an enlightening experience. Overcoming various challenges has deepened my understanding of the emulation processes and boosted my confidence in tackling complex projects.
 
 I hope QVM will become a valuable tool for the virtualization community. Your feedback and contributions are welcome as I continue to improve and expand its capabilities.
 
