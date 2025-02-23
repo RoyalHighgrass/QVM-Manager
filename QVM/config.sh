@@ -621,9 +621,11 @@ fi
 sudo apt install libgspell-1-dev
 
 # Update system database & icon cache
+echo -n "Updating the system database & icon cache.... (this may take some time) ... "
 sudo updatedb
 sudo gtk-update-icon-cache
 sudo update-desktop-database
+echo "done!"
 
 echo -e "[+] qvm-manager: QVM installation complete!\n\nUse the 'qvm-manager' or 'qvm-manager --gui' command to get started with your QVM virtualization experience.\nFor speedy usage both commands can be executed by pressing 'qvm' then the 'tab' key to autocomlete the command then press 'enter' with or without ' --gui' appended to it. Happy virtualization! ~ P.H."
 echo -e "\nQEMU Virtual Machine Manager v1.0.3 © QVM 2024"
