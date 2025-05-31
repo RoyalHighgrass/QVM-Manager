@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# Function to get system architechure
+get_sys_arch() {
+	uname -m
+}
+
+
 # Function to get CPU threads
 get_cpu_threads() {
     nproc
@@ -88,6 +94,7 @@ yad --width=500 \
 	--title="System Information" \
     --text="<b>System Information</b>" \
     --form --on-top \
+    --field="System Architechure":RO "$(get_sys_arch)" \
     --field="QEMU":RO "$(check_qemu)" \
     --field="OpenGL":RO "$(check_opengl)" \
     --field="CPU's":RO "$(get_cpu_threads) Available" \
