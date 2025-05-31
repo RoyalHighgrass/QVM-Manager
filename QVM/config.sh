@@ -16,83 +16,8 @@ cli="$HOME/QVM/config_files/CLI"
 gui="$HOME/QVM/config_files/GUI"
 settings="$HOME/QVM/config_files/settings"
 
-
-## Install QVM dependencies
-# Determine package manager
-pm=$(which dnf 2>/dev/null || which yum 2>/dev/null || which pacman 2>/dev/null || which zypper 2>/dev/null || which apt 2>/dev/null)
-pm=$(basename $pm)
-# Determine host OS
-host_os=$(cat /etc/os-release | grep NAME | cut -d'"' -f2 | grep -v "=" | tail -n 1)
-
-# Common packages across distributions
-common_packages="wget tree locate zenity wmctrl make autoconf gawk acpi bc cmake intltool bridge-utils \
-	mgba-sdl mesa-utils elinks"
-
-# Distro-specific packages
-apt_dependencies="cpu-checker original-awk mawk libgtk-3-common \
-	libgtk-3-dev cgroup-tools libvirt-clients \
-	libvirt-daemon-system virtinst libvirt-daemon qemu-kvm automake intltool \
-	qemu-system-common qemu-system-arm qemu-system-x86 qemu-efi-aarch64 \
-	libsdl2-2.0-0 libsdl2-net-2.0-0 mednafen \
-	build-essential mesa-vulkan-drivers libwebkit2gtk-4.0-doc \
-	libgspell-1-dev grub-pc-bin"
- 
-pacman_dependencies="yad gtk-layer-shell gtk3 gtk3-docs gtk3-demos gtk4 gtk4-docs gtk4-demos libportal-gtk3 \
-	libportal-gtk4 libindicator-gtk3 libvirt libvirt-dbus libvirt-glib libguestfs virt-firmware \
-	vulkan-virtio gcc libdaemon qemu-full qemu-guest-agent qemu-system-arm qemu-system-aarch64 \
-	glbinding mesa vulkan-mesa-layers sdl2"
-
-# Installation command templates
-apt_pm="sudo apt install -y"
-pacman_pm="sudo pacman -S --noconfirm"
-zypper_pm="sudo zypper install -y"
-dnf_pm="sudo dnf install -y"
-yum_pm="sudo yum install -y"
-
-# Initialize variables for the chosen package manager
-inst_method=""
-packages="$common_packages"
-
-case "$pm" in
-	apt)
-		inst_method="$apt_pm"
-		packages+=" $apt_dependencies"
-		case "$host_os" in
-			*Kali*)
-				packages+=" gtk4-layer-shell-doc libgtk-3-0t64 qemu-system-modules-opengl"
-			;;
-		esac
-  		is_rpi=$(cat /etc/hostname)
-  		if [[ "$is_rpi" != "raspberry" ]]; then
-			packages+=" libgtk-4-common libgtk-4-dev libwebkit2gtk-4.1-0 libwebkit2gtk-4.1-dev gtk-4-examples libgtk-4-1"
-   		else
-	 		packages+=" "
-		fi
-	;;
-	pacman)
-		inst_method="$pacman_pm"
-		packages+=" $pacman_dependencies"
-	;;
-	*)
-		echo "[+] qvm-manager: qvm-manager: Error: Unsupported package manager: $pm"
-		echo -e "[+] The following packages must be manually installed before proceeding with this config script!:\nQVM Dependencies;\n\n$apt_dependencies"
-		echo "\n[+] **Note**: The QVM settup wizard will fail if this is not done before proceeding!"
-		read -p "[+] Are you ready to proceed? [Y/n]: " proceed
-		proceed=${proceed:-Y} 
-		case $proceed in
-		  [Yy]) 
-			# continue
-			;;
-		  *) 
-			exit 1
-			;;
-		esac
-	;;
-esac
-
-# Install Linux packages/QVM dependencies
-eval "$inst_method" "$packages"
-
+#
+./deps.sh
 
 ### Upcoming resource management feature scheduled for the official `QVM-v1.0.4` release 
 ## Ensure necessary folders exist for CPU resource limiting processes
@@ -612,13 +537,14 @@ if ! [ "$pm" = "pacman" ]; then
 	fi
 fi
 
-# Install additional GTK functionality
+# Install additional functionality
 if [[ "$pm" != "pacman" ]]; then
 	sudo apt install -y libgtksourceview-3.0-dev
 elif [[ "$is_rpi" != "raspberry" ]]; then
 	sudo apt install -y libwebkit2gtk-4.0-dev
 fi
 sudo apt install libgspell-1-dev
+sudo apt install grub-pc-bin
 
 # Update system database & icon cache
 echo -n "Updating the system database & icon cache.... (this may take some time) ... "
