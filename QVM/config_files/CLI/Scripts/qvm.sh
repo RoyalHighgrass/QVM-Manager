@@ -35,13 +35,27 @@ vm_exists=$(find $HOME -type f -name '*.img' | grep $img_nme)
 if [ -z "$vm_exists" ]; then
     echo -e "${b}That virtual machine does not exist. Creating a new VM..."
 
-	# Start Command
-	new_vm_command="qemu-system-x86_64"
+	# Check atart Command
+ 	sys_arch=$(uname -m)
+  	case "$sys_arch" in
+		x86_64)
+  			new_vm_command="qemu-system-x86_64"
+	 		need_efi=false
+  		;;
+		aarch64)
+  			new_vm_command="qemu-system-aarch64"
+	 		need_efi=true
+  		;;
+		*)
+  			echo "Detected an unknown architecture!"
+	 		exit 1
+  		;;
+	esac
 	
 	# Get new VM specifications #
 
 	# Storage
-	host_storage=$(df -h | grep -E "Avail|kvm|qemu|dev" | head -n 2)
+	host_storage=$(df -h | grep -E "Avail|kvm|qemu|dev|mmcblk0" | head -n 2)
  	echo "$host_storage"
 	available_host_storage=$(echo "$host_storage" | awk '{print $4}' | cut -dG -f1)
 	echo -e -n "${w}"
@@ -273,32 +287,34 @@ if [ -z "$vm_exists" ]; then
 	os_basename=$(echo $iso_ | xargs -0 basename -s .iso -a)
 	
 	# Boot Options
-	echo -e "${b}Available boot options;${w}"
-	echo -e "once=d\nmenu=on\norder=nc" | nl
-	while true; do
-		read -p "Enter a number between 1-3 to select a boot option: " boot_options
-		validate_input $boot_options
-		if [ "$boot_options" = 1 ] || [ "$boot_options" = 3 ]; then
-			if [ "$boot_options" = 1 ]; then
-				new_vm_command+=" -boot once=d"
-				vmr+=" -boot once=d"
-				break
+	if ! [[ "$sys_arch" == "aarch64" ]]; then
+	 	echo -e "${b}Available boot options;${w}"
+		echo -e "once=d\nmenu=on\norder=nc" | nl
+		while true; do
+			read -p "Enter a number between 1-3 to select a boot option: " boot_options
+			validate_input $boot_options
+			if [ "$boot_options" = 1 ] || [ "$boot_options" = 3 ]; then
+				if [ "$boot_options" = 1 ]; then
+					new_vm_command+=" -boot once=d"
+					vmr+=" -boot once=d"
+					break
+				else
+					new_vm_command+=" -boot order=nc"
+					vmr+=" -boot order=nc"
+					break
+				fi
 			else
-				new_vm_command+=" -boot order=nc"
-				vmr+=" -boot order=nc"
-				break
+				if [ "$boot_options" = 2 ]; then
+					new_vm_command+=" -boot menu=on"
+					vmr+=" -boot menu=on"
+					break
+				else
+					echo -e "${b}Error: Invalid entry!${w}"
+				fi
 			fi
-		else
-			if [ "$boot_options" = 2 ]; then
-				new_vm_command+=" -boot menu=on"
-				vmr+=" -boot menu=on"
-				break
-			else
-				echo -e "${b}Error: Invalid entry!${w}"
-			fi
-		fi
-	done
-	echo $boot_options
+		done
+		echo $boot_options
+	fi
 
 	# Memory
 	new_vm_command+=" -m ${MEM}G"
