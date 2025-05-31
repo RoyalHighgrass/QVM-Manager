@@ -39,7 +39,7 @@ common_packages=(
 apt_dependencies=(
     "cpu-checker" "original-awk" "mawk" "libgtk-3-common" "libgtk-3-dev" "cgroup-tools" "grub-pc-bin"
     "libvirt-clients" "libvirt-daemon-system" "virtinst" "libvirt-daemon" "qemu-kvm" "automake"
-    "intltool" "qemu-system-common" "qemu-system-arm" "qemu-system-x86" "qemu-efi-aarch64"
+    "intltool" "qemu-system-common" "qemu-system-arm" "qemu-system-x86" "qemu-efi-aarch64" "yad"
     "libsdl2-2.0-0" "libsdl2-net-2.0-0" "mednafen" "build-essential" "mesa-vulkan-drivers"
     "libwebkit2gtk-4.0-doc" "libgspell-1-dev" "libgtksourceview-3.0-dev" "libwebkit2gtk-4.0-dev"
 )
