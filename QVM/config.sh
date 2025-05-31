@@ -17,10 +17,10 @@ gui="$HOME/QVM/config_files/GUI"
 settings="$HOME/QVM/config_files/settings"
 
 # Install dependencies
-if ! [[ "$@" =~ "-set-" ]]; then
- 	sudo chmod +x QVM/deps.sh
-	./QVM/deps.sh || echo "[!] An unexpected error while tring to install the necessary dependencies." && exit 1
-fi
+#if ! [[ "$1" =~ "-set-" ]]; then
+sudo chmod +x QVM/deps.sh
+./QVM/deps.sh || { echo "[!] An unexpected error while trying to install the necessary dependencies."; exit 1; }
+#fi
 
 ### Upcoming resource management feature scheduled for the official `QVM-v1.0.4` release 
 ## Ensure necessary folders exist for CPU resource limiting processes
