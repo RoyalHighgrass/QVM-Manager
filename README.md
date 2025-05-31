@@ -70,7 +70,7 @@ See [here](https://github.com/RoyalHighgrass/QVM-Manager/issues/11#issuecomment-
 
 To install the beta version of `QVM-Manager v1.0.4`, use the following command:
 
-First, make sure that your system is up-to-date & that `git` & `curl` are installed & also up-to-date:
+First, make sure that your system is up-to-date & that `git` & `curl` are installed & also up-to-date.
 
 Using `apt`:
 ```
