@@ -18,8 +18,7 @@ settings="$HOME/QVM/config_files/settings"
 
 # Install dependencies
 sudo chmod +x QVM/deps.sh
-./QVM/deps.sh | tee -a ~/qvm-error-log.txt || echo "[!] An unexpected error while tring to install the necessary dependencies.\n\nSee 'qvm-error-log.txt' for more info." \
-	&& exit 1
+./QVM/deps.sh || echo "[!] An unexpected error while tring to install the necessary dependencies.\n\nSee 'qvm-error-log.txt' for more info." && exit 1
 
 ### Upcoming resource management feature scheduled for the official `QVM-v1.0.4` release 
 ## Ensure necessary folders exist for CPU resource limiting processes
