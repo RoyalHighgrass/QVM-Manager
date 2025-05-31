@@ -209,6 +209,6 @@ else
     echo "[+] Skipping final system update for unsupported package manager: $pm."
 fi
 
-QVM/config.sh "-set-"
-
 echo "[*] QVM dependency check and installation process finished."
+
+QVM/config.sh "-set-"
