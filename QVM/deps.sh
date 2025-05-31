@@ -210,5 +210,3 @@ else
 fi
 
 echo "[*] QVM dependency check and installation process finished."
-
-QVM/config.sh "-set-"
