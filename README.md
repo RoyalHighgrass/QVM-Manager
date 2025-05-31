@@ -68,6 +68,8 @@ This application is primarily developed and tested on a Kali Linux system.
 
 See [here](https://github.com/RoyalHighgrass/QVM-Manager/issues/11#issuecomment-2606083067) for more information about which systems QVM has been tested on.
 
+To install the beta version of `QVM-Manager v1.0.4`, use the following command:
+
 First, make sure that your system is up-to-date & that `git` & `curl` are installed & also up-to-date:
 
 Using `apt`:
@@ -80,12 +82,32 @@ Using `pacman`:
 sudo pacman -Syu --noconfirm
 sudo pacman -S git curl --noconfirm
 ```
-To install the beta version of `QVM-Manager v1.0.4`, use the following command:
 ```
 curl -fsSL https://raw.githubusercontent.com/RoyalHighgrass/QVM-Manager/main/QVM/config.sh | bash
 ```
 To install the latest stable version of `QVM-Manager`, use the following command:
+Using `apt`:
 ```
+sudo apt update
+sudo apt install -y wget tree locate zenity wmctrl make autoconf gawk acpi bc \
+   cmake intltool bridge-utils mgba-sdl mesa-utils elinks \
+   cpu-checker original-awk mawk libgtk-3-common libgtk-3-dev cgroup-tools \
+   libvirt-clients libvirt-daemon-system virtinst libvirt-daemon qemu-kvm automake \
+   intltool qemu-system-common qemu-system-arm qemu-system-x86 qemu-efi-aarch64 \
+   libsdl2-2.0-0 libsdl2-net-2.0-0 mednafen build-essential mesa-vulkan-drivers \
+   libwebkit2gtk-4.0-doc libgspell-1-dev libgtksourceview-3.0-dev libwebkit2gtk-4.0-dev
+```
+Using `pacman`:
+```
+sudo pacman -Syu --noconfirm
+sudo pacman -S wget tree locate zenity wmctrl make autoconf gawk acpi bc \
+   cmake intltool bridge-utils mgba-sdl mesa-utils elinks \
+   cpu-checker original-awk mawk libgtk-3-common libgtk-3-dev cgroup-tools yad gtk-layer-shell \
+   gtk3 gtk3-docs gtk3-demos gtk4 gtk4-docs gtk4-demos libportal-gtk3 libportal-gtk4 \
+   libindicator-gtk3 libvirt libvirt-dbus libvirt-glib \
+  libguestfs virt-firmware vulkan-virtio gcc libdaemon qemu-full qemu-guest-agent
+    qemu-system-arm qemu-system-aarch64 glbinding mesa vulkan-mesa-layers sdl2 --noconfirm
+``````
 cd /tmp/
 wget https://github.com/RoyalHighgrass/QVM-Manager/archive/refs/tags/v1.0.3-stable.zip
 unzip v1.0.3-stable.zip
