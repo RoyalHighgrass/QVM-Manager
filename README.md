@@ -89,7 +89,7 @@ To install the latest stable version of `QVM-Manager`, use the following command
 cd /tmp/
 wget https://github.com/RoyalHighgrass/QVM-Manager/archive/refs/tags/v1.0.3-stable.zip
 unzip v1.0.3-stable.zip
-cd QVM-Manager-v1.0.3-stable.zip
+cd QVM-Manager-v1.0.3-stable
 chmod +x QVM/*.sh
 ./QVM/config.sh
 ```
