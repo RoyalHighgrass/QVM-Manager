@@ -190,7 +190,7 @@ fi
 if [[ "${#unavailable_packages[@]}" -gt 0 ]]; then
     echo "" # Add a newline for readability
     echo "---"
-    echo "[!] The following packages were listed as required but are NOT available in your current repositories:"
+    echo "[!] The following packages were listed as recommended but are NOT available in your current repositories:"
     for ua_pkg in "${unavailable_packages[@]}"; do
         echo "    - $ua_pkg"
     done
@@ -211,4 +211,4 @@ fi
 
 echo "[*] QVM dependency check and installation process finished."
 
-./QVM/config.sh "$pm" "$host_os" "$sys_arch"
+sudo ./QVM/config.sh "$pm"
