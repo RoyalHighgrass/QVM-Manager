@@ -86,6 +86,7 @@ sudo pacman -S git curl --noconfirm
 curl -fsSL https://raw.githubusercontent.com/RoyalHighgrass/QVM-Manager/main/QVM/config.sh | bash
 ```
 To install the latest stable version of `QVM-Manager`, use the following command.
+
 Using `apt`:
 ```
 sudo apt update
