@@ -108,6 +108,7 @@ sudo pacman -S wget tree locate zenity wmctrl make autoconf gawk acpi bc \
   libguestfs virt-firmware vulkan-virtio gcc libdaemon qemu-full qemu-guest-agent
     qemu-system-arm qemu-system-aarch64 glbinding mesa vulkan-mesa-layers sdl2 --noconfirm
 ``````
+```
 cd /tmp/
 wget https://github.com/RoyalHighgrass/QVM-Manager/archive/refs/tags/v1.0.3-stable.zip
 unzip v1.0.3-stable.zip
