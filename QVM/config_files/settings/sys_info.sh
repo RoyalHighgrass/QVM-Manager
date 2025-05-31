@@ -2,7 +2,7 @@
 
 # Function to get system architechure
 get_sys_arch() {
-uname -m
+	uname -m
 }
 
 
