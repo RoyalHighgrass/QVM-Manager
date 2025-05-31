@@ -2,7 +2,7 @@
 
 ![Description](QVM/config_files/logo_images/qvm-4.png)
 
-# QVM Manager - v1.0.3 © 2024 P.H.
+# QVM Manager - v1.0.4 (beta) © 2024 P.H.
 
 ## Table of Contents
 
@@ -20,7 +20,7 @@
 
 This project implements a Type 2 hypervisor for Linux-based `x86_64` systems using `QEMU (Quick Emulator)` written in `Bash`. `QVM` is designed to facilitate the effecient use of QEMU which is a generic and open-source machine emulator and virtualizer that allows guest operating systems to run as an application on top of an existing operating system. This implementation focuses on providing a user-friendly, efficient, and flexible virtualization solution for various guest operating systems.
 
-***Note: The `QVM` project will now start to focus on the implementation of `v1.0.4`.** For more information see the projects [Roadmap](https://github.com/RoyalHighgrass/QVM-Manager/blob/main/QVM/CONTRIBUTING.md#development-roadmap).*
+***Note: The `QVM` project is now focused on the implementation of `v1.0.4`.** For more information see the projects [Roadmap](https://github.com/RoyalHighgrass/QVM-Manager/blob/main/QVM/CONTRIBUTING.md#development-roadmap).*
 
 ## Dev Message
 ### Dear Virtualization Community,
@@ -133,7 +133,7 @@ qvm-manager --uninstall
 
 ## Requirements
 
-All packages listed below are essential minimum requirements for QVM to function properly and (except for YAD) are all available through the Debian, Ubuntu and Kali Linux repositories via `apt`. Arch Linux users can install them or any alternative versions and `YAD` using `pacman`. If you're using a package manager other than `apt` or `pacman`, you'll need to manually install all the required packages and will most likely have to find suitable alternatives if the exact package isn't available via your preferred package manager. 
+If you're using a package manager other than `apt` or `pacman`, you'll need to manually install all the required packages and will most likely have to find suitable alternatives if the exact package isn't available via your preferred package manager. 
 
 Additional packages of your choosing can be added as needed for enhanced functionality.
 ###### **Note**: A required package may simply be a component of another package, meaning that you'll need to install the parent package to access its components.
