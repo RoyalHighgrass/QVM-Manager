@@ -90,7 +90,7 @@ Using `apt`:
 ```
 sudo apt update
 sudo apt install -y wget tree locate zenity wmctrl make autoconf gawk acpi bc \
-   cmake intltool bridge-utils mgba-sdl mesa-utils elinks \
+   cmake intltool bridge-utils mgba-sdl mesa-utils elinks yad \
    cpu-checker original-awk mawk libgtk-3-common libgtk-3-dev cgroup-tools \
    libvirt-clients libvirt-daemon-system virtinst libvirt-daemon qemu-kvm automake \
    intltool qemu-system-common qemu-system-arm qemu-system-x86 qemu-efi-aarch64 \
