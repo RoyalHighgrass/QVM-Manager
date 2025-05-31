@@ -17,10 +17,12 @@ gui="$HOME/QVM/config_files/GUI"
 settings="$HOME/QVM/config_files/settings"
 
 # Install dependencies
-#if ! [[ "$1" =~ "-set-" ]]; then
-sudo chmod +x QVM/deps.sh
-./QVM/deps.sh || { echo "[!] An unexpected error while trying to install the necessary dependencies."; exit 1; }
-#fi
+if [[ -z "$1" ]]; then
+	sudo chmod +x QVM/deps.sh
+	./QVM/deps.sh && exit 0 || { echo "[!] An unexpected error while trying to install the necessary dependencies."; exit 1; }
+fi
+
+pm="$1"
 
 ### Upcoming resource management feature scheduled for the official `QVM-v1.0.4` release 
 ## Ensure necessary folders exist for CPU resource limiting processes
@@ -539,15 +541,6 @@ if ! [ "$pm" = "pacman" ]; then
 		echo -e "[+] qvm-manager: YAD is already installed ... skipping installation!"
 	fi
 fi
-
-# Install additional functionality
-if [[ "$pm" != "pacman" ]]; then
-	sudo apt install -y libgtksourceview-3.0-dev
-elif [[ "$is_rpi" != "raspberry" ]]; then
-	sudo apt install -y libwebkit2gtk-4.0-dev
-fi
-sudo apt install libgspell-1-dev
-sudo apt install grub-pc-bin
 
 # Update system database & icon cache
 echo -n "Updating the system database & icon cache.... (this may take some time) ... "
