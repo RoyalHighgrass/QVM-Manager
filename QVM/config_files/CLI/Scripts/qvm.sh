@@ -55,7 +55,7 @@ if [ -z "$vm_exists" ]; then
 	# Get new VM specifications #
 
 	# Storage
-	host_storage=$(df -h | grep -E "Avail|kvm|qemu|dev|mmcblk0" | head -n 2)
+	host_storage=$(df -h | grep -E "Avail|kvm|qemu|dev|mmcblk0" | head -n 3)
  	echo "$host_storage"
 	available_host_storage=$(echo "$host_storage" | awk '{print $4}' | cut -dG -f1)
 	echo -e -n "${w}"
@@ -239,7 +239,6 @@ if [ -z "$vm_exists" ]; then
 	if ! [[ "$vt_support" =~ "KVM" ]]; then
 		echo -e "${b}It looks like your system doesn't support hardware virtualization so KVM cannot be enabled!${w}"
 		vt_support="0"
-		break
 	else
 		echo -e "${b}Your system supports full KVM virtualization...${w}"
 		while true; do
@@ -249,12 +248,10 @@ if [ -z "$vm_exists" ]; then
 				kvm_=",kvm=on"
 				new_vm_command+=" -enable-kvm"
 				kvm_e="Yes"
-				break
 			elif [ "$enable_kvm" = "N" ] || [ "$enable_kvm" = "n" ] || [[ "$enable_kvm" =~ "no" ]]; then
 				kvm_=""
 				new_vm_command+=""
 				kvm_e="No"
-				break
 			else
 				echo -e "${b}Error: Invalid entry!${w}"
 			fi
