@@ -19,6 +19,7 @@ settings="$HOME/QVM/config_files/settings"
 # Install dependencies
 if [[ -z "$1" ]]; then
 	sudo chmod +x QVM/deps.sh
+	sudo chmod +x QVM/config.sh
 	./QVM/deps.sh && exit 0 || { echo "[!] An unexpected error while trying to install the necessary dependencies."; exit 1; }
 fi
 
