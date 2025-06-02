@@ -52,14 +52,6 @@ if [ -z "$vm_exists" ]; then
   		;;
 	esac
 	
-	# Ensure at least 1 ISO image is present
-	is_iso=$(./Scripts/iso.sh "-gi")
-	if [[ "$is_iso" =~ ^.*ISO Images Found: 0.*$ ]]; then
-		echo -e "${b}You have not downloaded or imported any ISO images yet!"
-	 	echo -e "qvm-manager: Please use the ISO Managent feature to download or import your prefered ISO image then try again.${w}"
-		exit 1
-	fi
-
 	# Get new VM specifications #
 
 	# Storage
