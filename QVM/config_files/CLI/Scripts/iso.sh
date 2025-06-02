@@ -1,4 +1,4 @@
-h#!/bin/bash
+#!/bin/bash
 
 b="\033[34m"
 w="\033[0m"
