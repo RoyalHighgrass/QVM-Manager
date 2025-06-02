@@ -211,4 +211,4 @@ fi
 
 echo "[*] QVM dependency check and installation process finished."
 
-sudo ./QVM/config.sh "$pm"
+./QVM/config.sh "$pm"
