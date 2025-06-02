@@ -244,17 +244,21 @@ if [ -z "$vm_exists" ]; then
 		while true; do
 			read -p "Enable KVM? [Y/n]: " enable_kvm
 			validate_input $enable_kvm
-			if [ "$enable_kvm" = "Y" ] || [ "$enable_kvm" = "y" ] || [[ "$enable_kvm" =~ "yes" ]]; then
-				kvm_=",kvm=on"
-				new_vm_command+=" -enable-kvm"
-				kvm_e="Yes"
-			elif [ "$enable_kvm" = "N" ] || [ "$enable_kvm" = "n" ] || [[ "$enable_kvm" =~ "no" ]]; then
-				kvm_=""
-				new_vm_command+=""
-				kvm_e="No"
-			else
-				echo -e "${b}Error: Invalid entry!${w}"
-			fi
+			case "$enable_kvm" in
+				[Yy]* | yes)
+					kvm_=",kvm=on"
+					new_vm_command+=" -enable-kvm"
+					kvm_e="Yes"
+				;;
+				[Nn]* | no)
+					kvm_=""
+					new_vm_command+=""
+					kvm_e="No"
+				;;
+				*)
+					echo -e "${b}Error: Invalid entry!${w}"
+				;;
+			esac
 		done
 		vt_support="1"
 	fi
