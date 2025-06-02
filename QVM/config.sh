@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo -e "\nQEMU Virtual Machine Manager v1.0.3 © QVM 2024\n\nRunning the 'qvm-manager' config script...."
+echo -e "\nQEMU Virtual Machine Manager v1.0.4 (Beta) © QVM 2024\n\nRunning the 'qvm-manager' config script...."
 
 # Move to the 'tmp' folder and clone the QVM files
 if [[ -z "$1" ]]; then
@@ -36,7 +36,7 @@ pm="$1"
 
 
 ## Setup the QVM filesystem & copy or create in the necessary QVM files
-echo -e "[+] qvm-manager: Setting up the QVM-v1.0.3 file system..."
+echo -e "[+] qvm-manager: Setting up the QVM-v1.0.4 (Beta) file system..."
 # Create the QVM directory
 mkdir $HOME/QVM
 
@@ -49,7 +49,7 @@ ICON_PATH="$config_f/logo_images/qvm-2.png"
 # Create the 'Start QVM' .desktop icon file
 echo "[Desktop Entry]
 Name=Start QVM
-Version=v1.0.3
+Version=v1.0.4 (Beta)
 StartupWMClass=qvm-manager
 GenericName=QVM;qvm-manager;QVM Manager;
 Comment=Type 2 QEMU hypervisor
@@ -64,7 +64,7 @@ Keywords=QVM;QEMU;Quick Emulator;Virtuialization;VM;Virtual Machine Manager;Type
 # Create the 'Stop QVM' .desktop icon file
 echo "[Desktop Entry]
 Name=Stop QVM
-Version=v1.0.3
+Version=v1.0.4 (Beta)
 StartupWMClass=qvm-manager
 GenericName=QVM;qvm-manager;QVM Manager;
 Comment=Type 2 QEMU hypervisor
@@ -108,7 +108,7 @@ VM="$HOME/QVM/config_files/VM_Images/"
 ISO="$HOME/QVM/config_files/ISO_Images/"
 
 # Software version
-version="QEMU Virtual Machine Manager v1.0.3 © QVM 2024"
+version="QEMU Virtual Machine Manager v1.0.4 (Beta) © QVM 2024"
 
 # Text colours
 b="\033[34m"
@@ -553,5 +553,5 @@ sudo update-desktop-database
 echo "done!"
 
 echo -e "[+] qvm-manager: QVM installation complete!\n\nUse the 'qvm-manager' or 'qvm-manager --gui' command to get started with your QVM virtualization experience.\nFor speedy usage both commands can be executed by pressing 'qvm' then the 'tab' key to autocomlete the command then press 'enter' with or without ' --gui' appended to it. Happy virtualization! ~ P.H."
-echo -e "\nQEMU Virtual Machine Manager v1.0.3 © QVM 2024"
+echo -e "\nQEMU Virtual Machine Manager v1.0.4 (Beta) © QVM 2024"
 cd $HOME
