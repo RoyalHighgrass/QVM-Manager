@@ -249,11 +249,13 @@ if [ -z "$vm_exists" ]; then
 					kvm_=",kvm=on"
 					new_vm_command+=" -enable-kvm"
 					kvm_e="Yes"
+	 				break
 				;;
 				[Nn]* | no)
 					kvm_=""
 					new_vm_command+=""
 					kvm_e="No"
+	 				break
 				;;
 				*)
 					echo -e "${b}Error: Invalid entry!${w}"
