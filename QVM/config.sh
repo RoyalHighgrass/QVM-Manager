@@ -3,10 +3,12 @@
 echo -e "\nQEMU Virtual Machine Manager v1.0.3 © QVM 2024\n\nRunning the 'qvm-manager' config script...."
 
 # Move to the 'tmp' folder and clone the QVM files
-echo "[+] qvm-manager: Cloning the necessary QVM config files..."
-cd /tmp/
-git clone https://github.com/RoyalHighgrass/QVM-Manager.git
-cd QVM-Manager
+if [[ -z "$1" ]]; then
+	echo "[+] qvm-manager: Cloning the necessary QVM config files..."
+	cd /tmp/
+	git clone https://github.com/RoyalHighgrass/QVM-Manager.git
+	cd QVM-Manager
+ fi
 
 echo -e "[+] qvm-manager: Installing basic required for QVM to work properly..."
 
