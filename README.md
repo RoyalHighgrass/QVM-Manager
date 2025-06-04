@@ -59,12 +59,12 @@ QVM Developer
 
 ## Installation
 
-**Note**:`QVM (QEMU Virtual Machine Manager) - v1.0.3` is currently in a testing phase, with confirmed functionality on `Kali Linux` systems. While the tool itself operates stably once properly configured, users should be aware that the installation process can be sensitive to different environments. The primary challenge lies in `the interpretation of bash scripts by various shell environments`. As a result, `QVM` may not function correctly outside of a `bash shell environment`. Users attempting to install or run QVM on other systems or in other shell environments may encounter unexpected issues or failures.
+**Note**:`QVM (QEMU Virtual Machine Manager) - v1.0.3` has finished its testing phase, with confirmed functionality on most x86_64 Linux systems. While the tool itself operates stably once properly configured, users should be aware that the installation process can be sensitive to different environments. The primary challenge lies in `the interpretation of bash scripts by various shell environments`. As a result, `QVM` may not function correctly outside of a `bash shell environment`. Users attempting to install or run QVM on other systems or in other shell environments may encounter unexpected issues or failures. Therefore, I recommend using a `bash shell` when running `QVM` for the best experience. 
 
-Therefore, I recommend using a `bash shell` when running `QVM` for the best experience. I am actively working to improve compatibility across different platforms and shells and hope for this to be resolved in the official `v1.0.4` release. For more information see the [QVM Issues](https://github.com/RoyalHighgrass/QVM-Manager/issues) page. If you experience any issues while running QVM inside a bash environment, please do raise an issue about it as it will allow me to make the code more robust.
+I am actively working to improve compatibility across different platforms and shells and hope for this to be resolved in the official `v1.0.4` release. The abillty to run QVM on `aarch64` linux system is another main development goal for the next stable release. For more information see the [QVM Issues](https://github.com/RoyalHighgrass/QVM-Manager/issues) page. If you experience any issues while running QVM inside a bash environment, please do raise an issue about it as it will allow me to make the code more robust.
 
 #### Installation Guide
-This application is primarily developed and tested on a Kali Linux system.
+This application is primarily developed and tested on Debian and Kali Linux system.
 
 See [here](https://github.com/RoyalHighgrass/QVM-Manager/issues/11#issuecomment-2606083067) for more information about which systems QVM has been tested on.
 
