@@ -239,6 +239,10 @@ if [ -z "$vm_exists" ]; then
 	if ! [[ "$vt_support" =~ "KVM" ]]; then
 		echo -e "${b}It looks like your system doesn't support hardware virtualization so KVM cannot be enabled!${w}"
 		vt_support="0"
+		if [[ "$sys_arch" == "aarch64" ]]; then
+  			new_vm_command+=" -machine virt"
+			vmr+=" -machine virt"
+		fi
 	else
 		echo -e "${b}Your system supports full KVM virtualization...${w}"
 		while true; do
@@ -383,13 +387,8 @@ if [ -z "$vm_exists" ]; then
 				fi
 			fi
 		done
-		if [[ "$sys_arch" != "aarch64" ]]; then
-			new_vm_command+=" -machine ${vhard}${ksm_}"
-			vmr+=" -machine ${vhard}${ksm_}"
-	  	else
-	   		new_vm_command+=" -machine virt"
-			vmr+=" -machine virt"
-		fi
+		new_vm_command+=" -machine ${vhard}${ksm_}"
+		vmr+=" -machine ${vhard}${ksm_}"
  	fi
 
 	# Display
