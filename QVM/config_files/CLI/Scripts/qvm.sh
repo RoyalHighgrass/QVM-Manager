@@ -242,8 +242,8 @@ if [ -z "$vm_exists" ]; then
 		if [[ "$sys_arch" == "aarch64" ]]; then
 			model_name=$(cat /proc/cpuinfo | grep -i model | sort | uniq)
    			if [[ "$model_name" =~ "Raspberry Pi" ]]; then
-   				new_vm_command+=" -machine raspi4b"
-	   			vmr+=" -machine raspi4b"
+   				new_vm_command+=" -machine raspi3b"
+	   			vmr+=" -machine raspi3b"
 	  		else
 	  			new_vm_command+=" -machine virt"
 				vmr+=" -machine virt"
