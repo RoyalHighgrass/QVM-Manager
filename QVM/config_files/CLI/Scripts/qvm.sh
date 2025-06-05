@@ -240,9 +240,15 @@ if [ -z "$vm_exists" ]; then
 		echo -e "${b}It looks like your system doesn't support hardware virtualization so KVM cannot be enabled!${w}"
 		vt_support="0"
 		if [[ "$sys_arch" == "aarch64" ]]; then
-  			new_vm_command+=" -machine virt"
-			vmr+=" -machine virt"
-		fi
+			model_name=$(cat /proc/cpuinfo | grep -i model | sort | uniq)
+   			if [[ "$model_name" =~ "Raspberry Pi" ]]; then
+   				new_vm_command+=" -machine raspi4b"
+	   			vmr+=" -machine raspi4b"
+	  		else
+	  			new_vm_command+=" -machine virt"
+				vmr+=" -machine virt"
+			fi
+  		fi
 	else
 		echo -e "${b}Your system supports full KVM virtualization...${w}"
 		while true; do
@@ -391,7 +397,15 @@ if [ -z "$vm_exists" ]; then
 		vmr+=" -machine ${vhard}${ksm_}"
  	fi
 
-	# Display
+	# Load EFI file if necessary 
+	if [[ "$need_efi" == "true" ]]; then
+		new_vm_command+=" -drive if=pflash,format=raw,readonly,file=$HOME/QVM/config_files/settings/QEMU_EFI_CODE.fd"
+		new_vm_command+=" -drive if=pflash,format=raw,file=$HOME/QVM/config_files/settings/edk2-arm-vars.fd"
+  		vmr+=" -drive if=pflash,format=raw,readonly,file=$HOME/QVM/config_files/settings/QEMU_EFI_CODE.fd"
+		vmr+=" -drive if=pflash,format=raw,file=$HOME/QVM/config_files/settings/edk2-arm-vars.fd"
+  	fi
+ 
+ 	# Display
 	while true; do
 	    echo -e "${b}Available QEMU display options:${w}"
 	    echo -e "QEMU defaults\nVGA" | nl
