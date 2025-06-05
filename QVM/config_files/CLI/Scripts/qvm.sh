@@ -383,9 +383,14 @@ if [ -z "$vm_exists" ]; then
 				fi
 			fi
 		done
-		new_vm_command+=" -machine ${vhard}${ksm_}"
-		vmr+=" -machine ${vhard}${ksm_}"
-	fi
+		if [[ "$sys_arch" != "aarch64" ]]; then
+			new_vm_command+=" -machine ${vhard}${ksm_}"
+			vmr+=" -machine ${vhard}${ksm_}"
+	  	else
+	   		new_vm_command+=" -machine virt"
+			vmr+=" -machine virt"
+		fi
+ 	fi
 
 	# Display
 	while true; do
