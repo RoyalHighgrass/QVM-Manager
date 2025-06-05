@@ -83,6 +83,8 @@ sudo cp -r QVM/* $HOME/QVM/
 sudo mkdir -p $config_f/ISO_Images/cdrom
 sudo mkdir -p $config_f/VM_Images
 sudo mkdir -p $config_f/vm_log_files
+sudo cp /usr/share/qemu-efi-aarch64/QEMU_EFI.fd $settings/QEMU_EFI_CODE.fd
+dd if=/dev/zero bs=1M count=64 of=$settings/edk2-arm-vars.fd
 
 # Create the /usr/bin/ instance & initialise the 'qvm-manager' startup command
 echo -e -n "[+] qvm-manager: Creating the 'qvm-manager' command configuration file for launching or creating QVM sessions & instances ... "
