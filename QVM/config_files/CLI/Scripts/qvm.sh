@@ -399,9 +399,9 @@ if [ -z "$vm_exists" ]; then
 
 	# Load EFI file if necessary 
 	if [[ "$need_efi" == "true" ]]; then
-		new_vm_command+=" -drive if=pflash,format=raw,readonly,file=$HOME/QVM/config_files/settings/QEMU_EFI_CODE.fd"
+		new_vm_command+=" -drive if=pflash,format=raw,readonly=on,file=$HOME/QVM/config_files/settings/QEMU_EFI_CODE.fd"
 		new_vm_command+=" -drive if=pflash,format=raw,file=$HOME/QVM/config_files/settings/edk2-arm-vars.fd"
-  		vmr+=" -drive if=pflash,format=raw,readonly,file=$HOME/QVM/config_files/settings/QEMU_EFI_CODE.fd"
+  		vmr+=" -drive if=pflash,format=raw,readonly=on,file=$HOME/QVM/config_files/settings/QEMU_EFI_CODE.fd"
 		vmr+=" -drive if=pflash,format=raw,file=$HOME/QVM/config_files/settings/edk2-arm-vars.fd"
   	fi
  
