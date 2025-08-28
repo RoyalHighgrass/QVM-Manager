@@ -95,7 +95,7 @@ case $? in
 		dev_message=$(cat ./../../DevMessage.md)
 		main_menu() { yad --title "QVM-v1.0.3 - QEMU Virtual Machine Manager GUI" \
 		    --form --columns=2 --width="$SCREEN_WIDTH" --height="$SCREEN_HEIGHT" \
-		    --text="<b>$dev_message</b>"\
+		    --text-info="<b>$dev_message</b>"\
 		    --icon="$image-2.png" --no-escape \
 		    --image="$image-4.png" \
 		    --field="<b>Create/Start VM</b>":fbtn "./Scripts/qvm-gui.sh" \
